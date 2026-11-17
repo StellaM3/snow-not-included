@@ -3,7 +3,7 @@ import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
 import europe from '../data/europe.json'
 import snow from '../data/snow.json'
-import { C, head } from '../util.js'
+import { C, head, yearCompare, ICON_FONDUE } from '../util.js'
 import { T, fmt, dec, pct } from '../i18n.js'
 
 const BASE = import.meta.env.BASE_URL
@@ -112,7 +112,7 @@ function originList(prod, year) {
 }
 
 function voyage(st) {
-  const year = st.years[st.years.length - 1]
+  const year = st.voyageYear
   const P = PRODUCTS()
   const cards = Object.entries(P).map(([p, [n, col]]) => {
     const f = flows(p, year)
@@ -121,14 +121,15 @@ function voyage(st) {
     return `<button class="pcard ${p === st.prod ? 'on' : ''}" data-prod="${p}" style="${p === st.prod ? `border-color:${col}` : ''}">
       <div class="top"><span class="name"><span class="dot" style="background:${col}"></span>${n}</span><span class="mono">${fmt(f.total)} t</span></div>
       <div class="row"><span class="pct">${pct(r0.sh)}</span><span>${T.countries[r0.c]}</span><span class="mono">≈ ${fmt(f.km)} km · ${fmt(f.co2)} t CO₂</span></div>
-      <p><b>${T.hiddenLabel} · </b>${T.hiddenFacts[p]}</p>
     </button>`
   }).join('')
   return `<section class="section" id="voyage">
-    ${head(T.voyageTitle, T.voyageLead(year))}
+    ${head(`${T.voyageTitle} <span class="h2-year">${T.voyageIn(year)}</span>`, T.voyageLead(year))}
+    <div class="compare"><span class="compare-label">${T.yearShown}</span><div class="chips">${[1990, 2000, 2010, 2017, 2024].map((y) => `<button class="chip ${y === year ? 'on' : ''}" data-vyear="${y}" aria-pressed="${y === year}">${y}</button>`).join('')}</div></div>
     <div class="chips">${Object.entries(P).map(([k, [n, c]]) => `<button class="chip ${k === st.prod ? 'on' : ''}" data-prod="${k}" style="${k === st.prod ? `background:${c};border-color:${c};color:#0F1F1A` : ''}"><span class="dot" style="background:${k === st.prod ? '#0F1F1A' : c}"></span>${n}</button>`).join('')}</div>
     <div class="voyage-grid"><div><div class="map-box">${flowMap(st.prod, year)}</div>${originList(st.prod, year)}</div><div class="pcards">${cards}</div></div>
     <p class="src">${T.voyageSrc}</p>
+    <div class="cta"><span>${T.toHidden}</span><button class="chip cta-btn" data-mode="hidden">${T.toHiddenBtn}</button></div>
   </section>`
 }
 
@@ -169,7 +170,8 @@ function goes() {
       <div class="card"><p class="kicker">${T.whiteK}</p>${bigPair(pct(38), pct(9), C.snow)}
         <p class="chart-note">${T.whiteNote}</p>
         ${series(fdata.S600, C.snow, pct('x').slice(1))}<p class="src">${T.whiteSrc}</p></div>
-      <div class="card"><p class="kicker">${T.fondueK}</p>${bigPair('65', '40', C.gold)}
+      <div class="card"><div class="fondue-head">${ICON_FONDUE}<p class="kicker">${T.fondueK}</p></div>${bigPair('65', '40', C.gold)}
+        <p class="fondue-what">${T.fondueWhat}</p>
         <p class="chart-note">${T.fondueNote}</p>
         ${series(fdata.FON, C.gold, T.days)}<p class="src">${T.fondueSrc}</p></div>
     </div>
@@ -190,28 +192,53 @@ function snowHead(title, d, col) {
     <div><b style="color:${col}">${pct(r.share50)}</b><span>${T.snowShare}</span></div>
     <div><b>${fmt(r.alt50)} m</b><span>${T.snowLine}</span></div></div></div>`
 }
-function snowLine(sel) {
+function snowLine(da, db) {
   const bw = 1180 / 7, Y = (a) => 200 - ((a - 400) / 700) * 170
   let s = [400, 600, 800, 1000].map((a) => `<line x1="60" x2="1240" y1="${Y(a)}" y2="${Y(a)}" stroke="${C.line}"/><text x="50" y="${Y(a) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${a} m</text>`).join('')
   const pts = DECS.map((d, i) => [60 + i * bw + bw / 2, Y(snow.res[d].alt50)])
   s += `<polyline points="${pts.map((p) => p.join(',')).join(' ')}" fill="none" stroke="${C.t2}" stroke-width="2" stroke-dasharray="5 6"/>`
   DECS.forEach((d, i) => {
-    const [x, y] = pts[i], hl = d === '1960' || d === sel
-    const c = d === '1960' ? C.snow : d === sel ? C.red : '#6E9585'
-    s += `<g class="dec-pt" data-dec="${d}" style="cursor:pointer"><rect x="${x - bw / 2}" y="0" width="${bw}" height="250" fill="transparent"/><line x1="${x}" x2="${x}" y1="${y}" y2="200" stroke="${c}" stroke-width="${hl ? 3 : 1.5}" opacity=".6"/><circle cx="${x}" cy="${y}" r="${hl ? 11 : 8}" fill="${c}"/><text x="${x}" y="${y - 20}" text-anchor="middle" font-family="IBM Plex Mono" font-size="16" font-weight="700" fill="${C.t1}">${fmt(snow.res[d].alt50)} m</text><text x="${x}" y="232" text-anchor="middle" font-family="Inter" font-size="16" fill="${C.t2}">${decLabel(d)}${d === '2020' ? '*' : ''}</text></g>`
+    const [x, y] = pts[i], hl = d === da || d === db
+    const c = d === da ? C.snow : d === db ? C.red : '#6E9585'
+    s += `<g data-decb="${d}" style="cursor:pointer"><rect x="${x - bw / 2}" y="0" width="${bw}" height="250" fill="transparent"/><line x1="${x}" x2="${x}" y1="${y}" y2="200" stroke="${c}" stroke-width="${hl ? 3 : 1.5}" opacity=".6"/><circle cx="${x}" cy="${y}" r="${hl ? 11 : 8}" fill="${c}"/><text x="${x}" y="${y - 20}" text-anchor="middle" font-family="IBM Plex Mono" font-size="16" font-weight="700" fill="${C.t1}">${fmt(snow.res[d].alt50)} m</text><text x="${x}" y="232" text-anchor="middle" font-family="Inter" font-size="16" fill="${C.t2}">${decLabel(d)}${d === '2020' ? '*' : ''}</text></g>`
   })
   return `<svg viewBox="0 0 1240 250">${s}</svg>`
 }
+// Coupe Bâle – Lugano : le relief réel, avec la limite de la neige des deux décennies choisies
+function profile(da, db) {
+  const P = snow.profile, W = 1240, H = 340, x0 = 60, y0 = 20, hmax = 3400
+  const X = (i) => x0 + (i / (P.h.length - 1)) * (W - x0 - 10), Y = (v) => y0 + (1 - v / hmax) * (H - y0 - 50)
+  const a = snow.res[da].alt50, b = snow.res[db].alt50
+  const ground = `M${X(0)},${Y(0)} ` + P.h.map((v, i) => `L${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ') + ` L${X(P.h.length - 1)},${Y(0)} Z`
+  const hi = Math.max(a, b), lo = Math.min(a, b)
+  let s = `<defs><clipPath id="gclip"><path d="${ground}"/></clipPath></defs>`
+  for (const g of [0, 1000, 2000, 3000]) s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(g)}" y2="${Y(g)}" stroke="${C.line}"/><text x="${x0 - 8}" y="${Y(g) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${g} m</text>`
+  s += `<path d="${ground}" fill="#24412F"/>`
+  // neige au-dessus de la limite la plus haute (blanc), bande perdue entre les deux (rouge)
+  s += `<g clip-path="url(#gclip)"><rect x="0" y="0" width="${W}" height="${Y(hi)}" fill="${C.snow}"/><rect x="0" y="${Y(hi)}" width="${W}" height="${Y(lo) - Y(hi)}" fill="${b > a ? C.red : C.snow}" opacity="${b > a ? 0.75 : 1}"/></g>`
+  s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(a)}" y2="${Y(a)}" stroke="${C.snow}" stroke-width="2" stroke-dasharray="6 5"/><text x="${x0 + 10}" y="${Y(a) + (a > b ? -8 : 18)}" text-anchor="start" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="${C.snow}">${decLabel(da)} · ${fmt(a)} m</text>`
+  s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(b)}" y2="${Y(b)}" stroke="${C.red}" stroke-width="2.5"/><text x="${x0 + 10}" y="${Y(b) + (b >= a ? -8 : 18)}" text-anchor="start" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="${C.red}">${decLabel(db)} · ${fmt(b)} m</text>`
+  for (const [name, f] of P.marks) { const x = x0 + f * (W - x0 - 10); s += `<line x1="${x}" x2="${x}" y1="${Y(0)}" y2="${Y(0) + 8}" stroke="${C.t2}"/><text x="${x}" y="${H - 12}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-family="Inter" font-size="15" font-weight="700" fill="${C.t1}">${T.cities[name] || name}</text>` }
+  return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
+}
+function decPicker(attr, sel, label, other) {
+  return `<div class="compare"><span class="compare-label">${label}</span><div class="chips">${DECS.map((x) => `<button class="chip ${x === sel ? 'on' : ''}" data-${attr}="${x}" aria-pressed="${x === sel}" ${x === other ? 'disabled' : ''}>${decLabel(x)}</button>`).join('')}</div></div>`
+}
 function snowSection(st) {
-  const d = st.dec
+  const da = st.decA, db = st.decB
+  const ra = snow.res[da], rb = snow.res[db]
   return `<section class="section" id="neige">
     ${head(T.snowTitle, T.snowLead)}
-    <div class="chips">${DECS.slice(1).map((x) => `<button class="chip ${x === d ? 'on' : ''}" data-dec="${x}">${decLabel(x)}</button>`).join('')}</div>
     <div class="grid2">
-      <div class="card">${snowHead(T.decTitle('1960'), '1960', C.snow)}${snowMap('1960')}</div>
-      <div class="card">${snowHead(T.decTitle(d), d, d === '2010' || d === '2020' ? C.red : C.t1)}${snowMap(d)}</div>
+      <div class="card">${decPicker('deca', da, T.before, db)}${snowHead(T.decTitle(da), da, C.snow)}${snowMap(da)}</div>
+      <div class="card">${decPicker('decb', db, T.after, da)}${snowHead(T.decTitle(db), db, rb.share50 < ra.share50 ? C.red : C.t1)}${snowMap(db)}</div>
     </div>
-    <div class="card"><p class="kicker">${T.snowLineK}</p><div class="scroll-x">${snowLine(d)}</div>
+    <div class="card"><p class="kicker">${T.profileK}</p>
+      <p class="chart-note">${T.profileNote(fmt(ra.alt50), fmt(rb.alt50), decLabel(da), decLabel(db))}</p>
+      <div class="scroll-x">${profile(da, db)}</div>
+      <div class="legend"><span><i style="background:${C.snow}"></i>${T.decTitle(db)}</span><span><i style="background:${C.red}"></i>${T.lostSnow}</span></div>
+    </div>
+    <div class="card"><p class="kicker">${T.snowLineK}</p><div class="scroll-x">${snowLine(da, db)}</div>
       <p class="chart-note" style="font-size:15px">${T.snowLineNote}</p></div>
     <p class="src">${T.snowSrc}</p>
   </section>`
@@ -243,6 +270,7 @@ function cal(key, title, years) {
 function sept(st) {
   return `<section class="section">
     ${head(T.septTitle, T.septLead)}
+    ${yearCompare(st.years, T)}
     <div class="legend">${st.years.map((y, k) => `<span><i style="background:${YCOL[k]}"></i>${y}</span>`).join('')}</div>
     <div class="grid2">${cal('dec', T.calDeco, st.years)}${cal('sap', T.calTrees, st.years)}</div>
     <p class="src">${T.septSrc}</p>

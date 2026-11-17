@@ -32,3 +32,20 @@ export function initTips() {
     tipEl.style.opacity = 1
   })
 }
+
+// Sélecteur « comparer deux années » (même état partout sur le site)
+export const COMPARE_YEARS = [1990, 2000, 2010, 2017, 2024]
+export function yearCompare(years, T) {
+  return `<div class="compare">
+    <span class="compare-label">${T.compareLabel}</span>
+    <div class="chips">${COMPARE_YEARS.map((y) => {
+      const i = years.indexOf(y)
+      const cls = i < 0 ? '' : i === 0 && years.length > 1 ? 'on year-a' : 'on'
+      return `<button class="chip ${cls}" data-year="${y}" aria-pressed="${i >= 0}">${y}</button>`
+    }).join('')}</div>
+    <span class="compare-hint">${T.compareHint}</span>
+  </div>`
+}
+
+// Pictogramme de caquelon (fondue)
+export const ICON_FONDUE = `<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><path d="M8 20h32l-3 14a6 6 0 0 1-6 5H17a6 6 0 0 1-6-5z" fill="#F4C95D"/><rect x="5" y="17" width="38" height="5" rx="2.5" fill="#E9B53F"/><path d="M40 20l6-3" stroke="#F4C95D" stroke-width="3" stroke-linecap="round"/><path d="M14 44h20" stroke="#A9BDB4" stroke-width="2.5" stroke-linecap="round"/><path d="M30 4l-6 16" stroke="#D2DED8" stroke-width="2" stroke-linecap="round"/><circle cx="23.5" cy="21" r="3" fill="#F7E3A3"/></svg>`

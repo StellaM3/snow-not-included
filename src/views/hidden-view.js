@@ -96,7 +96,7 @@ function detail(item, st) {
     case 'knife': big = `<span class="big">+${pct(60)}</span>`; break
     case 'parcels': big = `<span class="big">${dec(21.6)}</span><span class="yr">${T.millions}</span>`; visual = parcels(); break
     case 'chair': big = compareBig('chair', [2012, 2022]); visual = picto(20, 3, 'person', 10, 30); break
-    case 'phone': big = `<span class="big">+${pct(35)}</span>`; visual = hbars([[T.callBars[0], 100, M, '100'], [T.callBars[1], 135, C.red, T.callBars[2]]], 135); break
+    case 'phone': big = `<span class="big">${fmt(240000)}</span>`; visual = `<p class="legend-txt" style="margin:0">${T.items.phoneThemes}</p>` + picto(10, 6, 'person', 10, 34); break
   }
   return `<div class="detail" aria-live="polite">
     <p class="kicker">${String(ITEMS.indexOf(item) + 1).padStart(2, '0')} · ${name}</p>
@@ -198,6 +198,7 @@ export function hiddenView(st) {
       <p class="kicker">${T.mythK}</p>
       <p class="myth">${T.myth}</p>
       <p class="txt" style="margin:0;font-size:15px;line-height:1.5;color:var(--t2)">${T.mythTxt}</p>
+      <p class="why">${T.mythWhy}</p>
       <p class="src">${T.mythSrc}</p>
     </div>
     <section class="help">

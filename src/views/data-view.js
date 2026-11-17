@@ -1,10 +1,11 @@
-import { oysterBlock, alcoholCard, traditionsSection } from './culture-view.js'
+import { alcoholCard, traditionsSection } from './culture-view.js'
 // Vue « Magique » : les données (maquette F2)
 import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
 import europe from '../data/europe.json'
 import snow from '../data/snow.json'
 import industry from '../data/industry.json'
+import months from '../data/months.json'
 import { C, head, yearCompare, ICON_FONDUE } from '../util.js'
 import { T, fmt, dec, pct } from '../i18n.js'
 
@@ -352,19 +353,34 @@ function giftBars() {
     <div class="gh-row gh-head"><span></span><svg viewBox="0 0 ${W} 18" class="gh-svg">${LAB.map((yy) => `<text x="${x(yy)}" y="13" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="${C.t3}">’${String(yy).slice(2)}</text>`).join('')}</svg><span></span></div>
     ${Object.keys(H).map(row).join('')}</div>`
 }
+// Quand arrivent les importations ? 12 mini-barres par produit (part de l'année, mois par mois)
+const IMP_ORDER = ['huitres', 'decorations_fete', 'consoles_jeux', 'agrumes', 'parfums', 'chocolat', 'jouets']
+const IMP_ICON = { huitres: '🦪', decorations_fete: '✨', consoles_jeux: '🎮', agrumes: '🍊', parfums: '🌸', chocolat: '🍫', jouets: '🧸' }
+function monthBars(k, years) {
+  const yA = years.length > 1 ? years[0] : null, yB = years[years.length - 1]
+  const B = months.months[k][yB], A = yA ? months.months[k][yA] : null
+  const W = 480, H = 76, bw = W / 12, max = Math.max(50, ...B)
+  let s = `<rect x="${bw * 9}" y="0" width="${bw * 3}" height="${H - 16}" rx="6" fill="${C.gold}" opacity=".12"/>`
+  B.forEach((v, m) => {
+    const h = (v / max) * (H - 24), x = m * bw + 4
+    s += `<rect x="${x}" y="${H - 18 - h}" width="${bw - 8}" height="${Math.max(h, 1.5)}" rx="3" fill="${m >= 9 ? C.snow : '#5E7D70'}" data-tip="${T.monthsLong[m]} ${yB} : ${pct(v)}"/>`
+    if (A) { const ha = (A[m] / max) * (H - 24); s += `<line x1="${x - 1}" x2="${x + bw - 7}" y1="${H - 18 - ha}" y2="${H - 18 - ha}" stroke="${C.red}" stroke-width="3" stroke-linecap="round" data-tip="${T.monthsLong[m]} ${yA} : ${pct(A[m])}"/>` }
+    s += `<text x="${m * bw + bw / 2}" y="${H - 3}" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="${m === 11 ? C.t1 : C.t3}" font-weight="${m === 11 ? 700 : 400}">${T.months[m]}</text>`
+  })
+  return `<svg viewBox="0 0 ${W} ${H}" class="mb-svg">${s}</svg>`
+}
 function importRows(years) {
-  const I = industry.imports
-  return `<div class="imp-rows">
-    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}<em class="base-lab" style="left:${25 * 1.6}%">${T.impBaseShort}</em></span><span>${T.impColOrigin}</span></div>
-    ${IMP_KEYS.map((k) => {
-      const vals = years.map((y) => I[k][y])
-      const val = vals.map((v, i) => v ? `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${fmt(v[0])}</b>` : `<b style="color:${C.t3}">–</b>`).join('<span class="arrow"> → </span>')
-      const bars = vals.map((v, i) => v ? `<div class="s-bar" style="width:${v[1] * 1.6}%;background:${YCOL[years.length > 1 ? i : 1]}" data-tip="${years[i]} : ${pct(v[1])}"><span>${pct(v[1])}</span></div>` : `<div class="s-bar empty">${T.noDataShort(years[i])}</div>`).join('')
-      return `<div class="imp-row"><span class="i-name">${T.impNames[k]}</span><span class="i-val">${val} <small>${T.mioChf}</small></span><div class="i-share"><div class="i-base" style="left:${25 * 1.6}%"></div>${bars}</div>${originBar(k)}</div>`
-    }).join('')}
-    <p class="legend-txt"><span class="base-key"></span> ${T.impBase}</p>
-    <p class="legend-txt"><span class="o-key imp"></span> ${T.originImp} <span class="o-key ch"></span> ${T.originCh}</p>
-  </div>`
+  const I = industry.imports, yB = years[years.length - 1]
+  const val = (k, y) => k === 'huitres' ? months.oysterValue[y] : I[k][y]?.[0]
+  return `<div class="imp2">${IMP_ORDER.map((k) => {
+    const B = months.months[k][yB], peak = B.indexOf(Math.max(...B))
+    const v = years.map((y, i) => `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${val(k, y) < 10 ? dec(val(k, y)) : fmt(val(k, y))}</b>`).join('<span class="arrow"> → </span>')
+    return `<div class="imp2-row">
+      <div class="i2-name"><span class="i2-ico">${IMP_ICON[k]}</span><b>${T.impNames[k]}</b><span class="i2-val">${v} <small>${T.mioChf}</small></span></div>
+      ${monthBars(k, years)}
+      <div class="i2-peak"><span>${T.peakLabel}</span><b>${T.monthsLong[peak]}</b><em>${pct(Math.round(B[peak]))}</em></div>
+    </div>`
+  }).join('')}</div>`
 }
 function originBar(k) {
   const v = ORIGIN[k]
@@ -397,10 +413,8 @@ function industrySection(st) {
     <div class="card"><h3 class="card-title">${T.impTitle}</h3>
       <p class="chart-note">${T.impNote}</p>
       ${yearCompare(st.years, T)}
-      ${oysterBlock(st)}
-      <h4 class="mini-title">${T.impRowsTitle}</h4>
+      <p class="legend-txt imp-legend"><span class="k-bar"></span> ${st.years[st.years.length - 1]} <span class="k-line"></span> ${st.years.length > 1 ? st.years[0] : ''} <span class="k-zone"></span> ${T.impZone}</p>
       ${importRows(st.years)}
-      <p class="chart-note" style="font-size:15px">${T.originNote}</p>
       <p class="src">${T.impSrc}</p></div>
     ${alcoholCard(st)}
     <div class="grid2">

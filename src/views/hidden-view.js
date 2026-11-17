@@ -194,14 +194,13 @@ export function hiddenView(st) {
         <div class="card">${detail(st.item, st)}</div>
       </div>
     </section>
-    <div class="card">
+    <div class="card myth-card">
       <p class="kicker">${T.mythK}</p>
       <p class="myth">${T.myth}</p>
       <p class="txt" style="margin:0;font-size:15px;line-height:1.5;color:var(--t2)">${T.mythTxt}</p>
       <p class="why">${T.mythWhy}</p>
       <p class="src">${T.mythSrc}</p>
-    </div>
-    <section class="help">
+      <div class="help">
       <p>${T.help}</p>
       <div class="nums">
         <div><b>143</b><span>${T.helpN[0]}</span></div>
@@ -209,6 +208,7 @@ export function hiddenView(st) {
         <div><b>144</b><span>${T.helpN[2]}</span></div>
         <a href="https://stopsuicide.ch" target="_blank" rel="noopener">stopsuicide.ch</a>
       </div>
-    </section>
+      </div>
+    </div>
   </div>`
 }

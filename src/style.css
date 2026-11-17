@@ -422,3 +422,4 @@ body.hidden .hint { color: #E9A0A4; }
 .o-key.imp { background: var(--snow); margin-left: 0; }
 .o-key.ch { background: #2E5A47; }
 @media (max-width: 900px) { .imp-row { grid-template-columns: 1fr; } }
+.myth-card .help { margin-top: 8px; }

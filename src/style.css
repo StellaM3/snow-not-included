@@ -362,3 +362,13 @@ body.hidden .hint { color: #E9A0A4; }
   .meter-row { grid-template-columns: auto 1fr; }
   .meter-row .bar { grid-column: 1 / -1; grid-row: 2; }
 }
+
+/* Montagne de la limite de la neige */
+.mtn-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.mtn-controls .chip { height: 38px; padding: 0 14px; font-size: 14px; }
+.chip.play { background: var(--red); border-color: var(--red); color: #fff; font-weight: 700; }
+.mtn-nums { display: flex; gap: 40px; flex-wrap: wrap; }
+.mtn-nums b { font-family: var(--serif); font-weight: 900; font-size: 48px; display: block; line-height: 1.05; }
+.mtn-nums span { font-size: 15px; color: var(--t2); }
+#mountain svg rect, #mountain svg line { transition: y .6s ease, height .6s ease, y1 .6s, y2 .6s; }
+@media (max-width: 680px) { .mtn-nums b { font-size: 36px; } }

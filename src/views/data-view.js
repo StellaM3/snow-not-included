@@ -192,35 +192,54 @@ function snowHead(title, d, col) {
     <div><b style="color:${col}">${pct(r.share50)}</b><span>${T.snowShare}</span></div>
     <div><b>${fmt(r.alt50)} m</b><span>${T.snowLine}</span></div></div></div>`
 }
-function snowLine(da, db) {
-  const bw = 1180 / 7, Y = (a) => 200 - ((a - 400) / 700) * 170
-  let s = [400, 600, 800, 1000].map((a) => `<line x1="60" x2="1240" y1="${Y(a)}" y2="${Y(a)}" stroke="${C.line}"/><text x="50" y="${Y(a) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${a} m</text>`).join('')
-  const pts = DECS.map((d, i) => [60 + i * bw + bw / 2, Y(snow.res[d].alt50)])
-  s += `<polyline points="${pts.map((p) => p.join(',')).join(' ')}" fill="none" stroke="${C.t2}" stroke-width="2" stroke-dasharray="5 6"/>`
-  DECS.forEach((d, i) => {
-    const [x, y] = pts[i], hl = d === da || d === db
-    const c = d === da ? C.snow : d === db ? C.red : '#6E9585'
-    s += `<g data-decb="${d}" style="cursor:pointer"><rect x="${x - bw / 2}" y="0" width="${bw}" height="250" fill="transparent"/><line x1="${x}" x2="${x}" y1="${y}" y2="200" stroke="${c}" stroke-width="${hl ? 3 : 1.5}" opacity=".6"/><circle cx="${x}" cy="${y}" r="${hl ? 11 : 8}" fill="${c}"/><text x="${x}" y="${y - 20}" text-anchor="middle" font-family="IBM Plex Mono" font-size="16" font-weight="700" fill="${C.t1}">${fmt(snow.res[d].alt50)} m</text><text x="${x}" y="232" text-anchor="middle" font-family="Inter" font-size="16" fill="${C.t2}">${decLabel(d)}${d === '2020' ? '*' : ''}</text></g>`
-  })
-  return `<svg viewBox="0 0 1240 250">${s}</svg>`
+// La montagne : une limite de la neige qui monte, et des villes au-dessus ou au-dessous
+const TOWNS = [
+  ['Bâle', 260, 'L'], ['Lugano', 273, 'R'], ['Zurich', 408, 'L'], ['Lausanne', 495, 'R'], ['Berne', 540, 'L'],
+  ['Coire', 593, 'R'], ['St-Gall', 670, 'L'], ['La Chaux-de-Fonds', 1000, 'R'], ['Davos', 1560, 'L'], ['Zermatt', 1608, 'R'], ['St-Moritz', 1822, 'L'],
+]
+export function mountainCard(dm, playing) {
+  const W = 1240, H = 500, base = 470, top = 50, AMAX = 2200
+  const Y = (a) => base - (a / AMAX) * (base - top)
+  const cx = 660, half = 540 // la montagne va de cx-half à cx+half
+  // flancs légèrement irréguliers ; x pour une altitude donnée sur un flanc
+  const xAt = (a, side) => { const f = 1 - a / AMAX; return side === 'L' ? cx - half * f : cx + half * f }
+  const peak = `M${cx - half - 60},${base} L${cx - half},${base} ` +
+    [0.12, 0.25, 0.4, 0.55, 0.7, 0.82, 0.93].map((f, i) => `L${xAt(AMAX * f, 'L') + (i % 2 ? 14 : -10)},${Y(AMAX * f)}`).join(' ') +
+    ` L${cx - 40},${Y(AMAX * 0.99)} L${cx},${Y(AMAX * 1.08)} L${cx + 44},${Y(AMAX * 0.98)} ` +
+    [0.86, 0.74, 0.6, 0.46, 0.32, 0.18, 0.08].map((f, i) => `L${xAt(AMAX * f, 'R') + (i % 2 ? -12 : 10)},${Y(AMAX * f)}`).join(' ') +
+    ` L${cx + half},${base} L${cx + half + 60},${base} Z`
+  const a0 = snow.res['1960'].alt50, a = snow.res[dm].alt50
+  let s = `<defs><clipPath id="mclip"><path d="${peak}"/></clipPath></defs>`
+  for (const g of [500, 1000, 1500, 2000]) s += `<line x1="90" x2="${W}" y1="${Y(g)}" y2="${Y(g)}" stroke="${C.line}" stroke-dasharray="2 6"/><text x="80" y="${Y(g) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${fmt(g)} m</text>`
+  s += `<path d="${peak}" fill="#24412F"/>`
+  s += `<g clip-path="url(#mclip)"><rect x="0" y="0" width="${W}" height="${Y(a)}" fill="${C.snow}"/>`
+  if (a > a0) s += `<rect x="0" y="${Y(a)}" width="${W}" height="${Y(a0) - Y(a)}" fill="${C.red}" opacity=".55"/>`
+  s += `</g>`
+  s += `<line x1="60" x2="${W}" y1="${Y(a0)}" y2="${Y(a0)}" stroke="${C.snow}" stroke-width="1.5" stroke-dasharray="6 6" opacity=".7"/><text x="94" y="${Y(a0) - 8}" text-anchor="start" font-family="IBM Plex Mono" font-size="13" fill="${C.t2}">${T.mtnRef(fmt(a0))}</text>`
+  s += `<line x1="60" x2="${W}" y1="${Y(a)}" y2="${Y(a)}" stroke="${C.red}" stroke-width="3"/><rect x="${W - 250}" y="${Y(a) - 34}" width="246" height="28" rx="8" fill="${C.red}"/><text x="${W - 127}" y="${Y(a) - 14}" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="#fff">${T.mtnLine(fmt(a))}</text>`
+  let above = 0
+  for (const [name, alt, side] of TOWNS) {
+    const x = xAt(alt, side), y = Y(alt), up = alt >= a
+    if (up) above++
+    const lx = side === 'L' ? x - 14 : x + 14
+    s += `<g data-tip="${T.cities[name] || name} · ${fmt(alt)} m"><circle cx="${x}" cy="${y}" r="${up ? 9 : 7}" fill="${up ? C.snow : '#6FCF97'}" stroke="${C.dark}" stroke-width="3"/>`
+    s += `<text x="${lx}" y="${y + 5}" text-anchor="${side === 'L' ? 'end' : 'start'}" font-family="Inter" font-size="15" font-weight="700" fill="${up ? C.t1 : '#9FD9B4'}">${up ? '❄ ' : ''}${T.cities[name] || name}</text></g>`
+  }
+  s += `<text x="${cx + 30}" y="${Y(AMAX * 1.08) + 4}" text-anchor="start" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${T.mtnPeak}</text>`
+  return `<div class="card" id="mountain">
+    <h3 class="card-title">${T.mtnTitle}</h3>
+    <p class="chart-note">${T.mtnLead}</p>
+    <div class="mtn-controls">
+      <button class="chip play" data-play="1" aria-pressed="${!!playing}">${playing ? '❚❚ ' + T.pause : '▶ ' + T.play}</button>
+      <div class="chips">${DECS.map((x) => `<button class="chip ${x === dm ? 'on' : ''}" data-decm="${x}" aria-pressed="${x === dm}">${decLabel(x)}${x === '2020' ? '*' : ''}</button>`).join('')}</div>
+    </div>
+    <div class="mtn-nums"><div><b style="color:${C.red}">${fmt(a)} m</b><span>${T.mtnNum1}</span></div><div><b>${above} / ${TOWNS.length}</b><span>${T.mtnNum2}</span></div></div>
+    <div class="scroll-x"><svg viewBox="0 0 ${W} ${H}">${s}</svg></div>
+    <div class="legend"><span><i style="background:${C.snow}"></i>${T.mtnLeg1}</span><span><i style="background:${C.red};opacity:.7"></i>${T.mtnLeg2}</span><span><i style="background:#6FCF97;border-radius:50%"></i>${T.mtnLeg3}</span></div>
+    <p class="chart-note" style="font-size:14px">${T.snowLineNote}</p>
+  </div>`
 }
-// Coupe Bâle – Lugano : le relief réel, avec la limite de la neige des deux décennies choisies
-function profile(da, db) {
-  const P = snow.profile, W = 1240, H = 340, x0 = 60, y0 = 20, hmax = 3400
-  const X = (i) => x0 + (i / (P.h.length - 1)) * (W - x0 - 10), Y = (v) => y0 + (1 - v / hmax) * (H - y0 - 50)
-  const a = snow.res[da].alt50, b = snow.res[db].alt50
-  const ground = `M${X(0)},${Y(0)} ` + P.h.map((v, i) => `L${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ') + ` L${X(P.h.length - 1)},${Y(0)} Z`
-  const hi = Math.max(a, b), lo = Math.min(a, b)
-  let s = `<defs><clipPath id="gclip"><path d="${ground}"/></clipPath></defs>`
-  for (const g of [0, 1000, 2000, 3000]) s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(g)}" y2="${Y(g)}" stroke="${C.line}"/><text x="${x0 - 8}" y="${Y(g) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${g} m</text>`
-  s += `<path d="${ground}" fill="#24412F"/>`
-  // neige au-dessus de la limite la plus haute (blanc), bande perdue entre les deux (rouge)
-  s += `<g clip-path="url(#gclip)"><rect x="0" y="0" width="${W}" height="${Y(hi)}" fill="${C.snow}"/><rect x="0" y="${Y(hi)}" width="${W}" height="${Y(lo) - Y(hi)}" fill="${b > a ? C.red : C.snow}" opacity="${b > a ? 0.75 : 1}"/></g>`
-  s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(a)}" y2="${Y(a)}" stroke="${C.snow}" stroke-width="2" stroke-dasharray="6 5"/><text x="${x0 + 10}" y="${Y(a) + (a > b ? -8 : 18)}" text-anchor="start" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="${C.snow}">${decLabel(da)} · ${fmt(a)} m</text>`
-  s += `<line x1="${x0}" x2="${W - 10}" y1="${Y(b)}" y2="${Y(b)}" stroke="${C.red}" stroke-width="2.5"/><text x="${x0 + 10}" y="${Y(b) + (b >= a ? -8 : 18)}" text-anchor="start" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="${C.red}">${decLabel(db)} · ${fmt(b)} m</text>`
-  for (const [name, f] of P.marks) { const x = x0 + f * (W - x0 - 10); s += `<line x1="${x}" x2="${x}" y1="${Y(0)}" y2="${Y(0) + 8}" stroke="${C.t2}"/><text x="${x}" y="${H - 12}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-family="Inter" font-size="15" font-weight="700" fill="${C.t1}">${T.cities[name] || name}</text>` }
-  return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
-}
+
 function decPicker(attr, sel, label, other) {
   return `<div class="compare"><span class="compare-label">${label}</span><div class="chips">${DECS.map((x) => `<button class="chip ${x === sel ? 'on' : ''}" data-${attr}="${x}" aria-pressed="${x === sel}" ${x === other ? 'disabled' : ''}>${decLabel(x)}</button>`).join('')}</div></div>`
 }
@@ -233,13 +252,7 @@ function snowSection(st) {
       <div class="card">${decPicker('deca', da, T.before, db)}${snowHead(T.decTitle(da), da, C.snow)}${snowMap(da)}</div>
       <div class="card">${decPicker('decb', db, T.after, da)}${snowHead(T.decTitle(db), db, rb.share50 < ra.share50 ? C.red : C.t1)}${snowMap(db)}</div>
     </div>
-    <div class="card"><h3 class="card-title">${T.profileK}</h3>
-      <p class="chart-note">${T.profileNote(fmt(ra.alt50), fmt(rb.alt50), decLabel(da), decLabel(db))}</p>
-      <div class="scroll-x">${profile(da, db)}</div>
-      <div class="legend"><span><i style="background:${C.snow}"></i>${T.decTitle(db)}</span><span><i style="background:${C.red}"></i>${T.lostSnow}</span></div>
-    </div>
-    <div class="card"><h3 class="card-title">${T.snowLineK}</h3><p class="hint">${T.snowLineHint}</p><div class="scroll-x">${snowLine(da, db)}</div>
-      <p class="chart-note" style="font-size:15px">${T.snowLineNote}</p></div>
+    ${mountainCard(st.decM, st.playing)}
     <p class="src">${T.snowSrc}</p>
   </section>`
 }

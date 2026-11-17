@@ -1,5 +1,5 @@
 import './style.css'
-import { dataView } from './views/data-view.js'
+import { dataView, mountainCard } from './views/data-view.js'
 import { hiddenView } from './views/hidden-view.js'
 import { initTips } from './util.js'
 import { T, setLang, lang } from './i18n.js'
@@ -15,6 +15,8 @@ const st = {
   decA: '1960',
   decB: '2010',
   item: 'lights',
+  decM: '2010', // décennie affichée sur la montagne
+  playing: false,
 }
 
 // Langue : ?lang=en dans l'URL, sinon le choix mémorisé, sinon le navigateur (français par défaut)
@@ -71,7 +73,7 @@ function pickYear(y) {
   st.years = [...st.picked].sort((a, b) => a - b)
 }
 
-const SEL = '[data-mode],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
+const SEL = '[data-play],[data-decm],[data-mode],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
 app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
@@ -91,6 +93,8 @@ app.addEventListener('click', (e) => {
   if (d.deca && d.deca !== st.decB) st.decA = d.deca
   if (d.decb && d.decb !== st.decA) st.decB = d.decb
   if (d.item) st.item = d.item
+  if (d.decm) { stopPlay(); st.decM = d.decm; updateMountain(); return }
+  if (d.play) { st.playing ? stopPlay() : startPlay(); updateMountain(); return }
   render()
 })
 
@@ -108,6 +112,25 @@ app.addEventListener('keydown', (e) => {
     app.querySelector(`.scene [data-item="${st.item}"]`)?.focus()
   }
 })
+
+// Animation de la montagne : décennie après décennie, sans redessiner toute la page
+const DECADES = ['1960', '1970', '1980', '1990', '2000', '2010', '2020']
+let timer = null
+function updateMountain() {
+  const el = document.getElementById('mountain')
+  if (el) el.outerHTML = mountainCard(st.decM, st.playing)
+}
+function startPlay() {
+  st.playing = true
+  if (st.decM === '2020') st.decM = '1960'
+  timer = setInterval(() => {
+    const i = DECADES.indexOf(st.decM)
+    if (i >= DECADES.length - 1) { stopPlay(); updateMountain(); return }
+    st.decM = DECADES[i + 1]
+    updateMountain()
+  }, 1100)
+}
+function stopPlay() { st.playing = false; clearInterval(timer); timer = null }
 
 initTips()
 render(false)

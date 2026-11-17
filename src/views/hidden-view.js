@@ -1,3 +1,4 @@
+import { chap } from '../nav.js'
 // Vue « Face cachée » : le salon éteint, interactif (maquette G2)
 import elec from '../data/elec.json'
 import hidden from '../data/hidden.json'
@@ -173,7 +174,8 @@ export function hiddenView(st) {
   const ys = st.years
   const big = ys.map((y, k) => { const e = elecStats(y); return e ? `<span class="big" style="color:${YC[ys.length > 1 ? k : 1]}">−${pct(e.drop)}</span><span class="yr">${y}</span>` : '' }).filter(Boolean).join('<span class="big arrow">→</span>')
   const missing = ys.filter((y) => !elec[y])
-  return `<div class="view">
+  const m = 'hidden'
+  return `<div class="view">${chap(m, 'elec', `
     ${yearCompare(ys, T)}
     <section class="card">
       <h2 class="h2">${T.elecTitle}</h2>
@@ -185,7 +187,7 @@ export function hiddenView(st) {
       <div class="scroll-x">${elecCurve(ys)}</div>
       <p class="hint">${T.hintHover}</p>
       <p class="src">${T.elecSrc()}</p>
-    </section>
+    </section>`)}${chap(m, 'salon', `
     <section class="section">
       <div class="section-head"><h2 class="h2">${T.sceneTitle}</h2><p class="lead">${T.sceneLead}</p></div>
       <div class="scene-grid">
@@ -193,7 +195,7 @@ export function hiddenView(st) {
           <div class="chips item-chips">${ITEMS.map((id, i) => `<button class="chip ${id === st.item ? 'on' : ''}" data-item="${id}">${i + 1} · ${T.items[id][0]}</button>`).join('')}</div></div>
         <div class="card">${detail(st.item, st)}</div>
       </div>
-    </section>
+    </section>`)}${chap(m, 'mythe', `
     <div class="card myth-card">
       <p class="kicker">${T.mythK}</p>
       <p class="myth">${T.myth}</p>
@@ -209,6 +211,6 @@ export function hiddenView(st) {
         <a href="https://stopsuicide.ch" target="_blank" rel="noopener">stopsuicide.ch</a>
       </div>
       </div>
-    </div>
+    </div>`)}
   </div>`
 }

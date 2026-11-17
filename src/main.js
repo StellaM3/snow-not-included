@@ -2,6 +2,7 @@ import './style.css'
 import { dataView, mountainCard } from './views/data-view.js'
 import { hiddenView } from './views/hidden-view.js'
 import { initTips } from './util.js'
+import { chapterNav, toc, watchChapters, goTo } from './nav.js'
 import { T, setLang, lang } from './i18n.js'
 
 // État de la page. Le mode « face cachée » est gardé dans l'URL (#cache) pour pouvoir partager un lien.
@@ -17,6 +18,7 @@ const st = {
   item: 'lights',
   decM: '2010', // décennie affichée sur la montagne
   playing: false,
+  relYear: '2023', // année comparée à 1970 (religion)
 }
 
 // Langue : ?lang=en dans l'URL, sinon le choix mémorisé, sinon le navigateur (français par défaut)
@@ -34,7 +36,7 @@ const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 15A8 8 0 
 // Barre du haut : identique dans les deux modes (langue à gauche, interrupteur à droite)
 function topbar() {
   const hidden = st.mode === 'hidden'
-  return `<div class="topbar">
+  return `<div class="topbar" id="top">
     <div class="meta">
       <span class="lang" role="group" aria-label="Langue / Language"><button class="${lang === 'fr' ? 'on' : ''}" data-lang="fr" aria-pressed="${lang === 'fr'}">FR</button><button class="${lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${lang === 'en'}">EN</button></span>
     </div>
@@ -44,6 +46,7 @@ function topbar() {
         <button class="dark ${hidden ? 'on' : ''}" data-mode="hidden" aria-pressed="${hidden}">${ICON_MOON}${T.hidden}</button>
       </div>
     </div>
+    ${chapterNav(st.mode)}
   </div>`
 }
 function header() {
@@ -54,7 +57,7 @@ function header() {
       <span class="by">${T.byBy} <b>Estelle Rossier</b></span>
       <span class="by-meta">${T.byLines.map((l) => `<span>${l}</span>`).join('')}</span>
     </div>
-  </header>`
+  </header>${toc(st.mode)}`
 }
 function footer() {
   return `<footer class="footer"><p class="src">${T.sources}</p><p class="src">${T.credits}</p></footer>`
@@ -65,7 +68,8 @@ function render(keepScroll = true) {
   const y = window.scrollY
   document.body.classList.toggle('hidden', st.mode === 'hidden')
   app.innerHTML = `${topbar()}<main class="page">${header()}${st.mode === 'hidden' ? hiddenView(st) : dataView(st)}${footer()}</main>`
-  if (keepScroll) window.scrollTo(0, y)
+  if (keepScroll) window.scrollTo({ top: y, behavior: 'instant' })
+  watchChapters()
 }
 
 function pickYear(y) {
@@ -75,11 +79,13 @@ function pickYear(y) {
   st.years = [...st.picked].sort((a, b) => a - b)
 }
 
-const SEL = '[data-play],[data-decm],[data-mode],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
+const SEL = '[data-goto],[data-rel],[data-play],[data-decm],[data-mode],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
 app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
   const d = b.dataset
+  if (d.goto) { e.preventDefault(); goTo(d.goto); return }
+  if (d.rel) st.relYear = d.rel
   if (d.lang) { setLang(d.lang); try { localStorage.setItem('lang', d.lang) } catch (err) { /* rien */ } }
   if (d.mode) {
     if (st.mode === d.mode) return

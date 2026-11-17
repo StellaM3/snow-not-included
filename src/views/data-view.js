@@ -1,3 +1,5 @@
+import { chap } from '../nav.js'
+import { reveillonCard, traditionsSection } from './culture-view.js'
 // Vue « Magique » : les données (maquette F2)
 import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
@@ -294,7 +296,7 @@ function snowSection(st) {
 const YCOL = [C.red, C.snow] // année ancienne, année récente
 // Part importée de ce que la Suisse consomme (le reste est fait en Suisse), quand c'est connu
 const ORIGIN = { chocolat: 41, vins_mousseux: 96, agrumes: 100 }
-const IMP_KEYS = ['jouets', 'consoles_jeux', 'decorations_fete', 'parfums', 'chocolat', 'vins_mousseux', 'agrumes']
+const IMP_KEYS = ['jouets', 'consoles_jeux', 'decorations_fete', 'parfums', 'chocolat', 'agrumes'] // les mousseux ont leur carte « réveillon »
 function budgetChart() {
   const b = industry.ey.budget, ys = Object.keys(b).map(Number)
   const W = 600, H = 240, max = 360, bw = (W - 40) / ys.length
@@ -359,6 +361,7 @@ function industrySection(st) {
       ${importRows(st.years)}
       <p class="chart-note" style="font-size:15px">${T.originNote}</p>
       <p class="src">${T.impSrc}</p></div>
+    ${reveillonCard(st)}
     <div class="grid2">
       <div class="card"><h3 class="card-title">${T.parcelsTitle}</h3>
         <p class="chart-note">${T.parcelsNote}</p>
@@ -374,5 +377,6 @@ function industrySection(st) {
 }
 
 export function dataView(st) {
-  return `<div class="view">${meter()}${voyage(st)}${goes()}${snowSection(st)}${industrySection(st)}</div>`
+  const m = 'magic'
+  return `<div class="view">${chap(m, 'import', meter())}${chap(m, 'voyage', voyage(st))}${chap(m, 'climat', goes())}${chap(m, 'neige', snowSection(st))}${chap(m, 'commerce', industrySection(st))}${chap(m, 'traditions', traditionsSection(st))}</div>`
 }

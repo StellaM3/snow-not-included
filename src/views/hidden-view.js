@@ -178,10 +178,10 @@ export function hiddenView(st) {
     <section class="section">
       <div class="section-head"><h2 class="h2">${T.sceneTitle}</h2><p class="lead">${T.sceneLead}</p></div>
       <div class="scene-grid">
-        <div class="scene-box">${scene(st.item)}</div>
+        <div class="scene-col"><div class="scene-box">${scene(st.item)}</div>
+          <div class="chips item-chips">${ITEMS.map((id, i) => `<button class="chip ${id === st.item ? 'on' : ''}" data-item="${id}">${i + 1} · ${T.items[id][0]}</button>`).join('')}</div></div>
         <div class="card">${detail(st.item, st)}</div>
       </div>
-      <div class="chips item-chips">${ITEMS.map((id, i) => `<button class="chip ${id === st.item ? 'on' : ''}" data-item="${id}">${i + 1} · ${T.items[id][0]}</button>`).join('')}</div>
     </section>
     <div class="card">
       <p class="kicker">${T.mythK}</p>

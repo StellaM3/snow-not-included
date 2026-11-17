@@ -11,6 +11,19 @@ import { T, fmt, dec, pct } from '../i18n.js'
 const BASE = import.meta.env.BASE_URL
 
 /* ---------- 1. Noël-mètre ---------- */
+// Icône du produit, dessinée au centre de chaque boule (dans un médaillon clair pour rester lisible)
+const ORN_ICONS = [
+  // mandarine
+  `<circle cx="0" cy="4" r="17" fill="#F2994A"/><circle cx="-6" cy="-2" r="2" fill="#F8C08A"/><path d="M0 -13 q2 -7 8 -9" stroke="#3E6455" stroke-width="3" fill="none"/><path d="M2 -14 q10 -10 16 -2 q-8 6 -16 2z" fill="#6FCF97"/>`,
+  // foie gras : canard
+  `<ellipse cx="2" cy="8" rx="17" ry="11" fill="#F4C95D"/><circle cx="-10" cy="-8" r="9" fill="#F4C95D"/><path d="M-19 -8 l-8 3 l8 2z" fill="#E99A5B"/><circle cx="-12" cy="-10" r="1.8" fill="#0F1F1A"/><path d="M6 4 q8 -6 14 2" stroke="#E0B040" stroke-width="2.5" fill="none"/>`,
+  // sapin
+  `<path d="M0 -22 L13 -2 H6 L16 13 H-16 L-6 -2 H-13Z" fill="#3E8E63"/><rect x="-3" y="13" width="6" height="8" fill="#8C5A3C"/><circle cx="-4" cy="2" r="2" fill="#E0434B"/><circle cx="5" cy="8" r="2" fill="#F4C95D"/>`,
+  // fromage
+  `<path d="M-19 10 L-19 -4 L18 -14 L19 10 Z" fill="#F4C95D"/><path d="M-19 -4 L18 -14 L19 -6 Z" fill="#F8DC8A"/><circle cx="-8" cy="3" r="3" fill="#E0B040"/><circle cx="6" cy="0" r="2.4" fill="#E0B040"/><circle cx="10" cy="6" r="2" fill="#E0B040"/>`,
+  // électricité : ampoule
+  `<path d="M0 -20 a13 13 0 0 1 8 23 v5 h-16 v-5 a13 13 0 0 1 8 -23z" fill="#F4C95D"/><rect x="-7" y="10" width="14" height="4" rx="1" fill="#A9BDB4"/><rect x="-5" y="15" width="10" height="4" rx="1" fill="#A9BDB4"/><path d="M-3 -6 l4 6 h-4 l4 6" stroke="#E0434B" stroke-width="2" fill="none"/>`,
+]
 const METER = () => [[100, pct(100)], [100, pct(100)], [55, '≈ ' + pct(55)], [37, pct(37)], [30, pct('1–30')], [0, pct(0)]]
 // Une boule de Noël remplie : rouge = importé, vert = fait en Suisse. lo/hi pour une fourchette (électricité)
 function ornament(i, hi, lo = hi) {
@@ -30,6 +43,7 @@ function ornament(i, hi, lo = hi) {
       ${snow ? `<g fill="${C.snow}" opacity=".9">${[[60, 90], [110, 75], [95, 130], [55, 140], [125, 120]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3"/>`).join('')}</g><text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="40" fill="${C.snow}">❄</text>` : ''}
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${id}s)"/>
     </g>
+    ${ORN_ICONS[i] ? `<g transform="translate(${cx} ${cy})"><circle r="29" fill="#F4F1EA" opacity=".94"/><circle r="29" fill="none" stroke="${C.gold}" stroke-width="2"/>${ORN_ICONS[i]}</g>` : ''}
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${snow ? C.snow : C.gold}" stroke-width="3" ${snow ? 'stroke-dasharray="6 6"' : ''}/>
   </svg>`
 }

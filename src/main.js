@@ -35,7 +35,6 @@ function topbar() {
       <span class="meta-txt">${T.meta}</span>
     </div>
     <div class="switch-wrap">
-      <span class="kicker switch-label">${T.lights}</span>
       <div class="switch" role="group" aria-label="${T.lightsAria}">
         <button class="magic ${hidden ? '' : 'on'}" data-mode="magic" aria-pressed="${!hidden}">${ICON_SUN}${T.magic}</button>
         <button class="dark ${hidden ? 'on' : ''}" data-mode="hidden" aria-pressed="${hidden}">${ICON_MOON}${T.hidden}</button>

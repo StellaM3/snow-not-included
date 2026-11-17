@@ -306,7 +306,7 @@ export const DICT = {
   en: {
     h1: "In Switzerland {CH}, everything at Christmas {TREE} is imported.<br><em>Except the snow.</em>",
     meterTitle: "How much of your Christmas comes from abroad?",
-    meter: [["Mandarins", "of mandarins sold in Switzerland are imported: the country grows none."], ["Foie gras", "of foie gras is imported: force-feeding ducks and geese is banned in Switzerland."], ["Christmas trees", "of trees sold in Switzerland come from abroad (industry estimate)."], ["Cheese", "of the cheese eaten in Switzerland is imported (by weight)."], ["Electricity in December", "of the electricity used in December is imported, depending on the year."], ["Snow", "of the snow is imported… and yet it is disappearing."]],
+    meter: [["Mandarins", "of mandarins sold in Switzerland are imported: the country grows none."], ["Fattened duck liver", "of fattened duck and goose liver (foie gras) is imported: force-feeding ducks and geese is banned in Switzerland."], ["Christmas trees", "of trees sold in Switzerland come from abroad (industry estimate)."], ["Cheese", "of the cheese eaten in Switzerland is imported (by weight)."], ["Electricity in December", "of the electricity used in December is imported, depending on the year."], ["Snow", "of the snow is imported… and yet it is disappearing."]],
     meterFoot: "In the 1960s, <b>38%</b> of lowland weather stations (below 600 m) had snow on the ground on 25 December. Between 2016 and 2025, only <b class=\"red\">9%</b> did (10-year averages).",
     meterSrc: "FOCBS foreign trade · TSM 2025 · Swissgrid · MeteoSwiss",
     voyageTitle: (y) => `Where did Switzerland's Christmas imports come from in ${y}?`,
@@ -317,7 +317,7 @@ export const DICT = {
       mandarines: "Mandarins",
       fromage: "Cheese",
       dinde: "Turkey",
-      foie: "Foie gras",
+      foie: "Fattened duck liver (foie gras)",
     },
     noData: (y) => `No data for ${y}`,
     noDataShort: (y) => `no data ${y}`,
@@ -351,7 +351,7 @@ export const DICT = {
     mythSrc: "Le Temps / Annenberg Public Policy Center · Santé publique France 2024 (emergency data 2010–2019) · FOPH",
     help: "On 24 December too, someone answers.",
     helpN: ["La Main Tendue", "Pro Juventute (youth)", "Emergencies"],
-    sources: "Sources: MeteoSwiss (manual snow, homogenised series) · FOCBS foreign trade (TN8) · Swissgrid · FSO (population, religion) · swisstopo (swissALTIRegio) · Suva, BPA, AXA · La Main Tendue · Statistique Vaud · EY and Swiss Retail Federation · Swiss Post · Marketagent · Swiss charts (hitparade.ch) · Netflix Top 10 · Mediapulse via Horizont. Foie gras: customs nomenclature changed in 2012.",
+    sources: "Sources: MeteoSwiss (manual snow, homogenised series) · FOCBS foreign trade (TN8) · Swissgrid · FSO (population, religion) · swisstopo (swissALTIRegio) · Suva, BPA, AXA · La Main Tendue · Statistique Vaud · EY and Swiss Retail Federation · Swiss Post · Marketagent · Swiss charts (hitparade.ch) · Netflix Top 10 · Mediapulse via Horizont. Fattened duck liver (foie gras): customs nomenclature changed in 2012.",
     credits: "Estelle Rossier · Master in Digital Experience Design (first semester), ECAL · “Make Sense” workshop with Pascal Wicht · 2026",
     countries: {
       DK: "Denmark",

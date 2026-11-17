@@ -3,12 +3,13 @@ import { T } from './i18n.js'
 import { scene } from './scenes.js'
 
 // La face cachée est le 7e chapitre (plus d'interrupteur)
-export const CHAPTERS = ['import', 'voyage', 'climat', 'neige', 'commerce', 'traditions', 'cache']
+export const CHAPTERS = ['import', 'voyage', 'neige', 'commerce', 'traditions', 'cache']
 export const ICONS = { import: '🎁', voyage: '🌍', climat: '🌡️', neige: '❄️', commerce: '🛍️', traditions: '🎶', cache: '🌙' }
 
 // Route courante : '' = accueil, sinon un identifiant de chapitre (#/neige)
 export function routeFromHash() {
-  const h = location.hash.replace(/^#\/?/, '')
+  let h = location.hash.replace(/^#\/?/, '')
+  if (h === 'climat') h = 'neige' // ancien chapitre fusionné avec la neige
   return CHAPTERS.includes(h) ? h : ''
 }
 
@@ -18,7 +19,7 @@ export function topNav(page, langBtns) {
     <a class="home-btn ${page ? '' : 'on'}" href="#/" data-go=""><span aria-hidden="true">🏠</span><span class="hb-t">${T.home}</span></a>
     <nav class="chapnav" aria-label="${T.navAria}">${CHAPTERS.map((id, i) => `
       <a href="#/${id}" class="cn ${id === page ? 'on' : ''} ${id === 'cache' ? 'dark' : ''}" data-go="${id}" title="${T.chaps[id][0]}" ${id === page ? 'aria-current="page"' : ''}>
-        <span class="cn-n">${id === 'cache' ? '★' : i + 1}</span><span class="cn-ico" aria-hidden="true">${ICONS[id]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
+        <span class="cn-n">${id === 'cache' ? '★' : i + 1}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
     </nav>
     <div class="meta">${langBtns}</div>
   </div>`
@@ -40,14 +41,14 @@ export function homeView(header) {
   return `<div class="home">
     ${header}
     <p class="lead home-lead">${T.homeLead}</p>
-    <div class="scene-grid-home">${CHAPTERS.map((id, i) => card(id, i, id === 'cache' ? 'wide' : '')).join('')}</div>
+    <div class="scene-grid-home">${CHAPTERS.map((id, i) => card(id, i)).join('')}</div>
   </div>`
 }
 
 // Haut et bas d'une page chapitre
 export function chapterHead(id) {
   const i = CHAPTERS.indexOf(id)
-  const k = `<p class="chap-k"><span class="chap-ico" aria-hidden="true">${ICONS[id]}</span>${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 6)}</p>`
+  const k = `<p class="chap-k"><span class="chap-ico" aria-hidden="true">${ICONS[id]}</span>${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 5)}</p>`
   return id === 'cache' ? `${k}<div class="section-head"><h2 class="h2 hidden-h">${T.h1Hidden}</h2><p class="lead">${T.chaps.cache[1]}.</p></div>` : k
 }
 export function chapterFoot(id) {

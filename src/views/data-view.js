@@ -405,6 +405,6 @@ function industrySection(st) {
 
 // Contenu d'un chapitre (une page par chapitre)
 export function chapterContent(id, st) {
-  const f = { import: meter, voyage, climat: goes, neige: snowSection, commerce: industrySection, traditions: traditionsSection }[id]
+  const f = { import: meter, voyage, neige: (x) => goes(x) + snowSection(x), commerce: industrySection, traditions: traditionsSection }[id]
   return `<div class="view">${f(st)}</div>`
 }

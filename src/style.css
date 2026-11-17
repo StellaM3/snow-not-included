@@ -476,7 +476,7 @@ body.hidden .cn.on .cn-n { background: #fff; border-color: #fff; color: var(--re
 .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--red), var(--gold)); transform-origin: 0 50%; transform: scaleX(0); }
 body.hidden .progress i { background: var(--red); }
 /* Libellés compacts : seul le chapitre en cours affiche son nom (les autres au survol) */
-@media (max-width: 1700px) {
+@media (max-width: 1239px) {
   .cn:not(.on):not(:hover) .cn-t { display: none; }
   .cn:not(.on):not(:hover) { padding-right: 8px; }
 }
@@ -730,3 +730,10 @@ body.hidden .chap-k { color: var(--red); }
 .back-home:hover { color: var(--t1); border-color: var(--gold); }
 @media (max-width: 680px) { .scene-card.mini .sc-art { width: 120px; } .scene-card.mini .sc-body b { font-size: 20px; } .scene-card.mini .sc-body > span:last-child { display: none; } }
 .hidden-h { font-size: clamp(44px, 6vw, 72px); } .hidden-h em { font-weight: 400; color: var(--t3); }
+
+/* v7 : 6 cartes (3 × 2), la face cachée dans la grille */
+.cn { padding-left: 5px; }
+.hb-t { display: none; }
+.home-btn { padding: 0 12px; }
+.chapnav { gap: 2px; }
+.cn { font-size: 13.5px; padding-right: 10px; gap: 6px; }

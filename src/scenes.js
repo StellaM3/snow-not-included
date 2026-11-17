@@ -38,7 +38,8 @@ export const SCENES = {
     <path d="M190 30 L222 72 L208 68 L196 80 L184 66 L170 72 Z" fill="${S}"/><path d="M90 70 L104 90 L96 88 L90 94 L82 88 L76 90 Z" fill="${S}"/>
     <line class="snowline" x1="0" x2="320" y1="96" y2="96" stroke="${R}" stroke-width="3" stroke-dasharray="8 6"/>
     <g fill="${G}"><rect x="40" y="168" width="14" height="12"/><rect x="60" y="164" width="12" height="16"/><rect x="250" y="170" width="16" height="10"/></g>
-    <path d="M38 168 l9 -8 l9 8z M58 164 l8 -7 l8 7z M248 170 l10 -8 l10 8z" fill="${R}"/>`,
+    <path d="M38 168 l9 -8 l9 8z M58 164 l8 -7 l8 7z M248 170 l10 -8 l10 8z" fill="${R}"/>
+    <g transform="translate(286 34)"><rect x="-7" y="0" width="14" height="80" rx="7" fill="${S}"/><rect class="rise" x="-4" y="30" width="8" height="50" rx="4" fill="${R}"/><circle cx="0" cy="86" r="13" fill="${R}"/></g>`,
   // 5 · Le commerce : sacs, huître et flûte
   commerce: `<rect width="320" height="200" fill="#40341A"/>
     <g class="bob"><path d="M70 80 h70 l8 90 h-86z" fill="${R}"/><path d="M88 80 q17 -34 34 0" fill="none" stroke="${G}" stroke-width="5"/>

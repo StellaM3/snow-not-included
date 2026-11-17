@@ -1,4 +1,3 @@
-import { chap } from '../nav.js'
 import { oysterBlock, alcoholCard, traditionsSection } from './culture-view.js'
 // Vue « Magique » : les données (maquette F2)
 import fdata from '../data/fdata.json'
@@ -404,7 +403,8 @@ function industrySection(st) {
   </section>`
 }
 
-export function dataView(st) {
-  const m = 'magic'
-  return `<div class="view">${chap(m, 'import', meter())}${chap(m, 'voyage', voyage(st))}${chap(m, 'climat', goes())}${chap(m, 'neige', snowSection(st))}${chap(m, 'commerce', industrySection(st))}${chap(m, 'traditions', traditionsSection(st))}</div>`
+// Contenu d'un chapitre (une page par chapitre)
+export function chapterContent(id, st) {
+  const f = { import: meter, voyage, climat: goes, neige: snowSection, commerce: industrySection, traditions: traditionsSection }[id]
+  return `<div class="view">${f(st)}</div>`
 }

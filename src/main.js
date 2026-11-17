@@ -1,14 +1,14 @@
 import './style.css'
-import { dataView, mountainCard } from './views/data-view.js'
+import { chapterContent, mountainCard } from './views/data-view.js'
 import { hiddenView } from './views/hidden-view.js'
 import { initTips } from './util.js'
-import { chapterNav, toc, watchChapters, goTo } from './nav.js'
+import { topNav, homeView, chapterHead, chapterFoot, routeFromHash } from './nav.js'
 import { T, setLang, lang } from './i18n.js'
 
 // État de la page. Le mode « face cachée » est gardé dans l'URL (#cache) pour pouvoir partager un lien.
 const params = new URLSearchParams(location.search)
 const st = {
-  mode: location.hash === '#cache' ? 'hidden' : 'magic',
+  page: location.hash === '#cache' ? 'cache' : routeFromHash(), // '' = accueil
   picked: [2010, 2024], // ordre des clics, pour remplacer l'année choisie le plus anciennement
   years: [2010, 2024], // les deux années comparées, triées
   voyageYear: 2024, // la carte du voyage montre une seule année
@@ -30,34 +30,17 @@ setLang(params.get('lang') || saved || browser)
 // Petites icônes du titre : drapeau suisse et sapin
 const ICON_CH = '<svg class="h1-ico" viewBox="0 0 32 32" role="img" aria-label="Suisse"><rect width="32" height="32" rx="6" fill="#E0434B"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>'
 const ICON_TREE = '<svg class="h1-ico tree" viewBox="4 1 24 35" role="img" aria-label="Sapin"><path d="M16 2l3 3.2h-6z" fill="#F4C95D"/><path d="M16 4L7 15h4.5L5 24h6L3 32h26l-8-8h6l-6.5-9H25z" fill="#6FCF97"/><rect x="14" y="31" width="4" height="5" fill="#8C5A3C"/><circle cx="12" cy="20" r="1.8" fill="#E0434B"/><circle cx="20" cy="26" r="1.8" fill="#EAF4FF"/><circle cx="19" cy="15" r="1.6" fill="#F4C95D"/></svg>'
-const ICON_SUN = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 1v3M12 20v3M1 12h3M20 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></g></svg>'
-const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 15A8 8 0 0 1 15 3z" fill="currentColor"/></svg>'
 
-// Barre du haut : identique dans les deux modes (langue à gauche, interrupteur à droite)
-function topbar() {
-  const hidden = st.mode === 'hidden'
-  return `<div class="topbar" id="top">
-    <div class="meta">
-      <span class="lang" role="group" aria-label="Langue / Language"><button class="${lang === 'fr' ? 'on' : ''}" data-lang="fr" aria-pressed="${lang === 'fr'}">FR</button><button class="${lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${lang === 'en'}">EN</button></span>
-    </div>
-    <div class="switch-wrap">
-      <div class="switch" role="group" aria-label="${T.lightsAria}">
-        <button class="magic ${hidden ? '' : 'on'}" data-mode="magic" aria-pressed="${!hidden}">${ICON_SUN}${T.magic}</button>
-        <button class="dark ${hidden ? 'on' : ''}" data-mode="hidden" aria-pressed="${hidden}">${ICON_MOON}${T.hidden}</button>
-      </div>
-    </div>
-    ${chapterNav(st.mode)}
-  </div>`
-}
+// Barre du haut : accueil, chapitres, langue (plus d'interrupteur : la face cachée est un chapitre)
+const langBtns = () => `<span class="lang" role="group" aria-label="Langue / Language"><button class="${lang === 'fr' ? 'on' : ''}" data-lang="fr" aria-pressed="${lang === 'fr'}">FR</button><button class="${lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${lang === 'en'}">EN</button></span>`
 function header() {
-  const hidden = st.mode === 'hidden'
   return `<header class="header">
-    <h1 class="h1">${hidden ? T.h1Hidden : T.h1.replace('{CH}', ICON_CH).replace('{TREE}', ICON_TREE)}</h1>
+    <h1 class="h1">${T.h1.replace('{CH}', ICON_CH).replace('{TREE}', ICON_TREE)}</h1>
     <div class="byline">
       <span class="by">${T.byBy} <b>Estelle Rossier</b></span>
       <span class="by-meta">${T.byLines.map((l) => `<span>${l}</span>`).join('')}</span>
     </div>
-  </header>${toc(st.mode)}`
+  </header>`
 }
 function footer() {
   return `<footer class="footer"><p class="src">${T.sources}</p><p class="src">${T.credits}</p></footer>`
@@ -66,11 +49,23 @@ function footer() {
 const app = document.querySelector('#app')
 function render(keepScroll = true) {
   const y = window.scrollY
-  document.body.classList.toggle('hidden', st.mode === 'hidden')
-  app.innerHTML = `${topbar()}<main class="page">${header()}${st.mode === 'hidden' ? hiddenView(st) : dataView(st)}${footer()}</main>`
+  const p = st.page
+  document.body.classList.toggle('hidden', p === 'cache')
+  document.body.classList.toggle('is-home', !p)
+  let body
+  if (!p) body = homeView(header())
+  else body = `<div class="chapter-page">${chapterHead(p)}${p === 'cache' ? hiddenView(st) : chapterContent(p, st)}${chapterFoot(p)}</div>`
+  app.innerHTML = `${topNav(p, langBtns())}<main class="page">${body}${footer()}</main>`
   if (keepScroll) window.scrollTo({ top: y, behavior: 'instant' })
-  watchChapters()
 }
+function go(page) {
+  stopPlay()
+  st.page = page
+  history.pushState(null, '', page ? '#/' + page : location.pathname + location.search)
+  render(false)
+  window.scrollTo({ top: 0, behavior: 'instant' })
+}
+window.addEventListener('popstate', () => { st.page = routeFromHash(); render(false); window.scrollTo({ top: 0, behavior: 'instant' }) })
 
 function pickYear(y) {
   const i = st.picked.indexOf(y)
@@ -79,22 +74,14 @@ function pickYear(y) {
   st.years = [...st.picked].sort((a, b) => a - b)
 }
 
-const SEL = '[data-goto],[data-rel],[data-play],[data-decm],[data-mode],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
+const SEL = '[data-go],[data-rel],[data-play],[data-decm],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
 app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
   const d = b.dataset
-  if (d.goto) { e.preventDefault(); goTo(d.goto); return }
+  if (d.go !== undefined) { e.preventDefault(); go(d.go); return }
   if (d.rel) st.relYear = d.rel
   if (d.lang) { setLang(d.lang); try { localStorage.setItem('lang', d.lang) } catch (err) { /* rien */ } }
-  if (d.mode) {
-    if (st.mode === d.mode) return
-    st.mode = d.mode
-    history.replaceState(null, '', d.mode === 'hidden' ? '#cache' : location.pathname + location.search)
-    render(false)
-    window.scrollTo({ top: 0 })
-    return
-  }
   if (d.year) pickYear(+d.year)
   if (d.vyear) st.voyageYear = +d.vyear
   if (d.prod) st.prod = d.prod

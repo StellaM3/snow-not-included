@@ -1,78 +1,59 @@
-// Navigation par chapitres : barre fixe, sommaire, « chapitre suivant », chapitre actif au défilement
+// Navigation : page d'accueil avec les chapitres en scènes, une page par chapitre
 import { T } from './i18n.js'
+import { scene } from './scenes.js'
 
-export const CHAPTERS = {
-  magic: [['import', '🎁'], ['voyage', '🌍'], ['climat', '🌡️'], ['neige', '❄️'], ['commerce', '🛍️'], ['traditions', '🎶']],
-  hidden: [['elec', '⚡'], ['salon', '🛋️'], ['mythe', '🕯️']],
+// La face cachée est le 7e chapitre (plus d'interrupteur)
+export const CHAPTERS = ['import', 'voyage', 'climat', 'neige', 'commerce', 'traditions', 'cache']
+export const ICONS = { import: '🎁', voyage: '🌍', climat: '🌡️', neige: '❄️', commerce: '🛍️', traditions: '🎶', cache: '🌙' }
+
+// Route courante : '' = accueil, sinon un identifiant de chapitre (#/neige)
+export function routeFromHash() {
+  const h = location.hash.replace(/^#\/?/, '')
+  return CHAPTERS.includes(h) ? h : ''
 }
 
-// Barre de chapitres (dans la barre du haut)
-export function chapterNav(mode) {
-  const list = CHAPTERS[mode]
-  return `<nav class="chapnav" aria-label="${T.navAria}">${list.map(([id, ico], i) => `
-    <a href="#c-${id}" class="cn" data-goto="${id}" title="${T.chaps[id][0]}"><span class="cn-n">${i + 1}</span><span class="cn-ico" aria-hidden="true">${ico}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
-  </nav><div class="progress"><i></i></div>`
-}
-
-// Sommaire illustré sous le titre
-export function toc(mode) {
-  const list = CHAPTERS[mode]
-  return `<section class="toc">
-    <div class="toc-head"><p class="kicker">${T.tocTitle}</p><p class="lead">${mode === 'hidden' ? T.tocHiddenLead : T.tocLead}</p></div>
-    <div class="toc-grid ${mode}">${list.map(([id, ico], i) => `
-      <a class="toc-card" href="#c-${id}" data-goto="${id}">
-        <span class="toc-ico" aria-hidden="true">${ico}</span>
-        <span class="toc-n">${String(i + 1).padStart(2, '0')}</span>
-        <b>${T.chaps[id][0]}</b><span>${T.chaps[id][1]}</span>
-      </a>`).join('')}</div>
-  </section>`
-}
-
-// Enveloppe d'un chapitre : repère « chapitre n sur N » et bouton vers la suite
-export function chap(mode, id, html) {
-  const list = CHAPTERS[mode], i = list.findIndex(([k]) => k === id), n = list.length
-  const next = list[i + 1]
-  let foot
-  if (next) foot = `<a class="next" href="#c-${next[0]}" data-goto="${next[0]}"><span>${T.nextChap}</span><b>${next[1]} ${T.chaps[next[0]][0]}</b><i aria-hidden="true">↓</i></a>`
-  else foot = `<div class="end-row">${mode === 'magic'
-    ? `<button class="next dark" data-mode="hidden"><span>🌙</span><b>${T.toHidden}</b><i aria-hidden="true">→</i></button>`
-    : `<button class="next gold" data-mode="magic"><span>☀️</span><b>${T.toMagic}</b><i aria-hidden="true">→</i></button>`}
-    <a class="next ghost" href="#top" data-goto="top"><b>${T.backTop}</b><i aria-hidden="true">↑</i></a></div>`
-  return `<div class="chapter" id="c-${id}" data-ch="${id}">
-    <p class="chap-k"><span class="chap-ico" aria-hidden="true">${list[i][1]}</span>${T.chapter(i + 1, n)}</p>
-    ${html}
-    ${foot}
+// Barre du haut : accueil, chapitres en icônes, langue
+export function topNav(page, langBtns) {
+  return `<div class="topbar" id="top">
+    <a class="home-btn ${page ? '' : 'on'}" href="#/" data-go=""><span aria-hidden="true">🏠</span><span class="hb-t">${T.home}</span></a>
+    <nav class="chapnav" aria-label="${T.navAria}">${CHAPTERS.map((id, i) => `
+      <a href="#/${id}" class="cn ${id === page ? 'on' : ''} ${id === 'cache' ? 'dark' : ''}" data-go="${id}" title="${T.chaps[id][0]}" ${id === page ? 'aria-current="page"' : ''}>
+        <span class="cn-n">${id === 'cache' ? '★' : i + 1}</span><span class="cn-ico" aria-hidden="true">${ICONS[id]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
+    </nav>
+    <div class="meta">${langBtns}</div>
   </div>`
 }
 
-// Chapitre actif et barre de progression, selon le défilement
-let obs, onScroll
-export function watchChapters() {
-  obs?.disconnect()
-  if (onScroll) window.removeEventListener('scroll', onScroll)
-  const links = [...document.querySelectorAll('.chapnav .cn')]
-  const setActive = (id) => links.forEach((a) => {
-    const on = a.dataset.goto === id
-    a.classList.toggle('on', on)
-    if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current')
-    if (on) { const nav = a.parentElement; nav.scrollTo({ left: a.offsetLeft - nav.clientWidth / 2 + a.clientWidth / 2, behavior: 'smooth' }) }
-  })
-  obs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.dataset.ch) })
-  }, { rootMargin: '-35% 0px -60% 0px' })
-  document.querySelectorAll('.chapter').forEach((c) => obs.observe(c))
-  const bar = document.querySelector('.progress i')
-  onScroll = () => {
-    const h = document.documentElement.scrollHeight - innerHeight
-    if (bar) bar.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`
-    if (scrollY < 200) setActive(null)
-  }
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
+// Carte-scène d'un chapitre
+const card = (id, i, cls = '') => `
+  <a class="scene-card ${id === 'cache' ? 'dark' : ''} ${cls}" href="#/${id}" data-go="${id}">
+    <div class="sc-art">${scene(id)}</div>
+    <div class="sc-body">
+      <span class="sc-n">${id === 'cache' ? '★' : String(i + 1).padStart(2, '0')}</span>
+      <b>${T.chaps[id][0]}</b>
+      <span>${T.chaps[id][1]}</span>
+    </div>
+  </a>`
+
+// Page d'accueil
+export function homeView(header) {
+  return `<div class="home">
+    ${header}
+    <p class="lead home-lead">${T.homeLead}</p>
+    <div class="scene-grid-home">${CHAPTERS.map((id, i) => card(id, i, id === 'cache' ? 'wide' : '')).join('')}</div>
+  </div>`
 }
 
-// Défilement doux vers un chapitre (la barre du haut est déduite par scroll-margin)
-export function goTo(id) {
-  if (id === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); return }
-  document.getElementById('c-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+// Haut et bas d'une page chapitre
+export function chapterHead(id) {
+  const i = CHAPTERS.indexOf(id)
+  const k = `<p class="chap-k"><span class="chap-ico" aria-hidden="true">${ICONS[id]}</span>${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 6)}</p>`
+  return id === 'cache' ? `${k}<div class="section-head"><h2 class="h2 hidden-h">${T.h1Hidden}</h2><p class="lead">${T.chaps.cache[1]}.</p></div>` : k
+}
+export function chapterFoot(id) {
+  const i = CHAPTERS.indexOf(id), next = CHAPTERS[i + 1]
+  return `<div class="chap-foot">
+    ${next ? `<p class="kicker">${T.continueWith}</p>${card(next, i + 1, 'mini')}` : ''}
+    <a class="back-home" href="#/" data-go="">← ${T.backHome}</a>
+  </div>`
 }

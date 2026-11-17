@@ -333,3 +333,10 @@ svg [data-tip] { cursor: crosshair; }
   .cta span { font-size: 20px; }
   .detail svg { max-width: 100%; height: auto; }
 }
+
+/* Signature sous le titre */
+.byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 10px; padding-top: 18px; border-top: 1px solid var(--line); width: 100%; }
+.byline .by { font-size: 17px; color: var(--t2); }
+.byline .by b { font-family: var(--serif); font-weight: 900; font-size: 22px; color: var(--t1); margin-left: 4px; }
+.byline .by-meta { display: flex; flex-direction: column; gap: 3px; padding-left: 22px; border-left: 2px solid var(--red); font-family: var(--mono); font-size: 13px; color: var(--t3); }
+@media (max-width: 680px) { .byline .by-meta { padding-left: 14px; } }

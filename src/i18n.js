@@ -223,6 +223,9 @@ export const DICT = {
 
 // ---------- Textes ajoutés (v2) ----------
 Object.assign(DICT.fr, {
+  byBy: 'Un projet de',
+  byLines: ['Master Digital Experience Design · 1er semestre · ECAL', 'Workshop « Make Sense » avec Pascal Wicht · novembre 2026'],
+  credits: 'Estelle Rossier · Master Digital Experience Design (1er semestre), ECAL · workshop « Make Sense » avec Pascal Wicht · 2026',
   yearShown: 'Année affichée',
   voyageLead: (y) => `La carte montre <b>une seule année à la fois</b> (ici ${y}). Choisis un produit : chaque ligne relie un pays fournisseur à la Suisse, son épaisseur montre combien on en importe.`,
   voyageIn: (y) => `en ${y}`,
@@ -263,6 +266,9 @@ Object.assign(DICT.fr, {
   millions: 'millions',
 })
 Object.assign(DICT.en, {
+  byBy: 'A project by',
+  byLines: ['Master in Digital Experience Design · first semester · ECAL', '“Make Sense” workshop with Pascal Wicht · November 2026'],
+  credits: 'Estelle Rossier · Master in Digital Experience Design (first semester), ECAL · “Make Sense” workshop with Pascal Wicht · 2026',
   yearShown: 'Year shown',
   voyageLead: (y) => `The map shows <b>one year at a time</b> (here ${y}). Pick a product: each line links a supplier country to Switzerland, and its thickness shows how much we import.`,
   voyageIn: (y) => `in ${y}`,

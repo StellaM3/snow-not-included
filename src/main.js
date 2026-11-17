@@ -32,7 +32,6 @@ function topbar() {
   return `<div class="topbar">
     <div class="meta">
       <span class="lang" role="group" aria-label="Langue / Language"><button class="${lang === 'fr' ? 'on' : ''}" data-lang="fr" aria-pressed="${lang === 'fr'}">FR</button><button class="${lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${lang === 'en'}">EN</button></span>
-      <span class="meta-txt">${T.meta}</span>
     </div>
     <div class="switch-wrap">
       <div class="switch" role="group" aria-label="${T.lightsAria}">
@@ -47,6 +46,10 @@ function header() {
   return `<header class="header">
     ${hidden ? `<span class="dossier">${T.dossier}</span>` : ''}
     <h1 class="h1">${hidden ? T.h1Hidden : T.h1}</h1>
+    <div class="byline">
+      <span class="by">${T.byBy} <b>Estelle Rossier</b></span>
+      <span class="by-meta">${T.byLines.map((l) => `<span>${l}</span>`).join('')}</span>
+    </div>
   </header>`
 }
 function footer() {

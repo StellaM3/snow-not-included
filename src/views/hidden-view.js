@@ -1,6 +1,7 @@
 // Vue « Face cachée » (maquette G2)
 import elec from '../data/elec.json'
-import { fmt, C, hbars } from '../util.js'
+import { C, hbars } from '../util.js'
+import { T, fmt, dec, pct } from '../i18n.js'
 
 const M = '#2A3A34', G = '#B5C2BC'
 
@@ -48,8 +49,8 @@ function elecCurve(y) {
   const pts = v.map((val, i) => `${px(i).toFixed(1)},${py(val).toFixed(1)}`)
   s += `<path d="M${px(0)},${py(lo)} L${pts.join(' L')} L${px(30)},${py(lo)}Z" fill="${C.red}" opacity=".08"/>`
   s += `<polyline points="${pts.join(' ')}" fill="none" stroke="#E9E4DA" stroke-width="3" stroke-linejoin="round"/>`
-  s += `<line x1="${px(0)}" x2="${px(30)}" y1="${py(ref)}" y2="${py(ref)}" stroke="#E9E4DA" stroke-width="1.5" stroke-dasharray="4 6" opacity=".6"/><text x="${px(30)}" y="${py(ref) - 10}" text-anchor="end" fill="#E9E4DA" font-size="13" font-family="Inter">jour ouvrable moyen ≈ ${Math.round(ref)} GWh</text>`
-  v.forEach((val, i) => { s += `<rect x="${px(i) - 18}" y="${y0}" width="36" height="${H - y0 - 40}" fill="transparent" data-tip="${i + 1} déc. ${y} : ${String(val).replace('.', ',')} GWh"/>` })
+  s += `<line x1="${px(0)}" x2="${px(30)}" y1="${py(ref)}" y2="${py(ref)}" stroke="#E9E4DA" stroke-width="1.5" stroke-dasharray="4 6" opacity=".6"/><text x="${px(30)}" y="${py(ref) - 10}" text-anchor="end" fill="#E9E4DA" font-size="13" font-family="Inter">${T.elecRef(Math.round(ref))}</text>`
+  v.forEach((val, i) => { s += `<rect x="${px(i) - 18}" y="${y0}" width="36" height="${H - y0 - 40}" fill="transparent" data-tip="${T.elecTip(i + 1, y, dec(val))}"/>` })
   s += `<circle cx="${px(24)}" cy="${py(v[24])}" r="7" fill="${C.red}" pointer-events="none"/><text x="${px(24)}" y="${py(v[24]) + 30}" text-anchor="middle" fill="${C.red}" font-size="14" font-weight="700" font-family="Inter">25.12 · ${Math.round(v[24])} GWh</text>`
   for (let i = 0; i < 31; i++) if ((i + 1) % 5 === 0 || i === 0 || (i >= 23 && i <= 25)) s += `<text x="${px(i)}" y="${H - 8}" text-anchor="middle" fill="${i >= 23 && i <= 25 ? C.red : '#8E9C96'}" font-size="12" font-family="IBM Plex Mono">${i + 1}</text>`
   return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
@@ -58,55 +59,52 @@ function elecCurve(y) {
 export function hiddenView(st) {
   const years = Object.keys(elec)
   const { drop } = elecStats(st.elecYear)
-  const tiles = [
-    tile('01 · Neige', '9 %', 'des Noëls sont encore blancs sous 600 m', hbars([['Années 60', 38, '#E9E4DA', '38 %'], ['2016–2025', 9, C.red, '9 %']], 40),
-      "Part des stations de plaine enneigées le 25 décembre, moyenne sur 10 ans. La seule chose qu'on n'importe pas, c'est celle qui disparaît.", 'MétéoSuisse · 14 stations sous 600 m'),
-    tile('02 · Sapin', '62', 'sapins sur 100 viennent du Danemark', picto(100, 62, 'tree'),
-      'Environ 5000 tonnes importées par an, surtout en novembre. Monoculture, engrais et pesticides là-bas, le sapin ici.', 'OFDF · TN8 0604.2021, 2021–2025'),
-    tile('03 · Décorations', '65', 'boules sur 100 viennent de Chine', picto(100, 65, 'ball'),
-      'Les importations de décorations culminent en septembre : Noël commence dans les conteneurs trois mois avant le salon.', 'OFDF · TN8 9505'),
-    tile('04 · Chocolat', '51', "fèves sur 100 viennent du Ghana ou de Côte d'Ivoire", picto(100, 51, 'bean'),
-      "Deux pays où 1,56 million d'enfants travaillent dans le cacao (enquête NORC 2018–2019).", 'OFDF · TN8 1801, 2021–2025 · NORC / Plateforme suisse du cacao durable'),
-    tile('05 · Bougies', '×5', "plus d'incendies dus aux bougies pendant l'Avent", hbars([["Une semaine le reste de l'année", 14, M, '≈ 14'], ["Une semaine de l'Avent", 70, C.red, "jusqu'à 70"]], 70),
-      'Couronnes, sapins secs, bougies oubliées. Chez AXA, les sinistres feu doublent à Noël.', 'Suva · BPA · CIPI (assurances cantonales), 2022 · AXA, 2024'),
-    tile('06 · La chaise vide', '3/20', 'jeunes de 15 à 25 ans se sentent souvent seuls (1/20 en 2012)', picto(20, 3, 'person', 10, 34),
-      "La solitude des jeunes a triplé en dix ans. Les fêtes ne l'inventent pas, elles la rendent visible.", 'Statistique Vaud, Enquête suisse sur la santé 2022 (Vaud)'),
-  ].join('')
+  const D = T.tiles
+  const vis = [
+    hbars([[D[0][2][0], 38, '#E9E4DA', pct(38)], [D[0][2][1], 9, C.red, pct(9)]], 40),
+    picto(100, 62, 'tree'),
+    picto(100, 65, 'ball'),
+    picto(100, 51, 'bean'),
+    hbars([[D[4][2][0], 14, M, '≈ 14'], [D[4][2][1], 70, C.red, D[4][2][2]]], 70),
+    picto(20, 3, 'person', 10, 34),
+  ]
+  const bigs = [pct(9), '62', '65', '51', '×5', '3/20']
+  const tiles = D.map((d, i) => tile(d[0], bigs[i], d[1], vis[i], d[3], d[4])).join('')
 
   return `<div class="view">
     <section class="card">
       <div class="split">
-        <p class="kicker">00 · Le pays s'éteint · Consommation électrique, décembre ${st.elecYear} (GWh par jour)</p>
-        <span class="big" style="color:${C.red}">−${drop} %</span>
+        <p class="kicker">${T.elecK(st.elecYear)}</p>
+        <span class="big" style="color:${C.red}">−${pct(drop)}</span>
       </div>
       <div class="elec-years">${years.map((y) => `<button class="chip ${+y === +st.elecYear ? 'on' : ''}" data-elec="${y}">${y}</button>`).join('')}</div>
-      ${elecCurve(st.elecYear)}
-      <p class="src">Swissgrid · consommation finale, quarts d'heure additionnés par jour · −${drop} % : le 25 décembre comparé à un jour ouvrable moyen du 1er au 20 décembre</p>
+      <div class="scroll-x">${elecCurve(st.elecYear)}</div>
+      <p class="src">${T.elecSrc(drop)}</p>
     </section>
     <div class="grid3">${tiles}</div>
-    <div class="grid2" style="grid-template-columns:1fr 1.4fr">
+    <div class="grid2 myth-grid">
       <div class="card">
-        <p class="kicker">07 · Le mythe</p>
-        <p class="myth">Plus de suicides à Noël ?<br><em>Faux.</em></p>
-        <p class="txt" style="margin:0;font-size:15px;line-height:1.5;color:var(--t2)">Les études ne trouvent pas de hausse en décembre, et la Suisse ne publie pas de chiffres mensuels. Répéter ce mythe est lui-même jugé à risque par les spécialistes de la prévention.</p>
-        <p class="src">Le Temps / Annenberg Public Policy Center · Santé publique France · OFSP</p>
+        <p class="kicker">${T.mythK}</p>
+        <p class="myth">${T.myth}</p>
+        <p class="txt" style="margin:0;font-size:15px;line-height:1.5;color:var(--t2)">${T.mythTxt}</p>
+        <p class="src">${T.mythSrc}</p>
       </div>
       <div class="card">
-        <p class="kicker">08 · Ce qui augmente vraiment : les appels</p>
-        ${hbars([['Jour ordinaire', 100, M, '100'], ['Avant Noël', 135, C.red, "jusqu'à 135"]], 135)}
+        <p class="kicker">${T.callsK}</p>
+        ${hbars([[T.callsBars[0], 100, M, '100'], [T.callsBars[1], 135, C.red, T.callsBars[2]]], 135)}
         <div class="calls-nums">
-          <div><b>240'000</b><span>appels par an à La Main Tendue (143), 640 bénévoles</span></div>
-          <div><b>60 %+</b><span>des thèmes : solitude, isolement, souffrance psychique</span></div>
+          <div><b>${fmt(240000)}</b><span>${T.calls1}</span></div>
+          <div><b>${pct(60)}+</b><span>${T.calls2}</span></div>
         </div>
-        <p class="src">Hausse : Telefonseelsorge Wien (jusqu'à +35 %) · La Main Tendue 2018 · Main Tendue Genève 2024</p>
+        <p class="src">${T.callsSrc}</p>
       </div>
     </div>
     <section class="help">
-      <p>Le 24 décembre aussi, quelqu'un répond.</p>
+      <p>${T.help}</p>
       <div class="nums">
-        <div><b>143</b><span>La Main Tendue</span></div>
-        <div><b>147</b><span>Pro Juventute (jeunes)</span></div>
-        <div><b>144</b><span>Urgences</span></div>
+        <div><b>143</b><span>${T.helpN[0]}</span></div>
+        <div><b>147</b><span>${T.helpN[1]}</span></div>
+        <div><b>144</b><span>${T.helpN[2]}</span></div>
         <a href="https://stopsuicide.ch" target="_blank" rel="noopener">stopsuicide.ch</a>
       </div>
     </section>

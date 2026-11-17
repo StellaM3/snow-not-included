@@ -17,7 +17,8 @@ Chaque push sur `main` construit le site et le publie sur GitHub Pages (`.github
 
 ## Structure
 
-- `src/main.js` : état de la page (mode, années, produit, décennie) et interactions
+- `src/main.js` : état de la page (mode, langue, années, produit, décennie) et interactions
+- `src/i18n.js` : tous les textes, en français et en anglais (`?lang=en` dans l'URL pour forcer l'anglais)
 - `src/views/data-view.js` : vue Magique (Noël-mètre, voyage des produits, climat, neige, calendrier)
 - `src/views/hidden-view.js` : vue Face cachée (électricité, pictogrammes, aide)
 - `src/data/*.json` : données préparées à partir des sources ouvertes

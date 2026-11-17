@@ -2,6 +2,7 @@ import './style.css'
 import { dataView } from './views/data-view.js'
 import { hiddenView } from './views/hidden-view.js'
 import { initTips } from './util.js'
+import { T, setLang, lang } from './i18n.js'
 
 // État de la page. Il est aussi gardé dans l'URL (#cache, ?prod=…) pour pouvoir partager un lien.
 const params = new URLSearchParams(location.search)
@@ -14,6 +15,12 @@ const st = {
 }
 const YEARS = [1990, 2000, 2010, 2017, 2024]
 
+// Langue : ?lang=en dans l'URL, sinon le choix mémorisé, sinon le navigateur (français par défaut)
+let saved = null
+try { saved = localStorage.getItem('lang') } catch (e) { /* stockage indisponible */ }
+const browser = (navigator.language || 'fr').slice(0, 2) === 'en' ? 'en' : 'fr'
+setLang(params.get('lang') || saved || browser)
+
 const ICON_SUN = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 1v3M12 20v3M1 12h3M20 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></g></svg>'
 const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 15A8 8 0 0 1 15 3z" fill="currentColor"/></svg>'
 
@@ -22,20 +29,20 @@ function header() {
   return `<header class="header">
     <div class="header-left">
       <div class="meta">
-        ${hidden ? '<span class="dossier">Dossier n° 25.12 · Guirlandes éteintes</span>' : '<span>ECAL · Make Sense · 2026</span>'}
-        <span class="lang" title="Version anglaise bientôt"><button class="on">FR</button><button disabled>EN</button></span>
+        ${hidden ? `<span class="dossier">${T.dossier}</span>` : `<span>${T.meta}</span>`}
+        <span class="lang" role="group" aria-label="Langue / Language"><button class="${lang === 'fr' ? 'on' : ''}" data-lang="fr" aria-pressed="${lang === 'fr'}">FR</button><button class="${lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${lang === 'en'}">EN</button></span>
       </div>
-      <h1 class="h1">${hidden ? 'La face cachée<br><em>de Noël.</em>' : "Tout s'importe à Noël.<br><em>Sauf la neige.</em>"}</h1>
-      ${hidden ? '' : `<div class="chips"><span style="font-size:15px;color:var(--t2);margin-right:6px">Compare :</span>${YEARS.map((y) => {
+      <h1 class="h1">${hidden ? T.h1Hidden : T.h1}</h1>
+      ${hidden ? '' : `<div class="chips years"><span style="font-size:15px;color:var(--t2);margin-right:6px">${T.compare}</span>${YEARS.map((y) => {
         const i = st.years.indexOf(y)
         return `<button class="chip ${i >= 0 ? 'on' : ''} ${i === 0 && st.years.length > 1 ? 'year-a' : ''}" data-year="${y}">${y}</button>`
       }).join('')}</div>`}
     </div>
     <div class="switch-wrap">
-      <span class="kicker" style="color:var(--t2)">Guirlandes</span>
-      <div class="switch" role="group" aria-label="Allumer ou éteindre les guirlandes">
-        <button class="magic ${hidden ? '' : 'on'}" data-mode="magic" aria-pressed="${!hidden}">${ICON_SUN}Magique</button>
-        <button class="dark ${hidden ? 'on' : ''}" data-mode="hidden" aria-pressed="${hidden}">${ICON_MOON}Face cachée</button>
+      <span class="kicker" style="color:var(--t2)">${T.lights}</span>
+      <div class="switch" role="group" aria-label="${T.lightsAria}">
+        <button class="magic ${hidden ? '' : 'on'}" data-mode="magic" aria-pressed="${!hidden}">${ICON_SUN}${T.magic}</button>
+        <button class="dark ${hidden ? 'on' : ''}" data-mode="hidden" aria-pressed="${hidden}">${ICON_MOON}${T.hidden}</button>
       </div>
     </div>
   </header>`
@@ -43,8 +50,8 @@ function header() {
 
 function footer() {
   return `<footer class="footer">
-    <p class="src">Sources : MétéoSuisse (neige manuelle, séries homogénéisées) · OFDF commerce extérieur (TN8) · Swissgrid · OFS · swisstopo (swissALTIRegio) · Suva, BPA, AXA · La Main Tendue · Statistique Vaud. Foie gras : nomenclature douanière modifiée en 2012.</p>
-    <p class="src">Estelle Rossier · Master Digital Experience Design, ECAL · workshop « Make Sense » avec Pascal Wicht · 2026</p>
+    <p class="src">${T.sources}</p>
+    <p class="src">${T.credits}</p>
   </footer>`
 }
 
@@ -57,9 +64,13 @@ function render(keepScroll = true) {
 }
 
 app.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-mode],[data-year],[data-prod],[data-dec],[data-elec]')
+  const b = e.target.closest('[data-mode],[data-year],[data-prod],[data-dec],[data-elec],[data-lang]')
   if (!b || b.disabled) return
   const d = b.dataset
+  if (d.lang) {
+    setLang(d.lang)
+    try { localStorage.setItem('lang', d.lang) } catch (err) { /* rien */ }
+  }
   if (d.mode) {
     if (st.mode === d.mode) return
     st.mode = d.mode

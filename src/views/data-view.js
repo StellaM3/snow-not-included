@@ -3,53 +3,33 @@ import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
 import europe from '../data/europe.json'
 import snow from '../data/snow.json'
-import { fmt, C, MOIS, NAMES, head } from '../util.js'
+import { C, head } from '../util.js'
+import { T, fmt, dec, pct } from '../i18n.js'
 
 const BASE = import.meta.env.BASE_URL
 
 /* ---------- 1. Noël-mètre ---------- */
-const METER = [
-  ['Mandarines', 100, '100 %', 'aucune production suisse'],
-  ['Foie gras', 100, '100 %', 'production interdite en Suisse'],
-  ['Sapins', 55, '≈ 55 %', 'estimation de la branche'],
-  ['Fromage', 37, '37 %', 'part importée de la consommation'],
-  ['Électricité en décembre', 30, '1–30 %', "solde importateur selon l'année"],
-  ['Neige', 0, '0 %', "… et pourtant elle s'en va"],
-]
+const METER = () => [[100, pct(100)], [100, pct(100)], [55, '≈ ' + pct(55)], [37, pct(37)], [30, pct('1–30')], [0, pct(0)]]
 function meter() {
   return `<div class="meter">
-    <div class="meter-head"><h2 class="h2">Le Noël-mètre</h2><span>Quelle part de ton Noël vient de l'étranger ?</span></div>
-    ${METER.map(([n, v, lab, note]) => `
-      <div class="meter-row ${n === 'Neige' ? 'snow' : ''}">
+    <div class="meter-head"><h2 class="h2">${T.meterTitle}</h2><span>${T.meterQ}</span></div>
+    ${METER().map(([v, lab], i) => { const [n, note] = T.meter[i]; return `
+      <div class="meter-row ${i === 5 ? 'snow' : ''}">
         <div><span class="name">${n}</span><span class="note">${note}</span></div>
         <div class="bar"><div style="width:${v}%;background:${v >= 50 ? C.red : '#0F1F1A'}"></div></div>
         <span class="val">${lab}</span>
-      </div>`).join('')}
+      </div>` }).join('')}
     <div class="meter-foot">
-      <span class="big">38 % → 9 %</span>
-      <p>La neige ne s'importe pas. En plaine, <b>un Noël sur trois</b> était blanc dans les années 60. Aujourd'hui, <b style="color:${C.red}">moins d'un sur dix</b>.</p>
+      <span class="big">${pct(38)} → ${pct(9)}</span>
+      <p>${T.meterFoot}</p>
     </div>
-    <p class="src">OFDF commerce extérieur · TSM · Swissgrid · MétéoSuisse (14 stations sous 600 m, moyenne sur 10 ans)</p>
+    <p class="src">${T.meterSrc}</p>
   </div>`
 }
 
 /* ---------- 2. Le voyage de ton Noël ---------- */
-export const PRODUCTS = {
-  sapins: ['Sapins', '#6FCF97'],
-  decorations: ['Décorations', '#E0434B'],
-  mandarines: ['Mandarines', '#F2994A'],
-  fromage: ['Fromage', '#EAF4FF'],
-  dinde: ['Dinde', '#C9A27E'],
-  foie: ['Foie gras', '#F4C95D'],
-}
-const HIDDEN = {
-  sapins: '85 % des sapins testés en France contenaient des pesticides.',
-  decorations: "2 jouets sur 3 viennent de Chine, avec jusqu'à 140 h sup. par mois.",
-  mandarines: 'Le plus gros volume de Noël, presque tout par camion.',
-  fromage: "Depuis 2022, la Suisse importe plus de fromage qu'elle n'en exporte.",
-  dinde: 'Une partie vient du Brésil, à plus de 11 000 km.',
-  foie: "Le gavage est interdit en Suisse. L'importation, non.",
-}
+const COLORS = { sapins: '#6FCF97', decorations: '#E0434B', mandarines: '#F2994A', fromage: '#EAF4FF', dinde: '#C9A27E', foie: '#F4C95D' }
+const PRODUCTS = () => Object.fromEntries(Object.entries(COLORS).map(([k, c]) => [k, [T.products[k], c]]))
 // Pays hors carte : on entre par le bord, route maritime approximative (km) + 800 km de camion
 const FAR = {
   CN: [[860 - 6, 300], 20000], TW: [[860 - 6, 340], 19000], AU: [[860 - 6, 620], 22000],
@@ -94,11 +74,11 @@ export function flows(prod, year) {
 function flowMap(prod, year) {
   const f = flows(prod, year)
   const { w, h, ch } = europe
-  const col = PRODUCTS[prod][1]
+  const col = COLORS[prod]
   const on = new Set(f ? f.rows.map((r) => europe.num[r.c]).filter(Boolean) : [])
   let s = europe.countries.map((k) => `<path d="${k.d}" fill="${k.id === '756' ? C.snow : on.has(k.id) ? C.landOn : C.land}" stroke="${C.dark}" stroke-width="0.8"/>`).join('')
   if (!f) {
-    s += `<text x="${w / 2}" y="${h / 2}" text-anchor="middle" font-family="Inter" font-size="20" fill="${C.t2}">Pas de données pour ${year}</text>`
+    s += `<text x="${w / 2}" y="${h / 2}" text-anchor="middle" font-family="Inter" font-size="20" fill="${C.t2}">${T.noData(year)}</text>`
     return `<svg viewBox="0 0 ${w} ${h}">${s}</svg>`
   }
   const maxT = Math.max(...f.rows.map((r) => r.t))
@@ -109,38 +89,46 @@ function flowMap(prod, year) {
     const dx = ch[0] - x, dy = ch[1] - y
     const mx = (x + ch[0]) / 2 - dy * 0.15, my = (y + ch[1]) / 2 + dx * 0.15
     const sw = 3 + 16 * Math.sqrt(r.t / maxT)
-    fl += `<path class="flow" d="M${x},${y} Q${mx},${my} ${ch[0]},${ch[1]}" fill="none" stroke="${col}" stroke-width="${sw.toFixed(1)}" stroke-linecap="round" opacity=".9" data-tip="${NAMES[r.c]} : ${fmt(r.t)} t"/>`
+    fl += `<path class="flow" d="M${x},${y} Q${mx},${my} ${ch[0]},${ch[1]}" fill="none" stroke="${col}" stroke-width="${sw.toFixed(1)}" stroke-linecap="round" opacity=".9" data-tip="${T.countries[r.c]} : ${fmt(r.t)} t"/>`
     fl += `<circle cx="${x}" cy="${y}" r="${(4 + sw / 3).toFixed(1)}" fill="${col}"/>`
     let bx = x < ch[0] ? x - LW - 16 : x + 16, by = y - 30
     bx = Math.max(6, Math.min(w - LW - 6, bx)); by = Math.max(6, Math.min(h - 70, by))
     for (const o of boxes) if (Math.abs(o[0] - bx) < LW && Math.abs(o[1] - by) < 68) { by = o[1] - 72; if (by < 6) by = o[1] + 72 }
     boxes.push([bx, by])
     lab += `<rect x="${bx}" y="${by}" width="${LW}" height="62" rx="12" fill="${C.dark}" opacity=".94" stroke="${col}" stroke-width="1.5"/>
-      <text x="${bx + 14}" y="${by + 24}" font-family="Inter" font-size="16" font-weight="800" fill="${C.t1}">${NAMES[r.c] || r.c}</text>
-      <text x="${bx + LW - 14}" y="${by + 25}" text-anchor="end" font-family="Fraunces" font-size="22" font-weight="900" fill="${col}">${r.sh} %</text>
-      <text x="${bx + 14}" y="${by + 48}" font-family="IBM Plex Mono" font-size="13" fill="${C.t2}">${fmt(r.t)} t · ${fmt(r.km)} km${r.far ? ' (mer)' : ''}</text>`
+      <text x="${bx + 14}" y="${by + 24}" font-family="Inter" font-size="16" font-weight="800" fill="${C.t1}">${T.countries[r.c] || r.c}</text>
+      <text x="${bx + LW - 14}" y="${by + 25}" text-anchor="end" font-family="Fraunces" font-size="22" font-weight="900" fill="${col}">${pct(r.sh)}</text>
+      <text x="${bx + 14}" y="${by + 48}" font-family="IBM Plex Mono" font-size="13" fill="${C.t2}">${fmt(r.t)} t · ${fmt(r.km)} km${r.far ? ` (${T.sea})` : ''}</text>`
   })
-  lab += `<circle cx="${ch[0]}" cy="${ch[1]}" r="10" fill="${C.snow}" stroke="${C.dark}" stroke-width="3"/><text x="${ch[0]}" y="${ch[1] + 32}" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" font-weight="700" fill="${C.snow}">SUISSE</text>`
+  lab += `<circle cx="${ch[0]}" cy="${ch[1]}" r="10" fill="${C.snow}" stroke="${C.dark}" stroke-width="3"/><text x="${ch[0]}" y="${ch[1] + 32}" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" font-weight="700" fill="${C.snow}">${T.switzerland}</text>`
   return `<svg viewBox="0 0 ${w} ${h}">${s}${fl}${lab}</svg>`
+}
+// Liste lisible sur mobile (la carte y est trop petite pour ses étiquettes)
+function originList(prod, year) {
+  const f = flows(prod, year)
+  if (!f) return ''
+  const col = COLORS[prod]
+  return `<ul class="origins">${f.rows.map((r) => `<li><span class="dot" style="background:${col}"></span><b>${T.countries[r.c] || r.c}</b><span class="pct" style="color:${col}">${pct(r.sh)}</span><span class="mono">${fmt(r.t)} t · ${fmt(r.km)} km${r.far ? ` (${T.sea})` : ''}</span></li>`).join('')}</ul>`
 }
 
 function voyage(st) {
   const year = st.years[st.years.length - 1]
-  const cards = Object.entries(PRODUCTS).map(([p, [n, col]]) => {
+  const P = PRODUCTS()
+  const cards = Object.entries(P).map(([p, [n, col]]) => {
     const f = flows(p, year)
-    if (!f) return `<button class="pcard" data-prod="${p}" disabled><div class="top"><span class="name"><span class="dot" style="background:${col}"></span>${n}</span><span class="mono">pas de données ${year}</span></div></button>`
+    if (!f) return `<button class="pcard" data-prod="${p}" disabled><div class="top"><span class="name"><span class="dot" style="background:${col}"></span>${n}</span><span class="mono">${T.noDataShort(year)}</span></div></button>`
     const r0 = f.rows[0]
     return `<button class="pcard ${p === st.prod ? 'on' : ''}" data-prod="${p}" style="${p === st.prod ? `border-color:${col}` : ''}">
       <div class="top"><span class="name"><span class="dot" style="background:${col}"></span>${n}</span><span class="mono">${fmt(f.total)} t</span></div>
-      <div class="row"><span class="pct">${r0.sh} %</span><span>${NAMES[r0.c]}</span><span class="mono">≈ ${fmt(f.km)} km · ${fmt(f.co2)} t CO₂</span></div>
-      <p><b>Face cachée · </b>${HIDDEN[p]}</p>
+      <div class="row"><span class="pct">${pct(r0.sh)}</span><span>${T.countries[r0.c]}</span><span class="mono">≈ ${fmt(f.km)} km · ${fmt(f.co2)} t CO₂</span></div>
+      <p><b>${T.hiddenLabel} · </b>${T.hiddenFacts[p]}</p>
     </button>`
   }).join('')
   return `<section class="section" id="voyage">
-    ${head('Le voyage de ton Noël', `Choisis un produit : chaque ligne relie un pays fournisseur à la Suisse, son épaisseur montre combien on en importe. Année affichée : <b>${year}</b>.`)}
-    <div class="chips">${Object.entries(PRODUCTS).map(([k, [n, c]]) => `<button class="chip ${k === st.prod ? 'on' : ''}" data-prod="${k}" style="${k === st.prod ? `background:${c};border-color:${c};color:#0F1F1A` : ''}"><span class="dot" style="background:${k === st.prod ? '#0F1F1A' : c}"></span>${n}</button>`).join('')}</div>
-    <div class="voyage-grid"><div class="map-box">${flowMap(st.prod, year)}</div><div class="pcards">${cards}</div></div>
-    <p class="src">OFDF, commerce extérieur, 5 premiers pays par produit · distance pondérée par tonne · CO₂ du transport : estimation (camion 0,09 kg par tonne-km, cargo 0,015) · pays lointains : route maritime puis camion</p>
+    ${head(T.voyageTitle, T.voyageLead(year))}
+    <div class="chips">${Object.entries(P).map(([k, [n, c]]) => `<button class="chip ${k === st.prod ? 'on' : ''}" data-prod="${k}" style="${k === st.prod ? `background:${c};border-color:${c};color:#0F1F1A` : ''}"><span class="dot" style="background:${k === st.prod ? '#0F1F1A' : c}"></span>${n}</button>`).join('')}</div>
+    <div class="voyage-grid"><div><div class="map-box">${flowMap(st.prod, year)}</div>${originList(st.prod, year)}</div><div class="pcards">${cards}</div></div>
+    <p class="src">${T.voyageSrc}</p>
   </section>`
 }
 
@@ -154,7 +142,7 @@ function stripes() {
     const k = t * 4, i = Math.min(3, Math.floor(k)), f = k - i
     return `rgb(${cs[i].map((x, j) => Math.round(x + (cs[i + 1][j] - x) * f))})`
   }
-  return `<svg viewBox="0 0 1300 200">${yrs.map((y, i) => `<rect x="${(i * sw).toFixed(1)}" y="0" width="${(sw + 0.6).toFixed(1)}" height="170" fill="${col(fdata.TMAX[y])}" data-tip="Hiver ${y}-${y + 1} : ${String(fdata.TMAX[y]).replace('.', ',')} °C"/>`).join('')}
+  return `<svg viewBox="0 0 1300 200">${yrs.map((y, i) => `<rect x="${(i * sw).toFixed(1)}" y="0" width="${(sw + 0.6).toFixed(1)}" height="170" fill="${col(fdata.TMAX[y])}" data-tip="${T.stripesTip(y, dec(fdata.TMAX[y]))}"/>`).join('')}
     ${[1960, 1980, 2000, 2024].map((y) => `<text x="${y === 1960 ? 0 : y === 2024 ? 1300 : (yrs.indexOf(y) * sw + sw / 2).toFixed(0)}" y="194" text-anchor="${y === 1960 ? 'start' : y === 2024 ? 'end' : 'middle'}" font-family="IBM Plex Mono" font-size="14" fill="${C.t2}">${y}</text>`).join('')}</svg>`
 }
 function series(data, color, unit, w = 600, h = 280) {
@@ -171,36 +159,36 @@ function series(data, color, unit, w = 600, h = 280) {
 const bigPair = (a, b, col) => `<span class="big">${a} <span class="arrow">→</span> <span style="color:${col}">${b}</span></span>`
 function goes() {
   return `<section class="section">
-    ${head("Ce qui s'en va", "La seule chose qu'on n'importe pas, c'est celle qui disparaît.")}
+    ${head(T.goesTitle, T.goesLead)}
     <div class="card">
-      <div class="split"><div><p class="kicker">L'hiver se réchauffe · une rayure par hiver</p><p class="chart-note" style="margin-top:8px">Température maximale moyenne de décembre à février, en plaine.</p></div>${bigPair('4,1 °C', '5,6 °C', C.red)}</div>
+      <div class="split"><div><p class="kicker">${T.stripesK}</p><p class="chart-note" style="margin-top:8px">${T.stripesNote}</p></div>${bigPair(dec(4.1) + ' °C', dec(5.6) + ' °C', C.red)}</div>
       ${stripes()}
-      <p class="src">MétéoSuisse, séries homogénéisées · moyennes 1961–1990 et 1995–2024</p>
+      <p class="src">${T.stripesSrc}</p>
     </div>
     <div class="grid2">
-      <div class="card"><p class="kicker">Noëls blancs en plaine</p>${bigPair('38 %', '9 %', C.snow)}
-        <p class="chart-note">Part des stations sous 600 m avec de la neige le 25 décembre. Barres : chaque année. Ligne : moyenne sur 10 ans.</p>
-        ${series(fdata.S600, C.snow, ' %')}<p class="src">MétéoSuisse · 14 stations mesurées depuis 1960</p></div>
-      <div class="card"><p class="kicker">Jours à fondue</p>${bigPair('65', '40', C.gold)}
-        <p class="chart-note">Jours de novembre à février où il ne dépasse pas 5 °C en plaine. Ligne : moyenne sur 10 ans.</p>
-        ${series(fdata.FON, C.gold, ' jours')}<p class="src">MétéoSuisse · années 60 contre 2016–2025</p></div>
+      <div class="card"><p class="kicker">${T.whiteK}</p>${bigPair(pct(38), pct(9), C.snow)}
+        <p class="chart-note">${T.whiteNote}</p>
+        ${series(fdata.S600, C.snow, pct('x').slice(1))}<p class="src">${T.whiteSrc}</p></div>
+      <div class="card"><p class="kicker">${T.fondueK}</p>${bigPair('65', '40', C.gold)}
+        <p class="chart-note">${T.fondueNote}</p>
+        ${series(fdata.FON, C.gold, T.days)}<p class="src">${T.fondueSrc}</p></div>
     </div>
   </section>`
 }
 
 /* ---------- 4. Où tombe la neige ---------- */
 const DECS = ['1960', '1970', '1980', '1990', '2000', '2010', '2020']
-const decLabel = (d) => (d === '2020' ? 'années 20' : 'années ' + d.slice(2))
+const decLabel = (d) => T.dec(d)
 function snowMap(d) {
   const { W, H, cities } = snow
-  const pins = Object.entries(cities).map(([k, [x, y]]) => `<circle cx="${x}" cy="${y}" r="7" fill="${C.red}" stroke="${C.dark}" stroke-width="3"/><rect x="${x + 12}" y="${y - 17}" width="${k.length * 13 + 16}" height="30" rx="8" fill="${C.dark}" opacity=".85"/><text x="${x + 20}" y="${y + 5}" font-family="Inter" font-size="22" font-weight="700" fill="${C.t1}">${k}</text>`).join('')
-  return `<div class="snowmap"><img src="${BASE}snow/${d}.jpg" alt="Carte de la Suisse : zones enneigées à Noël, ${decLabel(d)}" width="${W}" height="${H}" loading="lazy"><svg viewBox="0 0 ${W} ${H}">${pins}</svg></div>`
+  const pins = Object.entries(cities).map(([k, [x, y]]) => `<circle cx="${x}" cy="${y}" r="7" fill="${C.red}" stroke="${C.dark}" stroke-width="3"/><rect x="${x + 12}" y="${y - 17}" width="${k.length * 13 + 16}" height="30" rx="8" fill="${C.dark}" opacity=".85"/><text x="${x + 20}" y="${y + 5}" font-family="Inter" font-size="22" font-weight="700" fill="${C.t1}">${T.cities[k] || k}</text>`).join('')
+  return `<div class="snowmap"><img src="${BASE}snow/${d}.jpg" alt="${T.snowAlt(decLabel(d))}" width="${W}" height="${H}"><svg viewBox="0 0 ${W} ${H}">${pins}</svg></div>`
 }
 function snowHead(title, d, col) {
   const r = snow.res[d]
   return `<div class="snow-head"><span class="t">${title}</span><div class="nums">
-    <div><b style="color:${col}">${r.share50} %</b><span>du pays a plus d'une chance<br>sur deux d'un Noël blanc</span></div>
-    <div><b>${fmt(r.alt50)} m</b><span>limite de la neige<br>le 25 décembre</span></div></div></div>`
+    <div><b style="color:${col}">${pct(r.share50)}</b><span>${T.snowShare}</span></div>
+    <div><b>${fmt(r.alt50)} m</b><span>${T.snowLine}</span></div></div></div>`
 }
 function snowLine(sel) {
   const bw = 1180 / 7, Y = (a) => 200 - ((a - 400) / 700) * 170
@@ -217,15 +205,15 @@ function snowLine(sel) {
 function snowSection(st) {
   const d = st.dec
   return `<section class="section" id="neige">
-    ${head('Où tombe la neige à Noël ?', "Toute la Suisse, pas seulement les points de mesure : en blanc, les endroits qui avaient plus d'une chance sur deux d'être enneigés le 25 décembre. Choisis une décennie à comparer avec les années 60.")}
+    ${head(T.snowTitle, T.snowLead)}
     <div class="chips">${DECS.slice(1).map((x) => `<button class="chip ${x === d ? 'on' : ''}" data-dec="${x}">${decLabel(x)}</button>`).join('')}</div>
     <div class="grid2">
-      <div class="card">${snowHead('Années 60', '1960', C.snow)}${snowMap('1960')}</div>
-      <div class="card">${snowHead(d === '2020' ? 'Années 2020 (2020–2025)' : 'Années ' + d, d, d === '2010' || d === '2020' ? C.red : C.t1)}${snowMap(d)}</div>
+      <div class="card">${snowHead(T.decTitle('1960'), '1960', C.snow)}${snowMap('1960')}</div>
+      <div class="card">${snowHead(T.decTitle(d), d, d === '2010' || d === '2020' ? C.red : C.t1)}${snowMap(d)}</div>
     </div>
-    <div class="card"><p class="kicker">La limite de la neige à Noël remonte</p>${snowLine(d)}
-      <p class="chart-note" style="font-size:15px">* 2020 à 2025 seulement. Les variations d'une décennie à l'autre sont fortes, la tendance est nette : environ +400 m depuis les années 60.</p></div>
-    <p class="src">Méthode : pour chaque décennie, la probabilité d'avoir de la neige le 25 décembre selon l'altitude est calculée à partir des 74 points de mesure manuels de MétéoSuisse (villes, villages et cols), puis appliquée au relief swisstopo (swissALTIRegio, 320 m). Modèle simple : il ne tient compte que de l'altitude.</p>
+    <div class="card"><p class="kicker">${T.snowLineK}</p><div class="scroll-x">${snowLine(d)}</div>
+      <p class="chart-note" style="font-size:15px">${T.snowLineNote}</p></div>
+    <p class="src">${T.snowSrc}</p>
   </section>`
 }
 
@@ -238,6 +226,7 @@ function cal(key, title, years) {
   const w = 600, h = 260, bw = (w - 40) / 6, Y = (v) => h - 40 - (v / vmax) * (h - 60)
   const share = (a) => Math.round((a.slice(0, 5).reduce((p, c) => p + c, 0) / a.reduce((p, c) => p + c, 0)) * 100)
   let s = ''
+  const MOIS = T.months
   MOIS.forEach((m, i) => {
     const x = 20 + i * bw
     arrs.forEach((a, k) => {
@@ -245,18 +234,18 @@ function cal(key, title, years) {
       const bx = x + bw * (years.length === 1 ? 0.3 : 0.18 + k * 0.34)
       s += `<rect x="${bx}" y="${Y(a[i])}" width="${bw * 0.3}" height="${h - 40 - Y(a[i])}" fill="${YCOL[k]}" rx="3" data-tip="${m} ${years[k]} : ${fmt(a[i])} t"/>`
     })
-    s += `<text x="${x + bw / 2}" y="${h - 12}" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="${m === 'déc.' ? C.t1 : C.t2}" font-weight="${m === 'déc.' ? 700 : 400}">${m}</text>`
+    s += `<text x="${x + bw / 2}" y="${h - 12}" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="${i === 5 ? C.t1 : C.t2}" font-weight="${i === 5 ? 700 : 400}">${m}</text>`
   })
   return `<div class="card"><p class="kicker">${title}</p>
-    <div class="cal-nums">${years.map((y, k) => arrs[k] ? `<div><b style="color:${YCOL[k]}">${share(arrs[k])} %</b><span>déjà en Suisse au 1er déc. · ${y}</span></div>` : `<div><b style="color:${C.t3}">–</b><span>pas de données · ${y}</span></div>`).join('')}</div>
+    <div class="cal-nums">${years.map((y, k) => arrs[k] ? `<div><b style="color:${YCOL[k]}">${pct(share(arrs[k]))}</b><span>${T.alreadyIn(y)}</span></div>` : `<div><b style="color:${C.t3}">–</b><span>${T.noDataYear(y)}</span></div>`).join('')}</div>
     <svg viewBox="0 0 ${w} ${h}">${s}</svg></div>`
 }
 function sept(st) {
   return `<section class="section">
-    ${head('Noël commence en septembre', 'Tonnes importées chaque mois, de juillet à décembre. Les décorations arrivent dès la rentrée.')}
+    ${head(T.septTitle, T.septLead)}
     <div class="legend">${st.years.map((y, k) => `<span><i style="background:${YCOL[k]}"></i>${y}</span>`).join('')}</div>
-    <div class="grid2">${cal('dec', 'Les décorations', st.years)}${cal('sap', 'Les sapins', st.years)}</div>
-    <p class="src">OFDF, commerce extérieur (TN8) · décorations 9505, sapins 0604</p>
+    <div class="grid2">${cal('dec', T.calDeco, st.years)}${cal('sap', T.calTrees, st.years)}</div>
+    <p class="src">${T.septSrc}</p>
   </section>`
 }
 

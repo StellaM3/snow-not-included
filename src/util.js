@@ -1,18 +1,7 @@
 // Petits outils partagés
-export const fmt = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'")
-
 export const C = {
   red: '#E0434B', snow: '#EAF4FF', gold: '#F4C95D', land: '#1D3529', landOn: '#3A5E4C',
   bar: '#3E6455', line: '#2C4A3F', t1: '#F4F1EA', t2: '#D2DED8', t3: '#A9BDB4', dark: '#0B1712',
-}
-
-export const MOIS = ['juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
-
-export const NAMES = {
-  DK: 'Danemark', DE: 'Allemagne', FR: 'France', BE: 'Belgique', LU: 'Luxembourg', NL: 'Pays-Bas',
-  BA: 'Bosnie', CN: 'Chine', IT: 'Italie', ES: 'Espagne', ZA: 'Afrique du Sud', AU: 'Australie',
-  RO: 'Roumanie', US: 'États-Unis', IL: 'Israël', CL: 'Chili', HU: 'Hongrie', TW: 'Taïwan',
-  GR: 'Grèce', BR: 'Brésil', BG: 'Bulgarie', IS: 'Islande', AT: 'Autriche',
 }
 
 // Section titre + sous-titre

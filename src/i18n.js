@@ -154,8 +154,8 @@ export const DICT = {
     budgetTitle: "Combien les Suisses prévoient de dépenser en cadeaux",
     budgetNote: "Budget moyen prévu par personne pour les cadeaux de Noël, en francs, selon le sondage annuel d'EY et de la Swiss Retail Federation (600 à 800 adultes interrogés en Suisse chaque année). Pas de chiffre publié trouvé pour 2017 à 2019.",
     eySrc: "EY et Swiss Retail Federation, sondages de Noël 2016 à 2025",
-    giftsTitle: "Ce que les Suisses offrent, et comment ça change",
-    giftsNote: "Part des personnes interrogées qui prévoient d'offrir chaque type de cadeau, chaque année de 2021 à 2025. Le chiffre à droite est celui de 2025 (2024 pour l'électronique).",
+    giftsTitle: "Ce que les Suisses offrent, de 2014 à 2025",
+    giftsNote: "Part des personnes interrogées qui prévoient d'offrir chaque type de cadeau. Les points sont les années publiées ; les pointillés relient des années sans chiffre publié.",
     gifts: {
       vouchers: "Bons et argent",
       toys: "Jouets",
@@ -216,8 +216,6 @@ export const DICT = {
       salon: ["Le salon", "Ce que cachent les objets d'un Noël ordinaire"],
       mythe: ["Le mythe", "Noël, période la plus dure de l'année ?"],
     },
-    revTitle: "Le réveillon s'importe aussi : huîtres et bulles",
-    revLead: "Deux produits presque entièrement importés, qu'on ouvre surtout entre le 24 et le 31 décembre.",
     oyTitle: "Une huître sur deux arrive en décembre",
     oyRead: (y) => `des huîtres importées sur l'année ${y} arrivent en décembre`,
     oyNote: "Chaque barre : la part des huîtres importées (en poids) qui arrive ce mois-là. Sans effet fêtes, chaque mois ferait environ 8 %.",
@@ -235,7 +233,6 @@ export const DICT = {
       other: "Autres pays",
     },
     bubPrice: (fr, it) => `Un litre importé de France coûte en moyenne ${fr} CHF à la frontière, un litre d'Italie ${it} CHF.`,
-    bubSwiss: "Environ 96 % des bulles bues en Suisse sont importées.",
     revSrc: "OFDF, commerce extérieur (TN8) : huîtres 0307.10–0307.19, vins mousseux 2204.10. Population : OFS.",
     tradTitle: "Ce que Noël veut dire aux Suisses",
     tradLead: "Un Noël de moins en moins religieux, mais toujours familial. Ce que disent les sondages, les recensements, le hit-parade et Netflix.",
@@ -290,10 +287,25 @@ export const DICT = {
     onlineFoot: "Plus de commandes en ligne, c'est plus de colis à livrer.",
     onlineShop: "en magasin",
     onlineWeb: "en ligne",
-    giftsRead: "Les bons et l'argent progressent (32 % → 44 %), les vêtements et les cosmétiques reculent depuis 2021. L'électronique reste rare, mais elle monte.",
-    giftsBefore: "Avant 2021, EY ne publie pas ces parts sous une forme comparable pour la Suisse.",
+    giftsRead: "Le livre était le cadeau n° 1 en 2014 (56 %) : il ne touche plus qu'un tiers des gens. Les bons et l'argent, eux, restent en tête. Les vêtements et les cosmétiques ont chuté après 2021, et l'électronique reste rare, mais elle monte.",
+    giftsBefore: "Attention : en 2014 et 2016, EY interrogeait 500 personnes par téléphone ; depuis 2021, plus de 600 en ligne. Les ordres de grandeur se comparent, pas les points exacts. Pour 2016, « bons et argent » est arrondi à 50 % (« un sur deux » dans la source).",
     giftsUp: "en hausse",
     giftsDown: "en baisse",
+    impRowsTitle: "🎁 Les autres produits de Noël importés",
+    impBaseShort: "25 % = année sans Noël",
+    alc: {
+      title: "À Noël comme toute l'année : la Suisse boit moins",
+      lead: "Les bulles de fin d'année sont presque toutes importées. Mais la tendance de fond va vers moins d'alcool, et vers plus de boissons sans alcool.",
+      downTitle: "Alcool pur bu par personne et par an (15 ans et plus)",
+      downRead: "En 23 ans, la quantité d'alcool pur vendue par personne a baissé de près d'un tiers.",
+      glassKey: "= 10 verres standard (10 g d'alcool pur chacun)",
+      zeroTitle: "La bière sans alcool grimpe",
+      zeroBeer: [["2022/23", 6.1], ["2023/24", 7], ["2024/25", 7.5]],
+      zeroBeerNote: "Part de la bière sans alcool dans toute la bière vendue en Suisse, par année brassicole. En 2024/25, elle a progressé de 13 % alors que le marché total de la bière a reculé.",
+      zeroWine: ["Le vin sans alcool ne pèse encore qu'environ 1 % des ventes de vin, mais Coop investit dans une installation pour retirer l'alcool du vin.", "Chez le caviste en ligne Flaschenpost, les ventes de vin sans alcool ont triplé fin 2025 par rapport à l'année précédente."],
+      bubMore: "Le volume de mousseux importé a doublé depuis 1990 : la fête reste pétillante, mais moins chère, et italienne.",
+      src: "OFSP et Addiction Suisse (alcool pur, 2001–2024) · Association suisse des brasseurs (bière sans alcool) · SRF, Blick, Bilanz (vin sans alcool)",
+    },
   },
   en: {
     h1: "In Switzerland {CH}, everything at Christmas {TREE} is imported.<br><em>Except the snow.</em>",
@@ -447,8 +459,8 @@ export const DICT = {
     budgetTitle: "How much the Swiss plan to spend on gifts",
     budgetNote: "Average planned Christmas gift budget per person, in Swiss francs, from the yearly survey by EY and the Swiss Retail Federation (600 to 800 adults in Switzerland each year). No published figure found for 2017 to 2019.",
     eySrc: "EY and Swiss Retail Federation, Christmas surveys 2016 to 2025",
-    giftsTitle: "What the Swiss give, and how it is changing",
-    giftsNote: "Share of respondents planning to give each type of gift, each year from 2021 to 2025. The number on the right is 2025 (2024 for electronics).",
+    giftsTitle: "What the Swiss give, from 2014 to 2025",
+    giftsNote: "Share of respondents planning to give each type of gift. Dots are published years; dotted lines join years with no published figure.",
     gifts: {
       vouchers: "Vouchers and money",
       toys: "Toys",
@@ -509,8 +521,6 @@ export const DICT = {
       salon: ["The living room", "What the objects of an ordinary Christmas hide"],
       mythe: ["The myth", "Is Christmas the hardest time of year?"],
     },
-    revTitle: "New Year's Eve is imported too: oysters and bubbles",
-    revLead: "Two products that are almost entirely imported, and mostly opened between 24 and 31 December.",
     oyTitle: "One oyster in two arrives in December",
     oyRead: (y) => `of the oysters imported in ${y} arrive in December`,
     oyNote: "Each bar: the share of imported oysters (by weight) arriving that month. Without the holidays, each month would be about 8%.",
@@ -528,7 +538,6 @@ export const DICT = {
       other: "Other countries",
     },
     bubPrice: (fr, it) => `A litre imported from France costs on average CHF ${fr} at the border, a litre from Italy CHF ${it}.`,
-    bubSwiss: "About 96% of the bubbles drunk in Switzerland are imported.",
     revSrc: "FOCBS foreign trade (TN8): oysters 0307.10–0307.19, sparkling wine 2204.10. Population: FSO.",
     tradTitle: "What Christmas means to the Swiss",
     tradLead: "A Christmas that is less and less religious, but still about family. What polls, censuses, the charts and Netflix say.",
@@ -583,10 +592,25 @@ export const DICT = {
     onlineFoot: "More online orders means more parcels to deliver.",
     onlineShop: "in shops",
     onlineWeb: "online",
-    giftsRead: "Vouchers and money are rising (32% → 44%); clothes and cosmetics have dropped since 2021. Electronics are still rare, but growing.",
-    giftsBefore: "Before 2021, EY does not publish these shares in a comparable form for Switzerland.",
+    giftsRead: "Books were the number 1 gift in 2014 (56%): now only a third of people give them. Vouchers and money stay on top. Clothes and cosmetics dropped after 2021, and electronics are still rare, but growing.",
+    giftsBefore: "Note: in 2014 and 2016 EY surveyed 500 people by phone; since 2021, over 600 online. Compare orders of magnitude, not exact points. For 2016, “vouchers and money” is rounded to 50% (“one in two” in the source).",
     giftsUp: "rising",
     giftsDown: "falling",
+    impRowsTitle: "🎁 Other imported Christmas products",
+    impBaseShort: "25% = a year without Christmas",
+    alc: {
+      title: "At Christmas as all year round: Switzerland drinks less",
+      lead: "Almost all the bubbles of the holidays are imported. But the long-term trend is less alcohol, and more alcohol-free drinks.",
+      downTitle: "Pure alcohol drunk per person per year (aged 15+)",
+      downRead: "In 23 years, the pure alcohol sold per person has fallen by almost a third.",
+      glassKey: "= 10 standard drinks (10 g of pure alcohol each)",
+      zeroTitle: "Alcohol-free beer is climbing",
+      zeroBeer: [["2022/23", 6.1], ["2023/24", 7], ["2024/25", 7.5]],
+      zeroBeerNote: "Share of alcohol-free beer in all beer sold in Switzerland, by brewing year. In 2024/25 it grew by 13% while the overall beer market shrank.",
+      zeroWine: ["Alcohol-free wine is still only about 1% of wine sales, but Coop is investing in a plant to remove alcohol from wine.", "At online wine shop Flaschenpost, alcohol-free wine sales tripled at the end of 2025 compared with a year earlier."],
+      bubMore: "The volume of imported sparkling wine has doubled since 1990: the party is still bubbly, but cheaper, and Italian.",
+      src: "FOPH and Addiction Switzerland (pure alcohol, 2001–2024) · Swiss Brewers Association (alcohol-free beer) · SRF, Blick, Bilanz (alcohol-free wine)",
+    },
   },
 }
 
@@ -602,4 +626,7 @@ export function setLang(l) {
 // Nombres : 5'359 et 4,1 en français ; 5,359 et 4.1 en anglais
 export const fmt = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, lang === 'fr' ? "'" : ',')
 export const dec = (n) => (lang === 'fr' ? String(n).replace('.', ',') : String(n))
-export const pct = (n) => (lang === 'fr' ? `${n} %` : `${n}%`)
+export const pct = (n) => {
+  const v = typeof n === 'number' ? n.toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-GB', { maximumFractionDigits: 1 }) : n
+  return lang === 'fr' ? `${v} %` : `${v}%`
+}

@@ -45,31 +45,53 @@ function flute(y) {
   </svg>`
 }
 
-export function reveillonCard(st) {
+// Huîtres : bloc placé en tête de la carte des importations
+export function oysterBlock(st) {
   const ys = st.years
-  const big = (f, unit = '') => ys.map((y, k) => `<span class="big" style="color:${YCOL[ys.length > 1 ? k : 1]}">${f(y)}${unit}</span>`).join('<span class="big arrow">→</span>')
-  const last = ys[ys.length - 1]
-  return `<div class="card rev-card">
-    <div class="section-sub"><h3 class="card-title">${T.revTitle}</h3><p class="chart-note">${T.revLead}</p></div>
-    ${yearCompare(ys, T)}
+  const big = ys.map((y, k) => `<span class="big" style="color:${YCOL[ys.length > 1 ? k : 1]}">${Math.round(rev.oysters[y].months[11])} %</span>`).join('<span class="big arrow">→</span>')
+  return `<div class="oy-block">
+    <div class="oy-text">
+      <h4 class="mini-title">🦪 ${T.oyTitle}</h4>
+      <div class="detail-big">${big}</div>
+      <p class="chart-note">${T.oyRead(ys.join(' / '))}. ${T.oyNote}</p>
+      <ul class="facts"><li>${ys.map((y) => `${y} : ${T.oyTonnes(rev.oysters[y].t)}`).join(' · ')}</li><li>${T.oyFrance}</li></ul>
+    </div>
+    <div class="scroll-x">${oysterBars(ys)}</div>
+  </div>`
+}
+
+// Alcool : les bulles importées, la baisse de la consommation, le sans-alcool
+function glasses(n, color) {
+  return `<div class="glasses">${Array.from({ length: n }, () => `<i style="background:${color}"></i>`).join('')}</div>`
+}
+export function alcoholCard(st) {
+  const ys = st.years, last = ys[ys.length - 1]
+  const A = T.alc
+  return `<div class="card alc-card">
+    <div class="section-sub"><h3 class="card-title">🥂 ${A.title}</h3><p class="chart-note">${A.lead}</p></div>
     <div class="grid2 rev-grid">
       <div class="rev-col">
-        <h4 class="mini-title">🦪 ${T.oyTitle}</h4>
-        <div class="detail-big">${big((y) => Math.round(rev.oysters[y].months[11]), ' %')}</div>
-        <p class="chart-note">${T.oyRead(ys.join(' / '))}. ${T.oyNote}</p>
-        <div class="scroll-x">${oysterBars(ys)}</div>
-        <ul class="facts"><li>${ys.map((y) => `${y} : ${T.oyTonnes(rev.oysters[y].t)}`).join(' · ')}</li><li>${T.oyFrance}</li></ul>
+        <h4 class="mini-title">${A.downTitle}</h4>
+        <div class="detail-big"><span class="big" style="color:${C.red}">10,6 L</span><span class="yr">2001</span><span class="big arrow">→</span><span class="big" style="color:${C.snow}">7,6 L</span><span class="yr">2024</span></div>
+        <p class="chart-note">${A.downRead}</p>
+        <div class="gl-row"><span class="gl-y">2001</span>${glasses(84, C.red)}<b>≈ 840</b></div>
+        <div class="gl-row"><span class="gl-y">2024</span>${glasses(60, C.snow)}<b>≈ 600</b></div>
+        <p class="legend-txt"><i class="gl-key"></i> ${A.glassKey}</p>
+        <h4 class="mini-title" style="margin-top:10px">${A.zeroTitle}</h4>
+        <div class="zero">${A.zeroBeer.map(([y, v]) => `<div class="z-row"><span class="gl-y">${y}</span><div class="z-track"><div class="z-bar" style="width:${v * 8}%"></div></div><b>${pct(v)}</b></div>`).join('')}</div>
+        <p class="chart-note">${A.zeroBeerNote}</p>
+        <ul class="facts">${A.zeroWine.map((f) => `<li>${f}</li>`).join('')}</ul>
       </div>
       <div class="rev-col">
-        <h4 class="mini-title">🥂 ${T.bubTitle}</h4>
+        <h4 class="mini-title">${T.bubTitle}</h4>
+        ${yearCompare(ys, T)}
         <div class="flutes">${ys.map((y) => `<div class="fl-wrap">${flute(y)}<div class="fl-txt"><b>${pct(rev.bubbles[y].IT)}</b> ${T.bubOrigins.IT.split(' (')[0]}<br><b>${pct(rev.bubbles[y].FR)}</b> ${T.bubOrigins.FR.split(' (')[0]}<br><span>${T.bubPerCap(dec(rev.bubbles[y].perCap))}</span></div></div>`).join('')}</div>
         <div class="b-legend">${Object.keys(BCOL).map((k) => `<span><i style="background:${BCOL[k]}"></i>${T.bubOrigins[k]}</span>`).join('')}</div>
         <p class="chart-note">${T.bubNote}</p>
-        <ul class="facts"><li>${T.bubPrice(dec(rev.bubbles[last].chfL_FR), dec(rev.bubbles[last].chfL_IT))}</li><li>${T.bubSwiss}</li></ul>
+        <ul class="facts"><li>${A.bubMore}</li><li>${T.bubPrice(dec(rev.bubbles[last].chfL_FR), dec(rev.bubbles[last].chfL_IT))}</li></ul>
       </div>
     </div>
-    <p class="hint">${T.hintHover}</p>
-    <p class="src">${T.revSrc}</p>
+    <p class="src">${A.src} · ${T.revSrc}</p>
   </div>`
 }
 

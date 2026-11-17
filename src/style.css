@@ -626,3 +626,23 @@ body.hidden .chap-k { color: var(--red); }
 .gh-years { display: flex; justify-content: space-between; padding: 0 2%; font-family: var(--mono); font-size: 12px; color: var(--t3); }
 .gh-head { margin-bottom: -4px; }
 @media (max-width: 680px) { .gh-row { grid-template-columns: 110px 1fr 52px; gap: 8px; } .gh-row .g-name { font-size: 13px; } .gh-row .g-val { font-size: 20px; } }
+
+/* v5 : huîtres en tête des importations, alcool, libellé de la ligne 25 % */
+.oy-block { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; align-items: center; padding: 20px; border-radius: 18px; background: linear-gradient(160deg, #1A2B33, transparent); border: 1px solid var(--line); }
+@media (max-width: 900px) { .oy-block { grid-template-columns: 1fr; } }
+.imp-head > span:nth-child(3) { position: relative; }
+.base-lab { position: absolute; top: 100%; margin-top: 4px; transform: translateX(-50%); font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--gold); white-space: nowrap; background: var(--card); padding: 1px 6px; border-radius: 6px; border: 1px dashed var(--gold); z-index: 2; }
+.imp-head { padding-bottom: 22px; }
+@media (max-width: 900px) { .imp-head { display: none; } }
+.alc-card { background: linear-gradient(180deg, #2B2A1A, var(--card) 45%); }
+.gl-row { display: grid; grid-template-columns: 48px 1fr 54px; align-items: center; gap: 10px; }
+.gl-row b { font-family: var(--mono); text-align: right; }
+.gl-y { font-family: var(--mono); font-weight: 700; color: var(--t2); font-size: 13px; }
+.glasses { display: flex; flex-wrap: wrap; gap: 3px; }
+.glasses i, .gl-key { display: inline-block; width: 9px; height: 14px; border-radius: 1px 1px 4px 4px; }
+.gl-key { background: var(--snow); vertical-align: -2px; }
+.zero { display: flex; flex-direction: column; gap: 8px; }
+.z-row { display: grid; grid-template-columns: 64px 1fr 54px; align-items: center; gap: 10px; }
+.z-row b { font-family: var(--mono); text-align: right; color: #9FD3B4; }
+.z-track { height: 18px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.z-bar { height: 100%; background: #9FD3B4; border-radius: 999px; }

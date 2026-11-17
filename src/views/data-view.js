@@ -1,5 +1,5 @@
 import { chap } from '../nav.js'
-import { reveillonCard, traditionsSection } from './culture-view.js'
+import { oysterBlock, alcoholCard, traditionsSection } from './culture-view.js'
 // Vue « Magique » : les données (maquette F2)
 import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
@@ -317,28 +317,32 @@ function onlineViz() {
     <p class="legend-txt"><span class="o-key web"></span> ${T.onlineWeb} <span class="o-key shop"></span> ${T.onlineShop} · ${T.onlineFoot}</p></div>`
 }
 function giftBars() {
-  const H = industry.ey.giftsHist, YS = ['2021', '2022', '2023', '2024', '2025']
-  const W = 300, h = 64, x = (i) => 16 + i * ((W - 32) / 4), y = (v) => h - 6 - ((v - 0) / 50) * (h - 12)
+  const H = industry.ey.giftsHist, Y0 = 2014, Y1 = 2025, LAB = [2014, 2016, 2021, 2022, 2023, 2024, 2025]
+  const W = 340, h = 64, x = (yy) => 14 + ((yy - Y0) / (Y1 - Y0)) * (W - 28), y = (v) => h - 6 - (v / 60) * (h - 12)
   const row = (k) => {
-    const d = H[k], ys = YS.filter((yy) => d[yy] !== undefined)
+    const d = H[k], ys = Object.keys(d).map(Number).sort((a, b) => a - b)
     const first = d[ys[0]], last = d[ys[ys.length - 1]], diff = last - first
     const col = diff >= 4 ? C.gold : diff <= -4 ? C.red : C.snow
-    const pts = ys.map((yy) => [x(YS.indexOf(yy)), y(d[yy]), yy, d[yy]])
-    let s = `<polyline points="${pts.map((p) => p[0] + ',' + p[1]).join(' ')}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round"/>`
-    s += pts.map(([px, py, yy, v], i) => `<circle cx="${px}" cy="${py}" r="${i === pts.length - 1 ? 6 : 4}" fill="${i === pts.length - 1 ? col : '#16291F'}" stroke="${col}" stroke-width="2.5" data-tip="${T.gifts[k]} · ${yy} : ${pct(v)}"/>`).join('')
+    let s = ''
+    for (let i = 1; i < ys.length; i++) {
+      const a = ys[i - 1], b = ys[i]
+      s += `<line x1="${x(a)}" y1="${y(d[a])}" x2="${x(b)}" y2="${y(d[b])}" stroke="${col}" stroke-width="3" stroke-linecap="round" ${b - a > 1 ? 'stroke-dasharray="2 6" opacity=".7"' : ''}/>`
+    }
+    s += ys.map((yy, i) => `<circle cx="${x(yy)}" cy="${y(d[yy])}" r="${i === ys.length - 1 ? 6 : 4}" fill="${i === ys.length - 1 ? col : '#16291F'}" stroke="${col}" stroke-width="2.5" data-tip="${T.gifts[k]} · ${yy} : ${pct(d[yy])}"/>`).join('')
+    s += `<text x="${x(ys[0]) - 8}" y="${y(first) + 4}" text-anchor="end" font-family="IBM Plex Mono" font-size="12" fill="${C.t3}">${first}</text>`
     const tag = diff >= 4 ? `▲ ${T.giftsUp}` : diff <= -4 ? `▼ ${T.giftsDown}` : ''
     return `<div class="gh-row"><span class="g-name">${T.gifts[k]}${tag ? `<small style="color:${col}">${tag}</small>` : ''}</span>
       <svg viewBox="0 0 ${W} ${h}" class="gh-svg">${s}</svg>
       <span class="g-val" style="color:${col}">${pct(last)}</span></div>`
   }
   return `<div class="gift-hist">
-    <div class="gh-row gh-head"><span></span><svg viewBox="0 0 ${W} 18" class="gh-svg">${YS.map((yy, i) => `<text x="${x(i)}" y="13" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">’${yy.slice(2)}</text>`).join('')}</svg><span></span></div>
+    <div class="gh-row gh-head"><span></span><svg viewBox="0 0 ${W} 18" class="gh-svg">${LAB.map((yy) => `<text x="${x(yy)}" y="13" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="${C.t3}">’${String(yy).slice(2)}</text>`).join('')}</svg><span></span></div>
     ${Object.keys(H).map(row).join('')}</div>`
 }
 function importRows(years) {
   const I = industry.imports
   return `<div class="imp-rows">
-    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}</span><span>${T.impColOrigin}</span></div>
+    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}<em class="base-lab" style="left:${25 * 1.6}%">${T.impBaseShort}</em></span><span>${T.impColOrigin}</span></div>
     ${IMP_KEYS.map((k) => {
       const vals = years.map((y) => I[k][y])
       const val = vals.map((v, i) => v ? `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${fmt(v[0])}</b>` : `<b style="color:${C.t3}">–</b>`).join('<span class="arrow"> → </span>')
@@ -380,10 +384,12 @@ function industrySection(st) {
     <div class="card"><h3 class="card-title">${T.impTitle}</h3>
       <p class="chart-note">${T.impNote}</p>
       ${yearCompare(st.years, T)}
+      ${oysterBlock(st)}
+      <h4 class="mini-title">${T.impRowsTitle}</h4>
       ${importRows(st.years)}
       <p class="chart-note" style="font-size:15px">${T.originNote}</p>
       <p class="src">${T.impSrc}</p></div>
-    ${reveillonCard(st)}
+    ${alcoholCard(st)}
     <div class="grid2">
       <div class="card"><h3 class="card-title">${T.parcelsTitle}</h3>
         <p class="chart-note">${T.parcelsNote}</p>

@@ -317,10 +317,23 @@ function onlineViz() {
     <p class="legend-txt"><span class="o-key web"></span> ${T.onlineWeb} <span class="o-key shop"></span> ${T.onlineShop} · ${T.onlineFoot}</p></div>`
 }
 function giftBars() {
-  return `<div class="gift-bars">${industry.ey.gifts.map(([k, v25, v24]) => `
-    <div class="gift-row"><span class="g-name">${T.gifts[k]}</span>
-      <div class="g-track"><div class="g-bar" style="width:${v25 * 2}%"></div><div class="g-mark" style="left:${v24 * 2}%" title="2024 : ${pct(v24)}"></div></div>
-      <span class="g-val">${pct(v25)}</span></div>`).join('')}</div>`
+  const H = industry.ey.giftsHist, YS = ['2021', '2022', '2023', '2024', '2025']
+  const W = 300, h = 64, x = (i) => 16 + i * ((W - 32) / 4), y = (v) => h - 6 - ((v - 0) / 50) * (h - 12)
+  const row = (k) => {
+    const d = H[k], ys = YS.filter((yy) => d[yy] !== undefined)
+    const first = d[ys[0]], last = d[ys[ys.length - 1]], diff = last - first
+    const col = diff >= 4 ? C.gold : diff <= -4 ? C.red : C.snow
+    const pts = ys.map((yy) => [x(YS.indexOf(yy)), y(d[yy]), yy, d[yy]])
+    let s = `<polyline points="${pts.map((p) => p[0] + ',' + p[1]).join(' ')}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round"/>`
+    s += pts.map(([px, py, yy, v], i) => `<circle cx="${px}" cy="${py}" r="${i === pts.length - 1 ? 6 : 4}" fill="${i === pts.length - 1 ? col : '#16291F'}" stroke="${col}" stroke-width="2.5" data-tip="${T.gifts[k]} · ${yy} : ${pct(v)}"/>`).join('')
+    const tag = diff >= 4 ? `▲ ${T.giftsUp}` : diff <= -4 ? `▼ ${T.giftsDown}` : ''
+    return `<div class="gh-row"><span class="g-name">${T.gifts[k]}${tag ? `<small style="color:${col}">${tag}</small>` : ''}</span>
+      <svg viewBox="0 0 ${W} ${h}" class="gh-svg">${s}</svg>
+      <span class="g-val" style="color:${col}">${pct(last)}</span></div>`
+  }
+  return `<div class="gift-hist">
+    <div class="gh-row gh-head"><span></span><svg viewBox="0 0 ${W} 18" class="gh-svg">${YS.map((yy, i) => `<text x="${x(i)}" y="13" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">’${yy.slice(2)}</text>`).join('')}</svg><span></span></div>
+    ${Object.keys(H).map(row).join('')}</div>`
 }
 function importRows(years) {
   const I = industry.imports
@@ -358,8 +371,10 @@ function industrySection(st) {
         <p class="src">${T.eySrc}</p></div>
       <div class="card"><h3 class="card-title">${T.giftsTitle}</h3>
         <p class="chart-note">${T.giftsNote}</p>
+        <p class="why">${T.giftsRead}</p>
         ${giftBars()}
-        <p class="legend-txt"><span class="mark-key"></span> ${T.giftsMark}</p>
+        <p class="hint">${T.hintHover}</p>
+        <p class="legend-txt">${T.giftsBefore}</p>
         <p class="src">${T.eySrc}</p></div>
     </div>
     <div class="card"><h3 class="card-title">${T.impTitle}</h3>

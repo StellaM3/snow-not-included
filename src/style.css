@@ -615,3 +615,14 @@ body.hidden .chap-k { color: var(--red); }
 .on-shop { flex: 1; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; font-size: 13px; color: var(--t3); }
 .o-key.web, .o-key.shop { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
 .o-key.web { background: var(--gold); } .o-key.shop { background: var(--line); }
+
+/* Cadeaux : évolution 2021–2025 */
+.gift-hist { display: flex; flex-direction: column; gap: 6px; }
+.gh-row { display: grid; grid-template-columns: 170px 1fr 64px; align-items: center; gap: 12px; }
+.gh-row .g-name { display: flex; flex-direction: column; font-size: 15px; color: var(--t2); line-height: 1.2; }
+.gh-row .g-name small { font-family: var(--mono); font-size: 11px; margin-top: 2px; }
+.gh-row .g-val { font-family: var(--serif); font-weight: 900; font-size: 24px; text-align: right; white-space: nowrap; }
+.gh-svg { width: 100%; height: auto; overflow: visible; }
+.gh-years { display: flex; justify-content: space-between; padding: 0 2%; font-family: var(--mono); font-size: 12px; color: var(--t3); }
+.gh-head { margin-bottom: -4px; }
+@media (max-width: 680px) { .gh-row { grid-template-columns: 110px 1fr 52px; gap: 8px; } .gh-row .g-name { font-size: 13px; } .gh-row .g-val { font-size: 20px; } }

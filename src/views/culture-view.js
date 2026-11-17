@@ -107,10 +107,11 @@ function wordBubbles() {
     s += `<text x="${x}" y="${y - 4}" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="${i === 0 ? 46 : 30}" fill="#0F1F1A" pointer-events="none">${v} %</text>`
     s += `<text x="${x}" y="${y + (i === 0 ? 30 : 22)}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="${i === 0 ? 20 : 15}" fill="#0F1F1A" pointer-events="none">${w}</text>`
   })
-  // la foi : une toute petite bulle
-  s += `<circle cx="440" cy="335" r="${R(8)}" fill="none" stroke="${C.t2}" stroke-width="2" stroke-dasharray="4 4" data-tip="8 % : ${T.faith8}"/>`
-  s += `<text x="440" y="342" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="20" fill="${C.t1}" pointer-events="none">8 %</text>`
-  return `<svg viewBox="0 0 500 400" class="words">${s}</svg>`
+  // la foi : une toute petite bulle, avec son explication juste à côté
+  s += `<circle cx="70" cy="428" r="${R(8)}" fill="none" stroke="${C.t2}" stroke-width="2" stroke-dasharray="4 4" data-tip="8 % : ${T.faith8}"/>`
+  s += `<text x="70" y="435" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="20" fill="${C.t1}" pointer-events="none">8 %</text>`
+  s += `<text x="120" y="422" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8a}</text><text x="120" y="444" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8b}</text>`
+  return `<svg viewBox="0 0 500 470" class="words">${s}</svg>`
 }
 
 function spoilBars() {
@@ -150,7 +151,7 @@ function religionCard(st) {
   </div>`
 }
 
-function songChart() {
+function songChart(sel) {
   const d = culture.songs, ys = Object.keys(d).map(Number)
   const W = 1000, H = 300, pad = 30, bw = (W - pad * 2) / ys.length
   let s = ''
@@ -161,13 +162,27 @@ function songChart() {
   ys.forEach((y, i) => {
     const v = d[y], h = (v / 30) * (H - 70), x = pad + i * bw
     const hot = v >= 20
-    s += `<rect x="${x + 3}" y="${H - 34 - Math.max(h, 2)}" width="${bw - 6}" height="${Math.max(h, 2)}" rx="3" fill="${hot ? C.red : v ? C.gold : C.line}" data-tip="${T.songTip(y, v)}"/>`
+    const on = y === sel
+    s += `<g class="sb ${on ? 'on' : ''}" data-songy="${y}" role="button" tabindex="0"><rect x="${x}" y="20" width="${bw}" height="${H - 34}" fill="${on ? 'rgba(234,244,255,.08)' : 'transparent'}" rx="4"/><rect x="${x + 3}" y="${H - 34 - Math.max(h, 2)}" width="${bw - 6}" height="${Math.max(h, 2)}" rx="3" fill="${hot ? C.red : v ? C.gold : C.line}" ${on ? `stroke="${C.snow}" stroke-width="2.5"` : ''} data-tip="${T.songTip(y, v)}"/></g>`
     if (v && (y % 5 === 0 || y === 2025 || y === 2017)) s += `<text x="${x + bw / 2}" y="${H - 40 - h}" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="13" fill="${C.t1}">${v}</text>`
-    if (y % 5 === 0 || y === 2025) s += `<text x="${x + bw / 2}" y="${H - 12}" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="${C.t2}">${y}</text>`
+    if (y % 5 === 0 || y === 2025 || y === sel) s += `<text font-weight="${y === sel ? 700 : 400}"  x="${x + bw / 2}" y="${H - 12}" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="${C.t2}">${y}</text>`
   })
   return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
 }
 
+function songPanel(y) {
+  const o = culture.songTop[y], n = culture.songs[y]
+  const ages = o.x.slice(0, 5).map((x) => y - +x[3]), avg = ages.length ? Math.round(ages.reduce((a, b) => a + b, 0) / ages.length) : null
+  const discs = o.x.slice(0, 5).map(([r, a, t, ry], i) => `<div class="vinyl"><div class="disc"><span>${ry}</span></div><b>#${r} · ${t}</b><span>${a}</span></div>`).join('')
+  return `<div class="song-panel">
+    <div class="sp-head"><span class="big" style="color:${n >= 20 ? C.red : C.gold}">${n}</span><span>${T.songPanelHead(y)}</span>${avg !== null ? `<em>${T.songAvg(avg)}</em>` : ''}</div>
+    ${o.x.length ? `<div class="vinyls">${discs}</div>` : `<p class="chart-note">${T.songNone}</p>`}
+    ${o.n1 && !(o.x[0] && o.x[0][0] === 1) ? `<p class="legend-txt">${T.songN1(o.n1[1], o.n1[0])}</p>` : ''}
+  </div>`
+}
+function filmList(y) {
+  return `<ol class="film-list">${culture.films[y].map(([t, w, best, x]) => `<li class="${x ? 'x' : ''}"><span class="fl-t">${x ? '🎄 ' : ''}${t}</span><span class="fl-m">${T.filmWeeks(w, best)}</span></li>`).join('')}</ol>`
+}
 function filmStrips() {
   const N = culture.netflix
   return `<div class="strips">${Object.entries(N).map(([y, weeks]) => {
@@ -183,7 +198,7 @@ export function traditionsSection(st) {
     ${head(T.tradTitle, T.tradLead)}
     <div class="grid2">
       <div class="card"><h3 class="card-title">${T.wordTitle}</h3><p class="chart-note">${T.wordNote}</p>${wordBubbles()}
-        <p class="legend-txt"><span class="dash-key"></span> 8 % ${T.faith8}</p><p class="src">${T.marketSrc}</p></div>
+        <p class="src">${T.marketSrc}</p></div>
       <div class="card"><h3 class="card-title">${T.spoilTitle}</h3><p class="chart-note">${T.spoilNote}</p>${spoilBars()}<p class="src">${T.marketSrc}</p></div>
     </div>
     ${religionCard(st)}
@@ -198,14 +213,18 @@ export function traditionsSection(st) {
     <div class="card"><h3 class="card-title">🎵 ${T.songTitle}</h3>
       <div class="detail-big"><span class="big" style="color:${C.gold}">${d[1990]}</span><span class="yr">1990</span><span class="big arrow">→</span><span class="big" style="color:${C.red}">${d[2025]}</span><span class="yr">2025</span></div>
       <p class="chart-note">${T.songRead(d[1990], d[2025], 1990, 2025)} ${T.songNote}</p>
-      <div class="scroll-x">${songChart()}</div>
-      <p class="hint">${T.hintHover}</p>
-      <div class="vinyls">${T.songTop.map(([a, t, y], i) => `<div class="vinyl"><div class="disc"><span>${y}</span></div><b>${i + 1}. ${t}</b><span>${a}</span></div>`).join('')}</div>
+      <p class="hint">${T.songClick}</p>
+      <div class="scroll-x">${songChart(st.songYear)}</div>
+      ${songPanel(st.songYear)}
       <p class="why">${T.songOld} ${T.songMariah}</p>
       <p class="src">${T.songSrc}</p></div>
     <div class="grid2">
       <div class="card"><h3 class="card-title">🎬 ${T.filmTitle}</h3><p class="chart-note">${T.filmNote}</p>${filmStrips()}
-        <p class="why">${T.grinch}</p><p class="src">${T.filmSrc}</p></div>
+        <div class="compare"><span class="compare-label">${T.filmPick}</span><div class="chips">${Object.keys(culture.films).map((k) => `<button class="chip ${k === st.filmYear ? 'on' : ''}" data-filmy="${k}">${k}</button>`).join('')}</div></div>
+        <p class="mini-title">${T.filmTopTitle(st.filmYear)}</p>
+        ${filmList(st.filmYear)}
+        <ul class="facts">${T.filmClassics.map((f) => `<li>${f}</li>`).join('')}</ul>
+        <p class="src">${T.filmSrc}</p></div>
       <div class="card"><h3 class="card-title">📺 ${T.tvTitle}</h3><ul class="facts">${T.tvFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
         <p class="why">${T.tvUnknown}</p><p class="src">${T.tvSrc}</p></div>
     </div>

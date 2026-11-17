@@ -762,3 +762,17 @@ body.hidden .chap-k { color: var(--red); }
 }
 .imp2 .mb-svg { max-width: 560px; justify-self: center; }
 @media (min-width: 901px) { .imp2-row { grid-template-columns: 260px 1fr 140px; } }
+
+/* v9 : hit-parade et Netflix par année */
+.sb { cursor: pointer; }
+.sb:hover rect:first-child { fill: rgba(234,244,255,.06); }
+.song-panel { display: flex; flex-direction: column; gap: 16px; padding: 18px 20px; border-radius: 18px; background: rgba(234,244,255,.04); border: 1px solid var(--line); }
+.sp-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.sp-head > span:nth-child(2) { font-size: 17px; color: var(--t2); }
+.sp-head em { font-style: normal; font-family: var(--mono); font-size: 13px; color: var(--gold); margin-left: auto; }
+.film-list { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.film-list li { font-size: 15px; color: var(--t2); }
+.film-list li.x { color: var(--t1); font-weight: 600; }
+.film-list li::marker { font-family: var(--mono); color: var(--t3); }
+.fl-t { margin-right: 8px; }
+.fl-m { font-family: var(--mono); font-size: 12px; color: var(--t3); font-weight: 400; }

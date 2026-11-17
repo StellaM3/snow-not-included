@@ -18,7 +18,9 @@ const st = {
   item: 'lights',
   decM: '2010', // décennie affichée sur la montagne
   playing: false,
-  relYear: '2023', // année comparée à 1970 (religion)
+  relYear: '2023',
+  songYear: 2025, // année du hit-parade affichée
+  filmYear: '2025', // décembre Netflix affiché // année comparée à 1970 (religion)
 }
 
 // Langue : ?lang=en dans l'URL, sinon le choix mémorisé, sinon le navigateur (français par défaut)
@@ -74,13 +76,15 @@ function pickYear(y) {
   st.years = [...st.picked].sort((a, b) => a - b)
 }
 
-const SEL = '[data-go],[data-rel],[data-play],[data-decm],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
+const SEL = '[data-songy],[data-filmy],[data-go],[data-rel],[data-play],[data-decm],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
 app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
   const d = b.dataset
   if (d.go !== undefined) { e.preventDefault(); go(d.go); return }
   if (d.rel) st.relYear = d.rel
+  if (d.songy) st.songYear = +d.songy
+  if (d.filmy) st.filmYear = d.filmy
   if (d.lang) { setLang(d.lang); try { localStorage.setItem('lang', d.lang) } catch (err) { /* rien */ } }
   if (d.year) pickYear(+d.year)
   if (d.vyear) st.voyageYear = +d.vyear

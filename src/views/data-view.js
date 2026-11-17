@@ -129,7 +129,6 @@ function voyage(st) {
     <div class="chips">${Object.entries(P).map(([k, [n, c]]) => `<button class="chip ${k === st.prod ? 'on' : ''}" data-prod="${k}" style="${k === st.prod ? `background:${c};border-color:${c};color:#0F1F1A` : ''}"><span class="dot" style="background:${k === st.prod ? '#0F1F1A' : c}"></span>${n}</button>`).join('')}</div>
     <div class="voyage-grid"><div><div class="map-box">${flowMap(st.prod, year)}</div><p class="legend-txt">${T.mapLegend}</p>${originList(st.prod, year)}</div><div class="pcards"><p class="legend-txt">${T.cardLegend}</p>${cards}</div></div>
     <p class="src">${T.voyageSrc}</p>
-    <div class="cta"><span>${T.toHidden}</span><button class="chip cta-btn" data-mode="hidden">${T.toHiddenBtn}</button></div>
   </section>`
 }
 

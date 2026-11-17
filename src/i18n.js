@@ -110,8 +110,9 @@ export const DICT = {
     noYear: (y) => `pas de données pour ${y}`,
     allYears: "Chaque barre = une année. En couleur : les deux années choisies.",
     items: {
-      lights: ["Les guirlandes", "d'électricité consommée en Suisse le 25 décembre, par rapport à un jour de semaine de décembre.", "Les usines et les bureaux s'arrêtent pour Noël : la consommation chute même si les maisons s'illuminent.", "Swissgrid, consommation finale 2009–2025"],
+      lights: ["Les guirlandes", "d'électricité en moins le jour de Noël, par rapport à un jour de semaine normal de décembre.", "Les usines et les bureaux s'arrêtent pour Noël : la consommation chute même si les maisons s'illuminent.", "Swissgrid, consommation finale 2009–2025"],
       tree: ["Le sapin", "de sapins de Noël coupés importés en Suisse, sur toute l'année.", "Presque tout arrive en novembre : les arbres sont coupés des semaines avant Noël, puis font environ 1 200 km en camion depuis le Danemark, premier fournisseur.", "OFDF, commerce extérieur (TN8), sapins coupés 0604"],
+      lightsSent: (y, a, r, d) => `Le 25 décembre ${y}, la Suisse a consommé <b>${a} GWh</b>, contre <b>${r} GWh</b> un jour de semaine normal de décembre : <b>${d} % de moins</b>.`,
       treeDk: (y, p) => `En ${y}, ${p} de ces sapins viennent du Danemark (1 sapin = 1 %) :`,
       ornaments: ["Les décorations", "des décorations de Noël importées en Suisse viennent de Chine (en tonnes).", "Dans les usines de jouets enquêtées en Chine : 80 heures supplémentaires par mois en moyenne, jusqu'à 140, alors que la loi en autorise 36.", "OFDF TN8 9505 · Solidar Suisse 2017"],
       chocolate: ["Le chocolat", "des fèves de cacao importées en Suisse viennent du Ghana ou de Côte d'Ivoire (en tonnes).", "Dans ces deux pays, 1,56 million d'enfants travaillent dans les plantations de cacao (enquête 2018–2019).", "OFDF TN8 1801 · NORC / Plateforme suisse du cacao durable"],
@@ -300,8 +301,9 @@ export const DICT = {
     noYear: (y) => `no data for ${y}`,
     allYears: "Each bar = one year. In colour: the two years you picked.",
     items: {
-      lights: ["The fairy lights", "less electricity used in Switzerland on 25 December than on a December weekday.", "Factories and offices stop for Christmas: consumption drops even as homes light up.", "Swissgrid, final consumption 2009–2025"],
+      lights: ["The fairy lights", "less electricity on Christmas Day than on a normal December weekday.", "Factories and offices stop for Christmas: consumption drops even as homes light up.", "Swissgrid, final consumption 2009–2025"],
       tree: ["The tree", "of cut Christmas trees imported into Switzerland over the year.", "Almost all of them arrive in November: the trees are cut weeks before Christmas, then travel about 1,200 km by truck from Denmark, the main supplier.", "FOCBS foreign trade (TN8), cut trees 0604"],
+      lightsSent: (y, a, r, d) => `On 25 December ${y}, Switzerland used <b>${a} GWh</b>, against <b>${r} GWh</b> on a normal December weekday: <b>${d}% less</b>.`,
       treeDk: (y, p) => `In ${y}, ${p} of these trees came from Denmark (1 tree = 1%):`,
       ornaments: ["The ornaments", "of Christmas decorations imported into Switzerland come from China (by weight).", "In the toy factories investigated in China: 80 hours of overtime a month on average, up to 140, while the law allows 36.", "FOCBS TN8 9505 · Solidar Suisse 2017"],
       chocolate: ["The chocolate", "of cocoa beans imported into Switzerland come from Ghana or Côte d’Ivoire (by weight).", "In these two countries, 1.56 million children work on cocoa farms (2018–2019 survey).", "FOCBS TN8 1801 · NORC / Swiss Platform for Sustainable Cocoa"],

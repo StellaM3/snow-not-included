@@ -74,7 +74,11 @@ function detail(item, st) {
   const yB = years[years.length - 1]
   let big = '', visual = ''
   switch (item) {
-    case 'lights': big = compareBig('lights', years); visual = seriesBars('lights', years); break
+    case 'lights': {
+      big = compareBig('lights', years)
+      visual = `<ul class="facts">${years.map((y) => { const e = elecStats(y); return e ? `<li>${T.items.lightsSent(y, Math.round(e.v[24]), Math.round(e.ref), e.drop)}</li>` : '' }).join('')}</ul>` + seriesBars('lights', years)
+      break
+    }
     case 'tree': { const dk = (origins.origins.sapins[yB]?.top.find((r) => r[0] === 'DK') || [0, 0])[1]; big = compareBig('tree', years); visual = seriesBars('tree', years) + (dk ? `<p class="legend-txt" style="margin:0">${T.items.treeDk(yB, pct(dk))}</p>` + picto(100, dk, 'tree') : ''); break }
     case 'ornaments': {
       const d = SERIES.ornaments()
@@ -175,6 +179,7 @@ export function hiddenView(st) {
       <h2 class="h2">${T.elecTitle}</h2>
       <p class="chart-note">${T.elecRead}</p>
       <div class="detail-big">${big}</div>
+      <ul class="facts">${ys.map((y) => { const e = elecStats(y); return e ? `<li>${T.items.lightsSent(y, Math.round(e.v[24]), Math.round(e.ref), e.drop)}</li>` : '' }).join('')}</ul>
       <p class="why">${T.elecWhy}</p>
       ${missing.length ? `<p class="src">${missing.map((y) => T.elecMissing(y)).join(' · ')}</p>` : ''}
       <div class="scroll-x">${elecCurve(ys)}</div>

@@ -46,7 +46,6 @@ function topbar() {
 function header() {
   const hidden = st.mode === 'hidden'
   return `<header class="header">
-    ${hidden ? `<span class="dossier">${T.dossier}</span>` : ''}
     <h1 class="h1">${hidden ? T.h1Hidden : T.h1}</h1>
     <div class="byline">
       <span class="by">${T.byBy} <b>Estelle Rossier</b></span>

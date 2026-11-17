@@ -153,7 +153,6 @@ export const DICT = {
     indLead: "Noël, c'est aussi la plus grosse saison commerciale de l'année. Ce que les Suisses dépensent, ce qu'ils offrent, ce que le pays importe pour les fêtes, et qui travaille en plus.",
     budgetTitle: "Combien les Suisses prévoient de dépenser en cadeaux",
     budgetNote: "Budget moyen prévu par personne pour les cadeaux de Noël, en francs, selon le sondage annuel d'EY et de la Swiss Retail Federation (600 à 800 adultes interrogés en Suisse chaque année). Pas de chiffre publié trouvé pour 2017 à 2019.",
-    onlineNote: "<b>Part achetée en ligne :</b> 16 % en 2020, 33 % en 2021, 37 % en 2025. Plus de commandes en ligne, c'est plus de colis à livrer.",
     eySrc: "EY et Swiss Retail Federation, sondages de Noël 2016 à 2025",
     giftsTitle: "Ce que les Suisses offrent",
     giftsNote: "Part des personnes interrogées qui prévoient d'offrir chaque type de cadeau, en 2025. Le trait blanc montre la valeur de 2024.",
@@ -287,6 +286,10 @@ export const DICT = {
     tvFacts: ["Le soir du 24 décembre, la Suisse alémanique éteint la télé : en 2016, aucune émission de ce jour n'est entrée dans le top 10 de la semaine.", "L'émission de Noël de « Happy Day » (SRF, 2017) : 842 000 personnes, plus de la moitié des téléspectateurs ce soir-là.", "« Dinner for One », le 31 décembre 2017 : 111 000 personnes, 38,6 % des téléspectateurs."],
     tvUnknown: "Les audiences des films de Noël sur RTS et SRF ne sont pas publiées film par film.",
     tvSrc: "Horizont (chiffres Mediapulse), 2016–2017 · SRF.",
+    onlineTitle: "🛒 Part des achats de Noël faits en ligne",
+    onlineFoot: "Plus de commandes en ligne, c'est plus de colis à livrer.",
+    onlineShop: "en magasin",
+    onlineWeb: "en ligne",
   },
   en: {
     h1: "In Switzerland {CH}, everything at Christmas {TREE} is imported.<br><em>Except the snow.</em>",
@@ -439,7 +442,6 @@ export const DICT = {
     indLead: "Christmas is also the biggest shopping season of the year. What the Swiss spend, what they give, what the country imports for the holidays, and who works extra.",
     budgetTitle: "How much the Swiss plan to spend on gifts",
     budgetNote: "Average planned Christmas gift budget per person, in Swiss francs, from the yearly survey by EY and the Swiss Retail Federation (600 to 800 adults in Switzerland each year). No published figure found for 2017 to 2019.",
-    onlineNote: "<b>Share bought online:</b> 16% in 2020, 33% in 2021, 37% in 2025. More online orders means more parcels to deliver.",
     eySrc: "EY and Swiss Retail Federation, Christmas surveys 2016 to 2025",
     giftsTitle: "What the Swiss give",
     giftsNote: "Share of respondents planning to give each type of gift, in 2025. The white tick shows the 2024 value.",
@@ -573,6 +575,10 @@ export const DICT = {
     tvFacts: ["On the evening of 24 December, German-speaking Switzerland switches the TV off: in 2016, no programme from that day made the week's top 10.", "The Christmas edition of “Happy Day” (SRF, 2017): 842,000 viewers, more than half of everyone watching that evening.", "“Dinner for One”, 31 December 2017: 111,000 viewers, 38.6% of the audience."],
     tvUnknown: "Audiences for Christmas films on RTS and SRF are not published film by film.",
     tvSrc: "Horizont (Mediapulse figures), 2016–2017 · SRF.",
+    onlineTitle: "🛒 Share of Christmas shopping done online",
+    onlineFoot: "More online orders means more parcels to deliver.",
+    onlineShop: "in shops",
+    onlineWeb: "online",
   },
 }
 

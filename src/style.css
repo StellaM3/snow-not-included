@@ -605,3 +605,13 @@ body.hidden .chap-k { color: var(--red); }
 .st-week i.x { background: var(--red); }
 @media (max-width: 680px) { .st-week i { height: 16px; } .st-cells { gap: 3px; } .st-week { padding: 2px; gap: 1px; } }
 @media (max-width: 680px) { .switch button { white-space: nowrap; font-size: 15px; gap: 8px; } }
+
+/* Part des achats en ligne */
+.online { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; border-top: 1px dashed var(--line); }
+.on-row { display: grid; grid-template-columns: 48px 1fr; align-items: center; gap: 10px; }
+.on-y { font-family: var(--mono); font-weight: 700; color: var(--t2); }
+.on-bar { display: flex; height: 34px; border-radius: 10px; overflow: hidden; background: var(--line); }
+.on-web { background: var(--gold); color: #0F1F1A; display: flex; align-items: center; padding-left: 10px; font-family: var(--mono); font-weight: 700; font-size: 14px; white-space: nowrap; transition: width .6s; }
+.on-shop { flex: 1; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; font-size: 13px; color: var(--t3); }
+.o-key.web, .o-key.shop { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
+.o-key.web { background: var(--gold); } .o-key.shop { background: var(--line); }

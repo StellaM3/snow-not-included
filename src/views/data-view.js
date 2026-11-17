@@ -309,6 +309,13 @@ function budgetChart() {
   })
   return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
 }
+function onlineViz() {
+  const o = industry.ey.online
+  return `<div class="online"><p class="mini-title">${T.onlineTitle}</p>${Object.entries(o).map(([y, v]) => `
+    <div class="on-row"><span class="on-y">${y}</span>
+      <div class="on-bar" data-tip="${y} : ${pct(v)} ${T.onlineWeb}"><div class="on-web" style="width:${v}%"><span>📦 ${pct(v)}</span></div><div class="on-shop"><span>${T.onlineShop}</span></div></div></div>`).join('')}
+    <p class="legend-txt"><span class="o-key web"></span> ${T.onlineWeb} <span class="o-key shop"></span> ${T.onlineShop} · ${T.onlineFoot}</p></div>`
+}
 function giftBars() {
   return `<div class="gift-bars">${industry.ey.gifts.map(([k, v25, v24]) => `
     <div class="gift-row"><span class="g-name">${T.gifts[k]}</span>
@@ -347,7 +354,7 @@ function industrySection(st) {
         <div class="detail-big"><span class="big" style="color:${C.gold}">${b[2025]} CHF</span><span class="yr">2025</span></div>
         <p class="chart-note">${T.budgetNote}</p><p class="hint">${T.hintHover}</p>
         ${budgetChart()}
-        <p class="chart-note">${T.onlineNote}</p>
+        ${onlineViz()}
         <p class="src">${T.eySrc}</p></div>
       <div class="card"><h3 class="card-title">${T.giftsTitle}</h3>
         <p class="chart-note">${T.giftsNote}</p>

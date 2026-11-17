@@ -260,6 +260,8 @@ function snowSection(st) {
 
 /* ---------- 5. L'industrie de Noël en Suisse ---------- */
 const YCOL = [C.red, C.snow] // année ancienne, année récente
+// Part importée de ce que la Suisse consomme (le reste est fait en Suisse), quand c'est connu
+const ORIGIN = { chocolat: 41, vins_mousseux: 96, agrumes: 100 }
 const IMP_KEYS = ['jouets', 'consoles_jeux', 'decorations_fete', 'parfums', 'chocolat', 'vins_mousseux', 'agrumes']
 function budgetChart() {
   const b = industry.ey.budget, ys = Object.keys(b).map(Number)
@@ -282,15 +284,21 @@ function giftBars() {
 function importRows(years) {
   const I = industry.imports
   return `<div class="imp-rows">
-    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}</span></div>
+    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}</span><span>${T.impColOrigin}</span></div>
     ${IMP_KEYS.map((k) => {
       const vals = years.map((y) => I[k][y])
       const val = vals.map((v, i) => v ? `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${fmt(v[0])}</b>` : `<b style="color:${C.t3}">–</b>`).join('<span class="arrow"> → </span>')
       const bars = vals.map((v, i) => v ? `<div class="s-bar" style="width:${v[1] * 1.6}%;background:${YCOL[years.length > 1 ? i : 1]}" data-tip="${years[i]} : ${pct(v[1])}"><span>${pct(v[1])}</span></div>` : `<div class="s-bar empty">${T.noDataShort(years[i])}</div>`).join('')
-      return `<div class="imp-row"><span class="i-name">${T.impNames[k]}</span><span class="i-val">${val} <small>${T.mioChf}</small></span><div class="i-share"><div class="i-base" style="left:${25 * 1.6}%"></div>${bars}</div></div>`
+      return `<div class="imp-row"><span class="i-name">${T.impNames[k]}</span><span class="i-val">${val} <small>${T.mioChf}</small></span><div class="i-share"><div class="i-base" style="left:${25 * 1.6}%"></div>${bars}</div>${originBar(k)}</div>`
     }).join('')}
     <p class="legend-txt"><span class="base-key"></span> ${T.impBase}</p>
+    <p class="legend-txt"><span class="o-key imp"></span> ${T.originImp} <span class="o-key ch"></span> ${T.originCh}</p>
   </div>`
+}
+function originBar(k) {
+  const v = ORIGIN[k]
+  if (v === undefined) return `<div class="i-origin unknown">${T.originUnknown}</div>`
+  return `<div class="i-origin"><div class="o-bar"><div class="o-imp" style="width:${v}%" data-tip="${T.originImp} : ${pct(v)}">${pct(v)}</div><div class="o-ch" style="width:${100 - v}%" data-tip="${T.originCh} : ${pct(100 - v)}">${v < 90 ? pct(100 - v) : ''}</div></div></div>`
 }
 function parcelsViz() {
   const p = industry.post.parcels
@@ -317,6 +325,7 @@ function industrySection(st) {
       <p class="chart-note">${T.impNote}</p>
       ${yearCompare(st.years, T)}
       ${importRows(st.years)}
+      <p class="chart-note" style="font-size:15px">${T.originNote}</p>
       <p class="src">${T.impSrc}</p></div>
     <div class="grid2">
       <div class="card"><h3 class="card-title">${T.parcelsTitle}</h3>

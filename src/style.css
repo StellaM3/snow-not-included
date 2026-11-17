@@ -251,3 +251,7 @@ svg [data-tip] { cursor: crosshair; }
   .elec-years .chip { flex: none; }
   .tip { display: none; }
 }
+
+/* Échelle générale : tout un peu plus compact sur ordinateur et tablette */
+@media (min-width: 1101px) { .page { zoom: .8; } }
+@media (min-width: 681px) and (max-width: 1100px) { .page { zoom: .88; } }

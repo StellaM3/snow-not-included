@@ -3,6 +3,7 @@ import fdata from '../data/fdata.json'
 import origins from '../data/origins.json'
 import europe from '../data/europe.json'
 import snow from '../data/snow.json'
+import industry from '../data/industry.json'
 import { C, head, yearCompare, ICON_FONDUE } from '../util.js'
 import { T, fmt, dec, pct } from '../i18n.js'
 
@@ -257,39 +258,80 @@ function snowSection(st) {
   </section>`
 }
 
-/* ---------- 5. Noël commence en septembre ---------- */
-const YCOL = [C.red, C.snow]
-function cal(key, title, years) {
-  const arrs = years.map((y) => fdata.MOIS[y][key])
-  const valid = arrs.filter(Boolean)
-  const vmax = Math.max(1, ...valid.flat())
-  const w = 600, h = 260, bw = (w - 40) / 6, Y = (v) => h - 40 - (v / vmax) * (h - 60)
-  const share = (a) => Math.round((a.slice(0, 5).reduce((p, c) => p + c, 0) / a.reduce((p, c) => p + c, 0)) * 100)
+/* ---------- 5. L'industrie de Noël en Suisse ---------- */
+const YCOL = [C.red, C.snow] // année ancienne, année récente
+const IMP_KEYS = ['jouets', 'consoles_jeux', 'decorations_fete', 'parfums', 'chocolat', 'vins_mousseux', 'agrumes']
+function budgetChart() {
+  const b = industry.ey.budget, ys = Object.keys(b).map(Number)
+  const W = 600, H = 240, max = 360, bw = (W - 40) / ys.length
   let s = ''
-  const MOIS = T.months
-  MOIS.forEach((m, i) => {
-    const x = 20 + i * bw
-    arrs.forEach((a, k) => {
-      if (!a) return
-      const bx = x + bw * (years.length === 1 ? 0.3 : 0.18 + k * 0.34)
-      s += `<rect x="${bx}" y="${Y(a[i])}" width="${bw * 0.3}" height="${h - 40 - Y(a[i])}" fill="${YCOL[k]}" rx="3" data-tip="${m} ${years[k]} : ${fmt(a[i])} t"/>`
-    })
-    s += `<text x="${x + bw / 2}" y="${h - 12}" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="${i === 5 ? C.t1 : C.t2}" font-weight="${i === 5 ? 700 : 400}">${m}</text>`
+  ys.forEach((y, i) => {
+    const h = (b[y] / max) * (H - 60), x = 30 + i * bw, last = i === ys.length - 1
+    s += `<rect x="${x + 6}" y="${H - 30 - h}" width="${bw - 12}" height="${h}" rx="4" fill="${last ? C.gold : C.bar}" data-tip="${y} : ${b[y]} CHF"/>`
+    s += `<text x="${x + bw / 2}" y="${H - 36 - h}" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="${C.t1}">${b[y]}</text>`
+    s += `<text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" fill="${C.t2}">${y}</text>`
   })
-  return `<div class="card"><p class="kicker">${title}</p>
-    <div class="cal-nums">${years.map((y, k) => arrs[k] ? `<div><b style="color:${YCOL[k]}">${pct(share(arrs[k]))}</b><span>${T.alreadyIn(y)}</span></div>` : `<div><b style="color:${C.t3}">–</b><span>${T.noDataYear(y)}</span></div>`).join('')}</div>
-    <svg viewBox="0 0 ${w} ${h}">${s}</svg></div>`
+  return `<svg viewBox="0 0 ${W} ${H}">${s}</svg>`
 }
-function sept(st) {
+function giftBars() {
+  return `<div class="gift-bars">${industry.ey.gifts.map(([k, v25, v24]) => `
+    <div class="gift-row"><span class="g-name">${T.gifts[k]}</span>
+      <div class="g-track"><div class="g-bar" style="width:${v25 * 2}%"></div><div class="g-mark" style="left:${v24 * 2}%" title="2024 : ${pct(v24)}"></div></div>
+      <span class="g-val">${pct(v25)}</span></div>`).join('')}</div>`
+}
+function importRows(years) {
+  const I = industry.imports
+  return `<div class="imp-rows">
+    <div class="imp-head"><span></span><span>${T.impColValue}</span><span>${T.impColShare}</span></div>
+    ${IMP_KEYS.map((k) => {
+      const vals = years.map((y) => I[k][y])
+      const val = vals.map((v, i) => v ? `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${fmt(v[0])}</b>` : `<b style="color:${C.t3}">–</b>`).join('<span class="arrow"> → </span>')
+      const bars = vals.map((v, i) => v ? `<div class="s-bar" style="width:${v[1] * 1.6}%;background:${YCOL[years.length > 1 ? i : 1]}" data-tip="${years[i]} : ${pct(v[1])}"><span>${pct(v[1])}</span></div>` : `<div class="s-bar empty">${T.noDataShort(years[i])}</div>`).join('')
+      return `<div class="imp-row"><span class="i-name">${T.impNames[k]}</span><span class="i-val">${val} <small>${T.mioChf}</small></span><div class="i-share"><div class="i-base" style="left:${25 * 1.6}%"></div>${bars}</div></div>`
+    }).join('')}
+    <p class="legend-txt"><span class="base-key"></span> ${T.impBase}</p>
+  </div>`
+}
+function parcelsViz() {
+  const p = industry.post.parcels
+  return `<div class="parcel-rows">${Object.entries(p).map(([y, n]) => `<div class="p-row"><span class="p-year">${y}</span><span class="p-boxes">${'<i></i>'.repeat(Math.floor(n))}${n % 1 ? `<i style="width:${(n % 1) * 18}px"></i>` : ''}</span><span class="p-n">${dec(n)} ${T.mioShort}</span></div>`).join('')}</div>`
+}
+function industrySection(st) {
+  const b = industry.ey.budget
   return `<section class="section">
-    ${head(T.septTitle, T.septLead)}
-    ${yearCompare(st.years, T)}
-    <div class="legend">${st.years.map((y, k) => `<span><i style="background:${YCOL[k]}"></i>${y}</span>`).join('')}</div>
-    <div class="grid2">${cal('dec', T.calDeco, st.years)}${cal('sap', T.calTrees, st.years)}</div>
-    <p class="src">${T.septSrc}</p>
+    ${head(T.indTitle, T.indLead)}
+    <div class="grid2">
+      <div class="card"><h3 class="card-title">${T.budgetTitle}</h3>
+        <div class="detail-big"><span class="big" style="color:${C.gold}">${b[2025]} CHF</span><span class="yr">2025</span></div>
+        <p class="chart-note">${T.budgetNote}</p><p class="hint">${T.hintHover}</p>
+        ${budgetChart()}
+        <p class="chart-note">${T.onlineNote}</p>
+        <p class="src">${T.eySrc}</p></div>
+      <div class="card"><h3 class="card-title">${T.giftsTitle}</h3>
+        <p class="chart-note">${T.giftsNote}</p>
+        ${giftBars()}
+        <p class="legend-txt"><span class="mark-key"></span> ${T.giftsMark}</p>
+        <p class="src">${T.eySrc}</p></div>
+    </div>
+    <div class="card"><h3 class="card-title">${T.impTitle}</h3>
+      <p class="chart-note">${T.impNote}</p>
+      ${yearCompare(st.years, T)}
+      ${importRows(st.years)}
+      <p class="src">${T.impSrc}</p></div>
+    <div class="grid2">
+      <div class="card"><h3 class="card-title">${T.parcelsTitle}</h3>
+        <p class="chart-note">${T.parcelsNote}</p>
+        ${parcelsViz()}
+        <ul class="facts">${T.workFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
+        <p class="src">${T.postSrc}</p></div>
+      <div class="card"><h3 class="card-title">${T.shopsTitle}</h3>
+        <ul class="facts">${T.shopsFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
+        <p class="why" style="background:rgba(234,244,255,.06);border-color:${C.snow}">${T.shopsUnknown}</p>
+        <p class="src">${T.shopsSrc}</p></div>
+    </div>
   </section>`
 }
 
 export function dataView(st) {
-  return `<div class="view">${meter()}${voyage(st)}${goes()}${snowSection(st)}${sept(st)}</div>`
+  return `<div class="view">${meter()}${voyage(st)}${goes()}${snowSection(st)}${industrySection(st)}</div>`
 }

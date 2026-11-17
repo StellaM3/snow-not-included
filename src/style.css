@@ -372,3 +372,41 @@ body.hidden .hint { color: #E9A0A4; }
 .mtn-nums span { font-size: 15px; color: var(--t2); }
 #mountain svg rect, #mountain svg line { transition: y .6s ease, height .6s ease, y1 .6s, y2 .6s; }
 @media (max-width: 680px) { .mtn-nums b { font-size: 36px; } }
+
+/* Industrie de Noël */
+.gift-bars { display: flex; flex-direction: column; gap: 12px; }
+.gift-row { display: grid; grid-template-columns: 170px 1fr 56px; gap: 12px; align-items: center; }
+.g-name { font-size: 15px; color: var(--t1); }
+.g-track { position: relative; height: 22px; background: #0F1F1A; border-radius: 6px; }
+.g-bar { height: 100%; border-radius: 6px; background: var(--gold); }
+.g-mark { position: absolute; top: -4px; bottom: -4px; width: 3px; background: var(--snow); border-radius: 2px; }
+.g-val { font-family: var(--serif); font-weight: 900; font-size: 20px; text-align: right; }
+.mark-key { display: inline-block; width: 3px; height: 14px; background: var(--snow); vertical-align: -2px; margin-right: 6px; }
+.imp-rows { display: flex; flex-direction: column; gap: 10px; }
+.imp-head, .imp-row { display: grid; grid-template-columns: 220px 240px 1fr; gap: 16px; align-items: center; }
+.imp-head span { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--t3); }
+.imp-row { padding: 10px 0; border-top: 1px solid var(--line); }
+.i-name { font-size: 16px; font-weight: 700; }
+.i-val b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
+.i-val small { color: var(--t3); font-size: 13px; }
+.i-val .arrow { color: var(--t3); }
+.i-share { position: relative; display: flex; flex-direction: column; gap: 4px; }
+.s-bar { height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; min-width: 52px; }
+.s-bar span { font-family: var(--mono); font-size: 12px; font-weight: 700; color: #0F1F1A; }
+.s-bar.empty { background: none; justify-content: flex-start; color: var(--t3); font-size: 12px; }
+.i-base { position: absolute; top: -6px; bottom: -6px; width: 0; border-left: 2px dashed var(--gold); z-index: 1; }
+.base-key { display: inline-block; width: 0; height: 14px; border-left: 2px dashed var(--gold); vertical-align: -2px; margin-right: 6px; }
+.parcel-rows { display: flex; flex-direction: column; gap: 10px; }
+.p-row { display: grid; grid-template-columns: 50px 1fr 96px; gap: 12px; align-items: center; }
+.p-year { font-family: var(--mono); font-size: 14px; color: var(--t2); }
+.p-boxes { display: flex; flex-wrap: wrap; gap: 3px; }
+.p-boxes i { display: inline-block; width: 14px; height: 14px; border-radius: 2px; background: var(--gold); }
+.p-n { font-family: var(--serif); font-weight: 900; font-size: 20px; text-align: right; white-space: nowrap; }
+.facts { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.45; color: var(--t2); }
+.facts b { color: var(--t1); }
+@media (max-width: 900px) {
+  .imp-head { display: none; }
+  .imp-row { grid-template-columns: 1fr; gap: 6px; }
+  .gift-row { grid-template-columns: 120px 1fr 48px; }
+  .p-boxes i { width: 11px; height: 11px; }
+}

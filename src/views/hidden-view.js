@@ -3,7 +3,7 @@ import elec from '../data/elec.json'
 import hidden from '../data/hidden.json'
 import origins from '../data/origins.json'
 import { C, hbars, yearCompare } from '../util.js'
-import { T, dec, pct } from '../i18n.js'
+import { T, dec, pct, fmt } from '../i18n.js'
 
 const M = '#2A3A34'
 const YC = [C.red, '#E9E4DA'] // année A (ancienne), année B (récente)
@@ -36,7 +36,10 @@ const SERIES = {
   ornaments: () => Object.fromEntries(Object.entries(origins.origins.decorations).filter(([, v]) => v).map(([y, v]) => [y, (v.top.find((r) => r[0] === 'CN') || [0, 0])[1]])),
   chocolate: () => hidden.cacao,
   chair: () => ({ 2012: 5, 2022: 15 }),
+  tree: () => Object.fromEntries(Object.entries(origins.origins.sapins).filter(([, v]) => v).map(([y, v]) => [y, Math.round(v.total_t)])),
 }
+// format d'une valeur : % par défaut, tonnes pour le sapin
+const fv = (key, v) => key === 'tree' ? `${fmt(v)} t` : pct(v)
 const SIGN = { lights: '−' }
 
 // Mini-graphique : toutes les années disponibles, les deux années choisies en couleur
@@ -47,9 +50,9 @@ function seriesBars(key, years) {
   ys.forEach((y, i) => {
     const k = years.indexOf(y), c = k < 0 ? M : YC[years.length > 1 ? k : 1]
     const x = 10 + i * bw, h = (data[y] / max) * (H - 50)
-    s += `<rect x="${x + 2}" y="${H - 24 - h}" width="${bw - 4}" height="${h}" rx="3" fill="${c}" data-tip="${y} : ${SIGN[key] || ''}${pct(data[y])}"/>`
+    s += `<rect x="${x + 2}" y="${H - 24 - h}" width="${bw - 4}" height="${h}" rx="3" fill="${c}" data-tip="${y} : ${SIGN[key] || ''}${fv(key, data[y])}"/>`
     if (k >= 0 || i === 0 || i === ys.length - 1) s += `<text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="${k >= 0 ? C.t1 : '#8E9C96'}">${ys.length > 8 ? "'" + String(y).slice(2) : y}</text>`
-    if (k >= 0) s += `<text x="${x + bw / 2}" y="${H - 30 - h}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="${C.t1}">${data[y]}</text>`
+    if (k >= 0) s += `<text x="${x + bw / 2}" y="${H - 30 - h}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="${C.t1}">${key === 'tree' ? fmt(data[y]) : data[y]}</text>`
   })
   const missing = years.filter((y) => data[y] === undefined)
   return `<div class="series"><p class="legend-txt" style="margin:0">${T.allYears}</p><svg viewBox="0 0 ${W} ${H}">${s}</svg>${missing.length ? `<p class="src">${missing.map((y) => T.noYear(y)).join(' · ')}</p>` : ''}</div>`
@@ -59,9 +62,9 @@ function compareBig(key, years) {
   const data = SERIES[key](), sg = SIGN[key] || ''
   if (years.every((y) => data[y] === undefined)) {
     const last = Object.keys(data).map(Number).sort((a, b) => a - b).pop()
-    return `<span class="big">${sg}${pct(data[last])}</span><span class="yr">${last}</span>`
+    return `<span class="big">${sg}${fv(key, data[last])}</span><span class="yr">${last}</span>`
   }
-  return years.map((y, k) => data[y] === undefined ? '' : `<span class="big" style="color:${YC[years.length > 1 ? k : 1]}">${sg}${pct(data[y])}</span><span class="yr">${y}</span>`).filter(Boolean).join('<span class="big arrow">→</span>')
+  return years.map((y, k) => data[y] === undefined ? '' : `<span class="big" style="color:${YC[years.length > 1 ? k : 1]}">${sg}${fv(key, data[y])}</span><span class="yr">${y}</span>`).filter(Boolean).join('<span class="big arrow">→</span>')
 }
 
 /* ---------- Le panneau de détail d'un objet ---------- */
@@ -72,7 +75,7 @@ function detail(item, st) {
   let big = '', visual = ''
   switch (item) {
     case 'lights': big = compareBig('lights', years); visual = seriesBars('lights', years); break
-    case 'tree': big = `<span class="big">${pct(85)}</span>`; visual = picto(100, 85, 'tree'); break
+    case 'tree': { const dk = (origins.origins.sapins[yB]?.top.find((r) => r[0] === 'DK') || [0, 0])[1]; big = compareBig('tree', years); visual = seriesBars('tree', years) + (dk ? `<p class="legend-txt" style="margin:0">${T.items.treeDk(yB, pct(dk))}</p>` + picto(100, dk, 'tree') : ''); break }
     case 'ornaments': {
       const d = SERIES.ornaments()
       big = compareBig('ornaments', years)

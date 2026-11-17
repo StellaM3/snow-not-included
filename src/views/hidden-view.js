@@ -52,7 +52,7 @@ function seriesBars(key, years) {
     if (k >= 0) s += `<text x="${x + bw / 2}" y="${H - 30 - h}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="${C.t1}">${data[y]}</text>`
   })
   const missing = years.filter((y) => data[y] === undefined)
-  return `<div class="series"><p class="kicker">${T.allYears}</p><svg viewBox="0 0 ${W} ${H}">${s}</svg>${missing.length ? `<p class="src">${missing.map((y) => T.noYear(y)).join(' · ')}</p>` : ''}</div>`
+  return `<div class="series"><p class="legend-txt" style="margin:0">${T.allYears}</p><svg viewBox="0 0 ${W} ${H}">${s}</svg>${missing.length ? `<p class="src">${missing.map((y) => T.noYear(y)).join(' · ')}</p>` : ''}</div>`
 }
 // Valeurs A → B pour un objet qui a une série
 function compareBig(key, years) {
@@ -144,12 +144,13 @@ function scene(sel) {
 /* ---------- Courbe d'électricité, deux années superposées ---------- */
 function elecCurve(years) {
   const ok = years.filter((y) => elec[y])
-  const W = 1240, H = 300, x0 = 60, y0 = 20
+  const W = 1240, H = 300, x0 = 60, y0 = 26
   const all = ok.flatMap((y) => elec[y])
   const lo = Math.floor((Math.min(...all, 150) - 10) / 10) * 10, hi = Math.ceil((Math.max(...all, 190) + 10) / 10) * 10
   const px = (i) => x0 + (i * (W - x0 - 20)) / 30, py = (val) => y0 + ((hi - val) / (hi - lo)) * (H - y0 - 40)
   let s = ''
   for (let gl = lo + 20; gl < hi; gl += 20) s += `<line x1="${x0}" x2="${W - 20}" y1="${py(gl)}" y2="${py(gl)}" stroke="#16211D"/><text x="${x0 - 10}" y="${py(gl) + 4}" text-anchor="end" fill="#8E9C96" font-size="12" font-family="IBM Plex Mono">${gl}</text>`
+  s += `<text x="${x0 - 10}" y="${y0 - 4}" text-anchor="end" fill="#8E9C96" font-size="12" font-family="IBM Plex Mono">GWh</text>`
   s += `<rect x="${px(23) - 12}" y="${y0}" width="${px(25) - px(23) + 24}" height="${H - y0 - 40}" fill="${C.red}" opacity=".12"/>`
   ok.forEach((y) => {
     const k = years.indexOf(y), col = YC[years.length > 1 ? k : 1], v = elec[y]
@@ -165,15 +166,17 @@ export function hiddenView(st) {
   const ys = st.years
   const big = ys.map((y, k) => { const e = elecStats(y); return e ? `<span class="big" style="color:${YC[ys.length > 1 ? k : 1]}">−${pct(e.drop)}</span><span class="yr">${y}</span>` : '' }).filter(Boolean).join('<span class="big arrow">→</span>')
   const missing = ys.filter((y) => !elec[y])
-  const firstOk = ys.find((y) => elec[y]) || 2024
   return `<div class="view">
     ${yearCompare(ys, T)}
     <section class="card">
-      <p class="kicker">${T.elecK(ys[0], ys[ys.length - 1])}</p>
+      <h2 class="h2">${T.elecTitle}</h2>
+      <p class="chart-note">${T.elecRead}</p>
       <div class="detail-big">${big}</div>
+      <p class="why">${T.elecWhy}</p>
       ${missing.length ? `<p class="src">${missing.map((y) => T.elecMissing(y)).join(' · ')}</p>` : ''}
       <div class="scroll-x">${elecCurve(ys)}</div>
-      <p class="src">${T.elecSrc(elecStats(firstOk).drop)}</p>
+      <p class="hint">${T.hintHover}</p>
+      <p class="src">${T.elecSrc()}</p>
     </section>
     <section class="section">
       <div class="section-head"><h2 class="h2">${T.sceneTitle}</h2><p class="lead">${T.sceneLead}</p></div>

@@ -12,14 +12,14 @@ const BASE = import.meta.env.BASE_URL
 const METER = () => [[100, pct(100)], [100, pct(100)], [55, '≈ ' + pct(55)], [37, pct(37)], [30, pct('1–30')], [0, pct(0)]]
 function meter() {
   return `<div class="meter">
-    <div class="meter-head"><h2 class="h2">${T.meterTitle}</h2><span>${T.meterQ}</span></div>
+    <div class="meter-head"><h2 class="h2">${T.meterTitle}</h2><p class="meter-lead">${T.meterLead}</p></div>
     ${METER().map(([v, lab], i) => { const [n, note] = T.meter[i]; return `
       <div class="meter-row ${i === 5 ? 'snow' : ''}">
+        <span class="val">${lab}</span>
         <div><span class="name">${n}</span><span class="note">${note}</span></div>
         <div class="bar"><div style="width:${v}%;background:${v >= 50 ? C.red : '#0F1F1A'}"></div></div>
-        <span class="val">${lab}</span>
       </div>` }).join('')}
-    <div class="meter-foot">
+    <div class="meter-foot"><p class="kicker" style="color:#3C4A44;flex-basis:100%">${T.meterFootK}</p>
       <span class="big">${pct(38)} → ${pct(9)}</span>
       <p>${T.meterFoot}</p>
     </div>
@@ -124,10 +124,10 @@ function voyage(st) {
     </button>`
   }).join('')
   return `<section class="section" id="voyage">
-    ${head(`${T.voyageTitle} <span class="h2-year">${T.voyageIn(year)}</span>`, T.voyageLead(year))}
+    ${head(T.voyageTitle(year), T.voyageLead)}
     <div class="compare"><span class="compare-label">${T.yearShown}</span><div class="chips">${[1990, 2000, 2010, 2017, 2024].map((y) => `<button class="chip ${y === year ? 'on' : ''}" data-vyear="${y}" aria-pressed="${y === year}">${y}</button>`).join('')}</div></div>
     <div class="chips">${Object.entries(P).map(([k, [n, c]]) => `<button class="chip ${k === st.prod ? 'on' : ''}" data-prod="${k}" style="${k === st.prod ? `background:${c};border-color:${c};color:#0F1F1A` : ''}"><span class="dot" style="background:${k === st.prod ? '#0F1F1A' : c}"></span>${n}</button>`).join('')}</div>
-    <div class="voyage-grid"><div><div class="map-box">${flowMap(st.prod, year)}</div>${originList(st.prod, year)}</div><div class="pcards">${cards}</div></div>
+    <div class="voyage-grid"><div><div class="map-box">${flowMap(st.prod, year)}</div><p class="legend-txt">${T.mapLegend}</p>${originList(st.prod, year)}</div><div class="pcards"><p class="legend-txt">${T.cardLegend}</p>${cards}</div></div>
     <p class="src">${T.voyageSrc}</p>
     <div class="cta"><span>${T.toHidden}</span><button class="chip cta-btn" data-mode="hidden">${T.toHiddenBtn}</button></div>
   </section>`
@@ -149,8 +149,8 @@ function stripes() {
 function series(data, color, unit, w = 600, h = 280) {
   const ys = Object.keys(data).map(Number).filter((y) => y >= 1960 && y <= 2025)
   const vmax = Math.max(...ys.map((y) => data[y]))
-  const X = (y) => 40 + ((y - 1960) / 65) * (w - 60), Y = (v) => h - 40 - (v / vmax) * (h - 70)
-  let s = [0.5, 1].map((f) => `<line x1="40" x2="${w - 10}" y1="${Y(vmax * f)}" y2="${Y(vmax * f)}" stroke="${C.line}"/><text x="32" y="${Y(vmax * f) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${Math.round(vmax * f)}</text>`).join('')
+  const X = (y) => 56 + ((y - 1960) / 65) * (w - 76), Y = (v) => h - 40 - (v / vmax) * (h - 70)
+  let s = [0.5, 1].map((f) => `<line x1="56" x2="${w - 10}" y1="${Y(vmax * f)}" y2="${Y(vmax * f)}" stroke="${C.line}"/><text x="48" y="${Y(vmax * f) + 5}" text-anchor="end" font-family="IBM Plex Mono" font-size="13" fill="${C.t3}">${Math.round(vmax * f)}${unit.trim() === '%' ? unit : ''}</text>`).join('')
   s += ys.map((y) => `<rect x="${X(y) - 4}" y="${Y(data[y])}" width="8" height="${h - 40 - Y(data[y])}" fill="${C.bar}" data-tip="${y} : ${data[y]}${unit}"/>`).join('')
   const pts = ys.filter((y) => y >= 1969).map((y) => { let a = 0; for (let k = y - 9; k <= y; k++) a += data[k]; return `${X(y)},${Y(a / 10)}` })
   s += `<polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" pointer-events="none"/>`
@@ -162,17 +162,18 @@ function goes() {
   return `<section class="section">
     ${head(T.goesTitle, T.goesLead)}
     <div class="card">
-      <div class="split"><div><p class="kicker">${T.stripesK}</p><p class="chart-note" style="margin-top:8px">${T.stripesNote}</p></div>${bigPair(dec(4.1) + ' °C', dec(5.6) + ' °C', C.red)}</div>
+      <div class="split"><div style="flex:1;min-width:280px"><h3 class="card-title">${T.stripesTitle}</h3><p class="chart-note" style="margin-top:8px">${T.stripesNote}</p></div>${bigPair(dec(4.1) + ' °C', dec(5.6) + ' °C', C.red)}</div>
+      <p class="hint">${T.hintHover}</p>
       ${stripes()}
       <p class="src">${T.stripesSrc}</p>
     </div>
     <div class="grid2">
-      <div class="card"><p class="kicker">${T.whiteK}</p>${bigPair(pct(38), pct(9), C.snow)}
-        <p class="chart-note">${T.whiteNote}</p>
+      <div class="card"><h3 class="card-title">${T.whiteTitle}</h3>${bigPair(pct(38), pct(9), C.snow)}
+        <p class="chart-note">${T.whiteNote}</p><p class="hint">${T.hintHover}</p>
         ${series(fdata.S600, C.snow, pct('x').slice(1))}<p class="src">${T.whiteSrc}</p></div>
-      <div class="card"><div class="fondue-head">${ICON_FONDUE}<p class="kicker">${T.fondueK}</p></div>${bigPair('65', '40', C.gold)}
-        <p class="fondue-what">${T.fondueWhat}</p>
-        <p class="chart-note">${T.fondueNote}</p>
+      <div class="card"><div class="fondue-head">${ICON_FONDUE}<h3 class="card-title">${T.fondueTitle}</h3></div>
+        <p class="fondue-what">${T.fondueWhat}</p>${bigPair('65', '40' + T.days, C.gold)}
+        <p class="chart-note">${T.fondueNote}</p><p class="hint">${T.hintHover}</p>
         ${series(fdata.FON, C.gold, T.days)}<p class="src">${T.fondueSrc}</p></div>
     </div>
   </section>`
@@ -233,12 +234,12 @@ function snowSection(st) {
       <div class="card">${decPicker('deca', da, T.before, db)}${snowHead(T.decTitle(da), da, C.snow)}${snowMap(da)}</div>
       <div class="card">${decPicker('decb', db, T.after, da)}${snowHead(T.decTitle(db), db, rb.share50 < ra.share50 ? C.red : C.t1)}${snowMap(db)}</div>
     </div>
-    <div class="card"><p class="kicker">${T.profileK}</p>
+    <div class="card"><h3 class="card-title">${T.profileK}</h3>
       <p class="chart-note">${T.profileNote(fmt(ra.alt50), fmt(rb.alt50), decLabel(da), decLabel(db))}</p>
       <div class="scroll-x">${profile(da, db)}</div>
       <div class="legend"><span><i style="background:${C.snow}"></i>${T.decTitle(db)}</span><span><i style="background:${C.red}"></i>${T.lostSnow}</span></div>
     </div>
-    <div class="card"><p class="kicker">${T.snowLineK}</p><div class="scroll-x">${snowLine(da, db)}</div>
+    <div class="card"><h3 class="card-title">${T.snowLineK}</h3><p class="hint">${T.snowLineHint}</p><div class="scroll-x">${snowLine(da, db)}</div>
       <p class="chart-note" style="font-size:15px">${T.snowLineNote}</p></div>
     <p class="src">${T.snowSrc}</p>
   </section>`

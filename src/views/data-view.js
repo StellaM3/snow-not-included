@@ -11,21 +11,53 @@ const BASE = import.meta.env.BASE_URL
 
 /* ---------- 1. Noël-mètre ---------- */
 const METER = () => [[100, pct(100)], [100, pct(100)], [55, '≈ ' + pct(55)], [37, pct(37)], [30, pct('1–30')], [0, pct(0)]]
+// Une boule de Noël remplie : rouge = importé, vert = fait en Suisse. lo/hi pour une fourchette (électricité)
+function ornament(i, hi, lo = hi) {
+  const id = `orn${i}`, r = 70, cx = 90, cy = 110, top = cy - r, h = 2 * r
+  const yHi = top + h * (1 - hi / 100), yLo = top + h * (1 - lo / 100)
+  const snow = hi === 0
+  return `<svg viewBox="0 0 180 190" class="orn-svg" aria-hidden="true">
+    <defs><clipPath id="${id}"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath>
+      <pattern id="${id}h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#2E5A47"/><rect width="4" height="8" fill="${C.red}"/></pattern>
+      <radialGradient id="${id}s" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+    <line x1="${cx}" y1="0" x2="${cx}" y2="${top - 14}" stroke="${C.gold}" stroke-width="2"/>
+    <rect x="${cx - 14}" y="${top - 16}" width="28" height="16" rx="3" fill="${C.gold}"/>
+    <g clip-path="url(#${id})">
+      <rect x="0" y="0" width="180" height="190" fill="${snow ? '#0B1712' : '#2E5A47'}"/>
+      ${lo < hi ? `<rect x="0" y="${yHi}" width="180" height="${yLo - yHi}" fill="url(#${id}h)"/>` : ''}
+      <rect x="0" y="${yLo}" width="180" height="${190 - yLo}" fill="${C.red}" class="orn-fill"/>
+      ${snow ? `<g fill="${C.snow}" opacity=".9">${[[60, 90], [110, 75], [95, 130], [55, 140], [125, 120]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3"/>`).join('')}</g><text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="40" fill="${C.snow}">❄</text>` : ''}
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${id}s)"/>
+    </g>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${snow ? C.snow : C.gold}" stroke-width="3" ${snow ? 'stroke-dasharray="6 6"' : ''}/>
+  </svg>`
+}
+function snowflakes(n, on) {
+  return `<span class="flakes">${Array.from({ length: n }, (_, i) => `<i class="${i < on ? 'on' : ''}">❄</i>`).join('')}</span>`
+}
 function meter() {
-  return `<div class="meter">
-    <div class="meter-head"><h2 class="h2">${T.meterTitle}</h2><p class="meter-lead">${T.meterLead}</p></div>
-    ${METER().map(([v, lab], i) => { const [n, note] = T.meter[i]; return `
-      <div class="meter-row ${i === 5 ? 'snow' : ''}">
-        <span class="val">${lab}</span>
-        <div><span class="name">${n}</span><span class="note">${note}</span></div>
-        <div class="bar"><div style="width:${v}%;background:${v >= 50 ? C.red : '#0F1F1A'}"></div></div>
-      </div>` }).join('')}
-    <div class="meter-foot"><p class="kicker" style="color:#3C4A44;flex-basis:100%">${T.meterFootK}</p>
-      <span class="big">${pct(38)} → ${pct(9)}</span>
-      <p>${T.meterFoot}</p>
+  const M = [[100], [100], [55], [37], [30, 1], [0]]
+  const labels = [pct(100), pct(100), '≈ ' + pct(55), pct(37), pct('1–30'), pct(0)]
+  return `<section class="section meter2">
+    <div class="garland" aria-hidden="true"></div>
+    ${head(T.meterTitle, T.meterLead)}
+    <div class="legend"><span><i style="background:${C.red}"></i>${T.originImp}</span><span><i style="background:#2E5A47"></i>${T.originCh}</span></div>
+    <div class="orn-grid">${M.map(([hi, lo], i) => { const [n, note] = T.meter[i]; return `
+      <div class="orn-card ${i === 5 ? 'snow' : ''}">${ornament(i, hi, lo ?? hi)}
+        <span class="orn-val">${labels[i]}</span>
+        <span class="orn-name">${n}</span>
+        <span class="orn-note">${note}</span>
+      </div>` }).join('')}</div>
+    <div class="card white-xmas">
+      <h3 class="card-title">${T.meterFootK}</h3>
+      <div class="wx-rows">
+        <div class="wx-row"><span class="wx-y">${T.decTitle('1960')}</span>${snowflakes(10, 4)}<b>${pct(38)}</b></div>
+        <div class="wx-row"><span class="wx-y">2016–2025</span>${snowflakes(10, 1)}<b class="red">${pct(9)}</b></div>
+      </div>
+      <p class="chart-note">${T.meterFoot}</p>
     </div>
     <p class="src">${T.meterSrc}</p>
-  </div>`
+  </section>`
 }
 
 /* ---------- 2. Le voyage de ton Noël ---------- */

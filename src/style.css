@@ -426,3 +426,34 @@ body.hidden .hint { color: #E9A0A4; }
 
 .h1-ico { display: inline-block; width: .72em; height: .72em; vertical-align: -.02em; margin: 0 .05em; }
 .h1-ico.tree { width: .62em; height: .9em; vertical-align: -.08em; }
+
+/* Noël-mètre en boules de Noël */
+.meter2 { position: relative; }
+.garland { height: 26px; margin-bottom: -8px; background:
+  radial-gradient(circle at 12px 18px, #F4C95D 5px, transparent 6px) 0 0 / 48px 26px repeat-x,
+  radial-gradient(circle at 36px 18px, #E0434B 5px, transparent 6px) 0 0 / 48px 26px repeat-x,
+  linear-gradient(transparent 11px, #3E6455 11px, #3E6455 13px, transparent 13px); }
+.orn-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+.orn-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 0 4px 18px; border-radius: 20px; background: linear-gradient(180deg, transparent, rgba(244, 201, 93, .05)); transition: transform .3s; }
+.orn-card:hover { transform: translateY(-6px) rotate(-2deg); }
+.orn-svg { width: 100%; max-width: 160px; }
+.orn-svg .orn-fill { transition: y 1s; }
+.orn-val { font-family: var(--serif); font-weight: 900; font-size: 38px; line-height: 1; color: var(--t1); white-space: nowrap; }
+.orn-card.snow .orn-val, .orn-card.snow .orn-name { color: var(--snow); }
+.orn-name { font-weight: 800; font-size: 17px; }
+.orn-note { font-size: 13.5px; line-height: 1.4; color: var(--t2); }
+.white-xmas .wx-rows { display: flex; flex-direction: column; gap: 10px; }
+.wx-row { display: grid; grid-template-columns: 130px auto 90px; gap: 16px; align-items: center; }
+.wx-y { font-family: var(--mono); font-size: 14px; color: var(--t2); }
+.wx-row b { font-family: var(--serif); font-weight: 900; font-size: 34px; color: var(--snow); }
+.wx-row b.red { color: var(--red); }
+.flakes { display: flex; gap: 6px; font-size: 30px; line-height: 1; }
+.flakes i { font-style: normal; color: #2E4A3E; }
+.flakes i.on { color: var(--snow); text-shadow: 0 0 12px rgba(234, 244, 255, .6); }
+@media (max-width: 1100px) { .orn-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 680px) {
+  .orn-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .orn-val { font-size: 30px; }
+  .wx-row { grid-template-columns: 1fr auto; }
+  .wx-row .flakes { grid-column: 1 / -1; grid-row: 2; font-size: 22px; }
+}

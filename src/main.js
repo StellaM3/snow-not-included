@@ -25,6 +25,9 @@ try { saved = localStorage.getItem('lang') } catch (e) { /* stockage indisponibl
 const browser = (navigator.language || 'fr').slice(0, 2) === 'en' ? 'en' : 'fr'
 setLang(params.get('lang') || saved || browser)
 
+// Petites icônes du titre : drapeau suisse et sapin
+const ICON_CH = '<svg class="h1-ico" viewBox="0 0 32 32" role="img" aria-label="Suisse"><rect width="32" height="32" rx="6" fill="#E0434B"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>'
+const ICON_TREE = '<svg class="h1-ico tree" viewBox="4 1 24 35" role="img" aria-label="Sapin"><path d="M16 2l3 3.2h-6z" fill="#F4C95D"/><path d="M16 4L7 15h4.5L5 24h6L3 32h26l-8-8h6l-6.5-9H25z" fill="#6FCF97"/><rect x="14" y="31" width="4" height="5" fill="#8C5A3C"/><circle cx="12" cy="20" r="1.8" fill="#E0434B"/><circle cx="20" cy="26" r="1.8" fill="#EAF4FF"/><circle cx="19" cy="15" r="1.6" fill="#F4C95D"/></svg>'
 const ICON_SUN = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 1v3M12 20v3M1 12h3M20 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></g></svg>'
 const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 15A8 8 0 0 1 15 3z" fill="currentColor"/></svg>'
 
@@ -46,7 +49,7 @@ function topbar() {
 function header() {
   const hidden = st.mode === 'hidden'
   return `<header class="header">
-    <h1 class="h1">${hidden ? T.h1Hidden : T.h1}</h1>
+    <h1 class="h1">${hidden ? T.h1Hidden : T.h1.replace('{CH}', ICON_CH).replace('{TREE}', ICON_TREE)}</h1>
     <div class="byline">
       <span class="by">${T.byBy} <b>Estelle Rossier</b></span>
       <span class="by-meta">${T.byLines.map((l) => `<span>${l}</span>`).join('')}</span>

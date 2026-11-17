@@ -3,7 +3,7 @@
 
 export const DICT = {
   fr: {
-    h1: "En Suisse, tout s'importe à Noël.<br><em>Sauf la neige.</em>",
+    h1: "En Suisse {CH}, tout s'importe à Noël {TREE}<br><em>Sauf la neige.</em>",
     h1Hidden: "La face cachée<br><em>de Noël.</em>",
     lightsAria: "Allumer ou éteindre les guirlandes",
     magic: "Magique",
@@ -199,7 +199,7 @@ export const DICT = {
     mythWhy: "<b>Pourquoi ?</b> Selon les chercheurs, être entouré protège : les fêtes rassemblent souvent les familles et les proches. Et pour celles et ceux qui sont seuls, quelqu'un répond : les lignes d'écoute comme le 143 restent ouvertes jour et nuit, même le 24 décembre. On ne peut pas mesurer combien de vies elles sauvent, mais parler à quelqu'un aide à traverser une nuit difficile.",
   },
   en: {
-    h1: "In Switzerland, everything at Christmas is imported.<br><em>Except the snow.</em>",
+    h1: "In Switzerland {CH}, everything at Christmas {TREE} is imported.<br><em>Except the snow.</em>",
     h1Hidden: "The hidden side<br><em>of Christmas.</em>",
     lightsAria: "Turn the fairy lights on or off",
     magic: "Magic",

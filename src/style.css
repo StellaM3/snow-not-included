@@ -1430,3 +1430,17 @@ body:not(.is-home) .nav-data { color: var(--t2); font-size: 17px; }
 body:not(.is-home) .nav-data:hover { color: var(--gold); }
 @media (max-width: 1500px) { body:not(.is-home) .cn { padding: 0 10px !important; } body:not(.is-home) .topbar .meta { gap: 16px; } }
 body:not(.is-home) .topbar { padding-left: clamp(24px, 6vw, 120px) !important; padding-right: clamp(24px, 6vw, 120px) !important; }
+
+/* v28 — scrollytelling : écart en grand, avant/après à égalité */
+.sv-theme { font-size: 13px !important; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.sv-theme span { display: none; }
+.sv-delta { display: flex; flex-direction: column; gap: 8px; margin: 16px 0 24px; }
+.sv-delta b { font-family: var(--serif); font-weight: 300; font-size: clamp(72px, 8vw, 120px); line-height: .9; letter-spacing: -.03em; color: var(--ivory); }
+.sv-delta span { font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--t2); }
+.sv-pair { display: flex; align-items: flex-end; gap: 24px; padding-top: 16px; border-top: 1px solid rgba(201,164,92,.25); margin-bottom: 24px; }
+.sv-pair div { display: flex; flex-direction: column; gap: 4px; }
+.sv-pair small { font-size: 13px; letter-spacing: .08em; color: var(--t3); }
+.sv-pair b { font-family: var(--serif); font-weight: 300; font-size: 32px; line-height: 1; color: var(--ivory); }
+.sv-pair i { font-style: normal; color: var(--gold); font-size: 24px; padding-bottom: 2px; }
+.st-text { font-size: 19px; line-height: 1.5; }
+@media (max-width: 760px) { .sv-delta b { font-size: 64px; } .sv-pair b { font-size: 26px; } .st-text { font-size: 16px; } }

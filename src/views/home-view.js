@@ -63,9 +63,9 @@ function stepViz(i, s) {
 function stepVisual(s, i, active) {
   const h = H()
   return `<div class="sv ${i === active ? 'on' : ''}" data-sv="${i}" aria-hidden="${i !== active}">
-    <p class="sv-theme"><span>${String(i + 1).padStart(2, '0')}</span>${s.theme}</p>
-    <div class="sv-nums"><div class="sv-then"><small>${h.then} · ${s.ay}</small><b>${s.a}</b></div>
-    <div class="sv-now"><small>${h.now} · ${s.by}</small><b>${s.b}</b></div></div>
+    <p class="sv-theme">${s.theme}</p>
+    <div class="sv-delta"><b>${s.delta}</b><span>${s.deltaK}</span></div>
+    <div class="sv-pair"><div><small>${s.ay}</small><b>${s.a}</b></div><i aria-hidden="true">→</i><div><small>${s.by}</small><b>${s.b}</b></div></div>
     ${stepViz(i, s)}
   </div>`
 }

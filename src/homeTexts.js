@@ -35,7 +35,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "La neige",
+        "theme": "Climat · le Noël blanc",
         "a": "570 m",
         "ay": "années 1960",
         "b": "927 m",
@@ -45,11 +45,13 @@ export const HOME = {
           927,
           1200
         ],
-        "text": "La limite du Noël blanc a pris 357 m. La neige quitte le quotidien des villes de plaine : elle devient une destination, donc un produit."
+        "text": "Dans les années 1960, il suffisait d'habiter à 570 m pour avoir un Noël blanc une année sur deux ; aujourd'hui il faut monter à 927 m, et la neige devient une destination.",
+        "delta": "+357 m",
+        "deltaK": "la neige de Noël est remontée"
       },
       {
         "ch": "voyage",
-        "theme": "La décoration",
+        "theme": "Décoration · l'origine",
         "a": "14 %",
         "ay": "1990",
         "b": "65 %",
@@ -59,11 +61,13 @@ export const HOME = {
           65,
           100
         ],
-        "text": "Part chinoise de la décoration de fête importée. La catégorie est devenue un marché de volume ; la différence se fait désormais sur l'origine et la durée de vie."
+        "text": "En 1990, une décoration de fête importée sur sept venait de Chine ; en 2024, deux sur trois : la déco de Noël est devenue un produit de masse mondialisé.",
+        "delta": "×4,6",
+        "deltaK": "pour la part chinoise de la déco importée"
       },
       {
         "ch": "import",
-        "theme": "Le fromage",
+        "theme": "Alimentation · le fromage",
         "a": "26 000 t",
         "ay": "1990",
         "b": "79 000 t",
@@ -73,11 +77,13 @@ export const HOME = {
           79,
           90
         ],
-        "text": "Fromage importé chaque année, ×3. Fondue et raclette restent des marqueurs suisses ; le produit dans l'assiette l'est de moins en moins."
+        "text": "La Suisse importait 26 000 tonnes de fromage en 1990, elle en importe 79 000 aujourd'hui : fondue et raclette restent suisses dans l'imaginaire, de moins en moins dans l'assiette.",
+        "delta": "×3",
+        "deltaK": "de fromage importé chaque année"
       },
       {
         "ch": "commerce",
-        "theme": "Les bulles",
+        "theme": "Réveillon · les bulles",
         "a": "4 %",
         "ay": "1990",
         "b": "64 %",
@@ -87,11 +93,13 @@ export const HOME = {
           64,
           100
         ],
-        "text": "Part italienne des mousseux importés. Le consommateur garde le rituel des bulles et baisse le ticket : le prosecco a pris la place du champagne."
+        "text": "En 1990, 4 % des bulles importées venaient d'Italie ; en 2025, 64 % : le prosecco a pris la place du champagne, on garde le rituel et on baisse le ticket.",
+        "delta": "×16",
+        "deltaK": "pour la part italienne des mousseux importés"
       },
       {
         "ch": "commerce",
-        "theme": "Les cadeaux",
+        "theme": "Cadeaux · le livre",
         "a": "56 %",
         "ay": "2014",
         "b": "30 %",
@@ -101,11 +109,13 @@ export const HOME = {
           30,
           100
         ],
-        "text": "Part des Suisses qui offrent un livre. Le cadeau-objet classique recule au profit des bons, de l'expérience et de la personnalisation."
+        "text": "En 2014, plus d'un Suisse sur deux offrait un livre à Noël ; en 2025, moins d'un sur trois : bons, expériences et cadeaux personnalisés ont pris sa place.",
+        "delta": "−26 pts",
+        "deltaK": "de Suisses qui offrent un livre"
       },
       {
         "ch": "traditions",
-        "theme": "La foi",
+        "theme": "Société · la religion",
         "a": "1 %",
         "ay": "1970",
         "b": "36 %",
@@ -115,11 +125,13 @@ export const HOME = {
           36,
           100
         ],
-        "text": "Part de la population sans religion. Noël garde sa place dans le calendrier commercial ; sa raison d'être devient culturelle et familiale."
+        "text": "Les Suisses sans religion sont passés de 1 % en 1970 à 36 % en 2023 : Noël reste la fête de presque tous, mais on la célèbre pour la famille plus que pour la foi.",
+        "delta": "+35 pts",
+        "deltaK": "de Suisses sans religion"
       },
       {
         "ch": "traditions",
-        "theme": "La musique",
+        "theme": "Culture · la musique",
         "a": "0",
         "ay": "1990",
         "b": "26",
@@ -129,7 +141,9 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Chansons de Noël dans le top 30 la semaine avant Noël. Le streaming a fait de Noël un catalogue de classiques : la nostalgie est un moteur d'achat à part entière."
+        "text": "En 1990, aucune chanson de Noël dans le top 30 la semaine avant Noël ; en 2025, 26 sur 30 : avec le streaming, la Suisse réécoute chaque décembre les mêmes classiques.",
+        "delta": "+26",
+        "deltaK": "chansons de Noël dans le top 30"
       }
     ],
     "forcesK": "II · Ce qui est en train de changer",
@@ -631,7 +645,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "Snow",
+        "theme": "Climate · white Christmas",
         "a": "570 m",
         "ay": "1960s",
         "b": "927 m",
@@ -641,11 +655,13 @@ export const HOME = {
           927,
           1200
         ],
-        "text": "The white-Christmas line has climbed 357 m. Snow is leaving everyday life in lowland towns: it is becoming a destination, and so a product."
+        "text": "In the 1960s, living at 570 m gave you a white Christmas one year in two; today you need to be at 927 m, and snow is becoming a destination.",
+        "delta": "+357 m",
+        "deltaK": "Christmas snow has moved uphill"
       },
       {
         "ch": "voyage",
-        "theme": "Decorations",
+        "theme": "Decorations · origin",
         "a": "14%",
         "ay": "1990",
         "b": "65%",
@@ -655,11 +671,13 @@ export const HOME = {
           65,
           100
         ],
-        "text": "China's share of imported festive decorations. The category has become a volume market; the difference now lies in origin and lifespan."
+        "text": "In 1990, one imported festive decoration in seven came from China; in 2024, two in three: Christmas decor has become a global mass product.",
+        "delta": "×4.6",
+        "deltaK": "China's share of imported decorations"
       },
       {
         "ch": "import",
-        "theme": "Cheese",
+        "theme": "Food · cheese",
         "a": "26,000 t",
         "ay": "1990",
         "b": "79,000 t",
@@ -669,11 +687,13 @@ export const HOME = {
           79,
           90
         ],
-        "text": "Cheese imported each year, ×3. Fondue and raclette remain Swiss markers; what ends up on the plate is less and less Swiss."
+        "text": "Switzerland imported 26,000 tonnes of cheese in 1990 and 79,000 today: fondue and raclette stay Swiss in our minds, less and less on the plate.",
+        "delta": "×3",
+        "deltaK": "more cheese imported each year"
       },
       {
         "ch": "commerce",
-        "theme": "Bubbles",
+        "theme": "Festive table · sparkling wine",
         "a": "4%",
         "ay": "1990",
         "b": "64%",
@@ -683,11 +703,13 @@ export const HOME = {
           64,
           100
         ],
-        "text": "Italian share of imported sparkling wine. Shoppers keep the bubbles ritual and lower the ticket: prosecco has taken champagne's place."
+        "text": "In 1990, 4% of imported bubbles came from Italy; in 2025, 64%: prosecco has taken champagne's place, keeping the ritual at a lower price.",
+        "delta": "×16",
+        "deltaK": "Italy's share of imported sparkling wine"
       },
       {
         "ch": "commerce",
-        "theme": "Gifts",
+        "theme": "Gifts · books",
         "a": "56%",
         "ay": "2014",
         "b": "30%",
@@ -697,11 +719,13 @@ export const HOME = {
           30,
           100
         ],
-        "text": "Share of Swiss people giving a book. The classic gift object is giving way to vouchers, experiences and personalisation."
+        "text": "In 2014, more than one Swiss person in two gave a book at Christmas; in 2025, fewer than one in three: vouchers, experiences and personalised gifts took its place.",
+        "delta": "−26 pts",
+        "deltaK": "Swiss people giving a book"
       },
       {
         "ch": "traditions",
-        "theme": "Faith",
+        "theme": "Society · religion",
         "a": "1%",
         "ay": "1970",
         "b": "36%",
@@ -711,11 +735,13 @@ export const HOME = {
           36,
           100
         ],
-        "text": "Share of the population with no religion. Christmas keeps its slot in the retail calendar; its reason to be is now cultural and family-based."
+        "text": "People with no religion went from 1% in 1970 to 36% in 2023: Christmas is still almost everyone's holiday, celebrated for family more than faith.",
+        "delta": "+35 pts",
+        "deltaK": "Swiss people with no religion"
       },
       {
         "ch": "traditions",
-        "theme": "Music",
+        "theme": "Culture · music",
         "a": "0",
         "ay": "1990",
         "b": "26",
@@ -725,7 +751,9 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Christmas songs in the Swiss top 30 the week before Christmas. Streaming has turned Christmas into a catalogue of classics: nostalgia is a purchase driver in its own right."
+        "text": "In 1990, no Christmas song in the top 30 the week before Christmas; in 2025, 26 out of 30: with streaming, Switzerland replays the same classics every December.",
+        "delta": "+26",
+        "deltaK": "Christmas songs in the top 30"
       }
     ],
     "forcesK": "II · What is changing",

@@ -75,28 +75,42 @@ function heroArt() {
   </svg>`
 }
 
+// Illustrations au trait doré, une par chapitre (le trait se dessine au survol)
+function chapterArt(id) {
+  const st = `fill="none" stroke="${GOLD}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"`
+  const A = {
+    import: `<rect x="110" y="96" width="100" height="78" ${st}/><rect x="102" y="80" width="116" height="20" ${st}/><path d="M160 80 V174 M160 80 c-14 -26 -40 -16 -26 -2 c8 6 26 2 26 2 c0 0 18 4 26 -2 c14 -14 -12 -24 -26 2" ${st}/><path d="M60 60 l18 0 M242 60 l18 0 M70 150 l12 0 M240 150 l12 0" ${st} opacity=".5"/>`,
+    voyage: `<circle cx="160" cy="125" r="62" ${st}/><ellipse cx="160" cy="125" rx="26" ry="62" ${st}/><path d="M98 125 H222 M106 95 H214 M106 155 H214" ${st} opacity=".6"/><path d="M40 70 C80 30 130 40 152 104" ${st} stroke-dasharray="3 6"/><path d="M282 62 C250 40 200 50 172 100" ${st} stroke-dasharray="3 6"/><circle cx="40" cy="70" r="4" fill="${GOLD}"/><circle cx="282" cy="62" r="4" fill="${GOLD}"/>`,
+    neige: `<path d="M30 190 L110 80 L150 125 L200 50 L290 190" ${st}/><path d="M200 50 L222 82 L210 78 L200 90 L190 78 L178 84 Z" ${st}/><line x1="30" x2="290" y1="118" y2="118" stroke="${GOLD}" stroke-dasharray="2 6" opacity=".8"/><line x1="30" x2="290" y1="150" y2="150" stroke="${IV}" stroke-dasharray="2 6" opacity=".35"/>`,
+    commerce: `<path d="M70 92 H150 L158 190 H62 Z" ${st}/><path d="M88 92 q22 -40 44 0" ${st}/><path d="M210 54 h28 v52 q0 18 -14 18 q-14 0 -14 -18 z" ${st}/><path d="M224 124 v46 M208 172 h32" ${st}/><circle cx="220" cy="80" r="2" fill="${GOLD}"/><circle cx="228" cy="68" r="1.6" fill="${GOLD}"/>`,
+    traditions: `<circle cx="160" cy="125" r="68" ${st}/><circle cx="160" cy="125" r="50" ${st} opacity=".45"/><circle cx="160" cy="125" r="32" ${st} opacity=".45"/><circle cx="160" cy="125" r="12" ${st}/><path d="M250 50 v60 M250 50 q20 4 22 24" ${st}/><ellipse cx="242" cy="112" rx="10" ry="7" ${st}/>`,
+    cache: `<path d="M190 60 a52 52 0 1 0 40 84 a42 42 0 1 1 -40 -84z" ${st}/><path d="M90 200 V160 M76 160 h28 v-18 h-28 z M84 142 v-12 M96 142 v-12" ${st}/><path d="M90 200 q40 0 60 -20" ${st} opacity=".5"/>`,
+  }
+  return `<svg viewBox="0 0 320 240" aria-hidden="true">${A[id]}</svg>`
+}
+
 export function homeView() {
   const h = H()
   return `<div class="lp">
     <section class="lp-hero">
       <div class="lp-snow" aria-hidden="true">${Array.from({ length: 28 }, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-delay:${(i % 9) * 1.3}s;animation-duration:${9 + (i % 5) * 2}s"></i>`).join('')}</div>
       ${heroArt()}
-      <p class="lp-k">${h.kicker}</p>
       <h1 class="lp-h1">${h.title}</h1>
-      <p class="lp-lead">${h.lead}</p>
-      <div class="lp-by"><b>${h.by}</b><span>${h.byMeta}</span></div>
-      <a class="lp-scroll" href="#act1" data-anchor="act1"><span>${h.scroll}</span><i aria-hidden="true"></i></a>
+      <a class="lp-scroll" href="#prologue" data-anchor="prologue" aria-label="${h.scroll}"><i aria-hidden="true"></i></a>
+      <p class="lp-sign">${h.by} · ${h.byMeta}</p>
     </section>
 
-    <div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
+    <section class="lp-prologue" id="prologue">${h.prologue.map((l, i) => `<p class="pro reveal ${i === h.prologue.length - 1 ? 'gold' : ''}">${l}</p>`).join('')}</section>
+
     <section class="lp-act" id="act1">
-      <header class="lp-sec-head"><p class="lp-k">${h.actK}</p><h2>${h.actT}</h2></header>
+      <header class="lp-sec-head"><span class="rn">I</span><h2>${h.actT}</h2></header>
       <div class="scrolly">
         <div class="scrolly-vis"><div class="sv-stack">${h.steps.map((s, i) => stepVisual(s, i, 0)).join('')}</div></div>
         <div class="scrolly-steps">${h.steps.map((s, i) => `
           <article class="step ${i === 0 ? 'on' : ''}" data-step="${i}">
             <p class="st-theme">${String(i + 1).padStart(2, '0')} · ${s.theme}</p>
             <p class="st-nums"><span>${s.a}</span> → <b>${s.b}</b></p>
+            <div class="st-viz">${stepVisual(s, i, i)}</div>
             <p class="st-text">${s.text}</p>
             <a class="st-link" href="#/${s.ch}" data-go="${s.ch}">${h.see} →</a>
           </article>`).join('')}</div>
@@ -104,19 +118,19 @@ export function homeView() {
     </section>
 
     <section class="lp-band lp-forces"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
-      <header class="lp-sec-head"><p class="lp-k">${h.forcesK}</p><h2>${h.forcesT}</h2></header>
+      <header class="lp-sec-head"><span class="rn">${h.forcesK.split(' · ')[0]}</span><h2>${h.forcesT}</h2></header>
       <ol class="forces">${h.forces.map(([t, d, n], i) => `
         <li class="reveal"><span class="f-n">${n}</span><b>${t}</b><p>${d}</p><i class="f-i">${String(i + 1).padStart(2, '0')}</i></li>`).join('')}</ol>
     </section>
 
     <section class="lp-ivory"><div class="lp-orn on-ivory" aria-hidden="true"><i></i><span>✦</span><i></i></div>
-      <header class="lp-sec-head"><p class="lp-k">${h.trendsK}</p><h2>${h.trendsT}</h2></header>
+      <header class="lp-sec-head"><span class="rn">${h.trendsK.split(' · ')[0]}</span><h2>${h.trendsT}</h2></header>
       <div class="trends">${h.trends.map(([c, t, st]) => `
         <div class="tr reveal"><span class="tr-c">${c}</span><p>${t}</p><span class="pill ${st}">${h.status[st]}</span></div>`).join('')}</div>
     </section>
 
     <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
-      <header class="lp-sec-head"><p class="lp-k">${h.nextK}</p><h2>${h.nextT}</h2><p class="lp-lead small">${h.nextLead}</p></header>
+      <header class="lp-sec-head"><span class="rn">${h.nextK.split(' · ')[0]}</span><h2>${h.nextT}</h2><p class="lp-lead small">${h.nextLead}</p></header>
       <div class="next-grid">${h.next.map(([t, d, c], i) => `
         <article class="nx reveal"><span class="nx-n">${String(i + 1).padStart(2, '0')}</span><b>${t}</b><p>${d}</p>
           <span class="conf ${c}"><i></i><i></i><i></i>${h.conf[c]}</span></article>`).join('')}</div>
@@ -132,10 +146,11 @@ export function homeView() {
     </section>
 
     <section class="lp-explore"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
-      <header class="lp-sec-head"><p class="lp-k">${h.exploreK}</p><h2>${h.exploreT}</h2></header>
-      <div class="ex-grid">${CHAPTERS.map((id) => { const [n, d, t] = h.cards[id]; return `
+      <header class="lp-sec-head"><span class="rn">${h.exploreK.split(' · ')[0]}</span><h2>${h.exploreT}</h2></header>
+      <div class="ex-grid">${CHAPTERS.map((id, k) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">
-          <span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} →</span></a>` }).join('')}</div>
+          <div class="ex-art">${chapterArt(id)}<span class="ex-k">${id === 'cache' ? '★' : String(k + 1).padStart(2, '0')}</span></div>
+          <div class="ex-body"><span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} →</span></div></a>` }).join('')}</div>
       <details class="lp-src"><summary>${h.srcK}</summary><ul>${TREND_SOURCES.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('')}</ul></details>
     </section>
   </div>`
@@ -143,9 +158,13 @@ export function homeView() {
 
 // Défilement : étape active du récit et apparition douce des blocs
 let obs1, obs2
+let onSc
 export function watchHome() {
   obs1?.disconnect(); obs2?.disconnect()
-  const vis = [...document.querySelectorAll('.sv')], steps = [...document.querySelectorAll('.step')]
+  if (onSc) window.removeEventListener('scroll', onSc)
+  onSc = () => document.body.classList.toggle('scrolled', scrollY > 40)
+  window.addEventListener('scroll', onSc, { passive: true }); onSc()
+  const vis = [...document.querySelectorAll('.scrolly-vis .sv')], steps = [...document.querySelectorAll('.step')]
   if (!steps.length) return
   obs1 = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return

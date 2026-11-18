@@ -1040,3 +1040,55 @@ body.is-home .footer .src { color: #CDB8AC; }
   .lp-ivory, .lp-next { margin-top: -70px; border-radius: 50% 50% 0 0 / 70px 70px 0 0; }
   .lp-band, .lp-ivory { padding-bottom: 170px !important; }
 }
+
+/* v13 : héros épuré, prologue en phrases, chiffres romains, chapitres illustrés */
+.lp-hero { min-height: 100svh; margin-top: -70px; padding-top: 70px !important; align-items: center; justify-content: center; text-align: center; }
+.lp-h1 { max-width: 15ch; margin: 0 auto; font-size: clamp(54px, 7vw, 112px); }
+.lp-h1 em { display: block; margin-top: .35em; font-size: .38em; letter-spacing: .01em; }
+.lp-hero .lp-art { opacity: .38; width: 100%; height: 55%; right: 0; }
+.lp-hero > .lp-scroll { position: absolute; bottom: 64px; left: 50%; transform: translateX(-50%); margin: 0; }
+.lp-sign { position: absolute; bottom: 28px; left: 0; right: 0; margin: 0; text-align: center; font-size: 12px; letter-spacing: .08em; color: var(--t3); }
+body.is-home .topbar { background: transparent; border-bottom-color: transparent; transition: background .4s; }
+body.is-home.scrolled .topbar { background: rgba(26,8,12,.88); border-bottom-color: rgba(201,164,92,.15); }
+
+.lp-prologue { background: linear-gradient(180deg, #1A070B, #120709); display: flex; flex-direction: column; align-items: center; gap: 38vh; padding-top: 30vh !important; padding-bottom: 34vh !important; text-align: center; }
+.pro { margin: 0; font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 3.6vw, 52px); line-height: 1.2; max-width: 20ch; color: var(--ivory); }
+.pro.gold { font-style: italic; color: var(--gold); }
+
+.rn { display: block; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 22px; color: var(--gold); margin-bottom: 22px; }
+.lp-ivory .rn { color: var(--red); }
+.lp-orn { display: none; }
+
+.st-viz { display: none; }
+@media (max-width: 760px) {
+  .scrolly-vis { display: none; }
+  .step, .step:first-child { min-height: 0; opacity: 1; padding: 0 0 90px; justify-content: flex-start; }
+  .step > * { background: none; }
+  .st-viz { display: block; height: 380px; position: relative; }
+  .st-viz .sv { opacity: 1; transform: none; padding: 26px 22px; border: 1px solid rgba(201,164,92,.2); background: linear-gradient(160deg, #2B0A10, #160809 70%); }
+  .st-text { padding: 0; border: 0; }
+  .st-theme, .st-link { padding: 0; }
+  .lp-prologue { gap: 26vh; }
+}
+
+/* Chapitres illustrés */
+.ex-grid { grid-template-columns: repeat(3, 1fr); gap: 34px 28px; }
+.ex { padding: 0; min-height: 0; border: 0; background: transparent; gap: 0; }
+.ex:hover { background: transparent; transform: none; }
+.ex-art { position: relative; aspect-ratio: 4 / 3; background: radial-gradient(80% 80% at 50% 40%, #5A1522, #2B0A10 75%); border: 1px solid rgba(201,164,92,.2); overflow: hidden; transition: border-color .4s; }
+.ex.dark .ex-art { background: radial-gradient(80% 80% at 50% 40%, #241014, #0B0506 75%); }
+.ex-art svg { width: 100%; height: 100%; }
+.ex-art svg * { stroke-dasharray: 600; stroke-dashoffset: 0; transition: stroke-dashoffset 1.6s ease; }
+.ex:hover .ex-art { border-color: var(--gold); }
+.ex:hover .ex-art svg *:not([stroke-dasharray="3 6"]):not([stroke-dasharray="2 6"]) { animation: draw 1.6s ease; }
+@keyframes draw { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
+.ex-k { position: absolute; top: 18px; left: 20px; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 22px; color: var(--gold); }
+.ex-body { display: flex; flex-direction: column; gap: 10px; padding: 26px 4px 0; }
+.ex.dark { background: transparent; }
+@media (max-width: 1100px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .ex-grid { grid-template-columns: 1fr; } }
+.lp .lp-hero > .lp-sign { position: absolute; bottom: 30px; }
+.lp .lp-hero > .lp-scroll { position: absolute; bottom: 72px; }
+body.is-home .chapnav { visibility: hidden; }
+body.is-home .topbar { grid-template-areas: "home nav meta" !important; grid-template-columns: auto 1fr auto !important; }
+@media (max-width: 760px) { .st-theme { display: none; } body.is-home .chapnav { display: none; } }

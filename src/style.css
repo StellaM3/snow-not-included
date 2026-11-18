@@ -1414,3 +1414,6 @@ body:not(.is-home) .chap-k { margin: 0 0 28px !important; }
 .impl-head h3 { margin: 22px 0 0; font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1.02; letter-spacing: -.025em; color: #F2E4CE; }
 @media (max-width: 760px) { .impl { padding: 36px 22px !important; } .impl-head h3 { font-size: 40px; } }
 .impl-head { max-width: none; } .impl-head h3 { max-width: 15ch; }
+/* v26 : moins de vide entre les recommandations et l'exploration */
+.lp-next { padding-bottom: clamp(80px, 8vw, 120px) !important; }
+.lp-explore { padding-top: clamp(80px, 8vw, 120px) !important; }

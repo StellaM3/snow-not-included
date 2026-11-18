@@ -106,8 +106,8 @@ export const HOME = {
       ['Plus de 40 % sans religion', 'Des rituels laïques s\'installent : solstice, Rauhnächte, bilan d\'année.'],
       ['Le « fait en Suisse » comme argument', 'La déco reste importée, mais l\'origine locale ou européenne fait vendre.'],
     ],
-    implK: 'Recommandations stratégiques · Noël 2027',
-    implT: 'Quatre paris pour le Noël de l\'an prochain',
+    implK: 'Stratégie',
+    implT: 'Recommandations pour Noël 2027',
     impl: [
       ['Une collection « héritage »', 'Verre, bois, textiles qui durent, avec leur histoire et leur origine.'],
       ['Un comptoir de seconde main premium', 'Reprise, remise en état, emballage cadeau soigné.'],
@@ -234,8 +234,8 @@ export const HOME = {
       ['Over 40% with no religion', 'Secular rituals settle in: solstice, Rauhnächte, year review.'],
       ['“Made in Switzerland” as a selling point', 'Decor stays imported, but local or European origin sells.'],
     ],
-    implK: 'Strategic recommendations · Christmas 2027',
-    implT: 'Four bets for next year\'s Christmas',
+    implK: 'Strategy',
+    implT: 'Recommendations for Christmas 2027',
     impl: [
       ['A “heritage” collection', 'Glass, wood and textiles that last, with their story and origin.'],
       ['A premium second-hand counter', 'Trade-in, restoration, careful gift wrapping.'],

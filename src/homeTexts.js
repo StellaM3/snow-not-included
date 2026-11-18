@@ -121,9 +121,9 @@ export const HOME = {
           100
         ],
         "text": "En 2014, plus d'un Suisse sur deux prévoyait de glisser un livre sous le sapin. En 2025, ils ne sont plus qu'un sur trois. Le livre n'a pas perdu ses lecteurs pour autant, les ventes en librairie se maintiennent. On l'offre simplement moins par habitude, et plutôt à quelqu'un dont on sait qu'il aime lire.",
-        "delta": "30 %",
-        "deltaK": "des Suisses offrent un livre à Noël (56 % en 2014)",
-        "read": "Chaque livre = 10 % des Suisses. En couleur : ceux qui prévoient d'en offrir un à Noël."
+        "delta": "−46 %",
+        "deltaK": "de Suisses qui offrent un livre à Noël : de 56\u00a0% en 2014 à 30\u00a0% en 2025",
+        "read": "Part des Suisses qui prévoient d'offrir un livre à Noël. Presque deux fois moins qu'il y a dix ans (sondage EY / Swiss Retail Federation)."
       },
       {
         "ch": "traditions",
@@ -754,9 +754,9 @@ export const HOME = {
           100
         ],
         "text": "In 2014, more than one Swiss person in two planned to put a book under the tree. In 2025, only one in three did. Books haven't lost their readers, though; bookshop sales are holding up. People simply give them less out of habit, and more to someone they know loves to read.",
-        "delta": "30%",
-        "deltaK": "of Swiss people give a book at Christmas (56% in 2014)",
-        "read": "Each book = 10% of Swiss people. Coloured: those planning to give one at Christmas."
+        "delta": "−46%",
+        "deltaK": "fewer Swiss people giving a book at Christmas: from 56% in 2014 to 30% in 2025",
+        "read": "Share of Swiss people planning to give a book at Christmas. Almost half as many as ten years ago (EY / Swiss Retail Federation survey)."
       },
       {
         "ch": "traditions",

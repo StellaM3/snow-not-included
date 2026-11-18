@@ -51,8 +51,9 @@ function stepViz(i, s) {
     g += bar(40, s.ay, 67, 4.5, MUTE) + bar(150, s.by, 23, 64, GOLD)
     g += `<rect x="260" y="60" width="12" height="12" fill="${GOLD}"/>${label(280, 70, lang === 'fr' ? 'FRANCE · CHAMPAGNE' : 'FRANCE · CHAMPAGNE', IV)}<rect x="260" y="90" width="12" height="12" fill="${IV}" opacity=".85"/>${label(280, 100, lang === 'fr' ? 'ITALIE · PROSECCO' : 'ITALY · PROSECCO', IV)}`
   } else if (i === 4) { // livres : 10 dos de livres, deux années
-    const row = (y0, on, c, yr) => { let r = label(0, y0 + 44, yr, c); for (let k = 0; k < 10; k++) r += `<rect x="${60 + k * 30}" y="${y0 + (k % 3) * 4}" width="20" height="${56 - (k % 3) * 4}" rx="2" fill="${k < on ? c : 'none'}" stroke="${k < on ? c : '#3A302B'}"/>`; return r }
-    g += row(20, 5.6, MUTE, s.ay) + row(110, 3, GOLD, s.by)
+    // part des Suisses qui prévoient d'offrir un livre : deux barres sur 100 %
+    const bar = (y0, v, c, yr) => `${label(0, y0 - 10, yr, c)}<rect x="0" y="${y0}" width="520" height="40" fill="none" stroke="#3A302B"/><rect x="0" y="${y0}" width="${5.2 * v}" height="40" fill="${c}"/><text x="${5.2 * v + 12}" y="${y0 + 28}" fill="${c}" font-family="Fraunces" font-size="24">${v} %</text>`
+    g += bar(28, 56, MUTE, s.ay) + bar(122, 30, GOLD, s.by)
   } else if (i === 5) { // 100 personnes : sans religion
     // 36 sans religion, répartis selon leurs croyances (OFS, ELRC 2019) : 14 aucune divinité, 8 agnostiques, 11 force supérieure, 3 un dieu
     const v = s.viz, C = [GOLD, IV, '#9C7C45', '#6E5A4A'], N = [14, 8, 11, 3], col = []

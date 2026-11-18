@@ -1463,3 +1463,4 @@ body:not(.is-home) .topbar { padding-left: clamp(24px, 6vw, 120px) !important; p
   .sv-theme { font-size: 22px !important; }
   .sv-delta b { font-size: 56px !important; }
 }
+.sv-read { margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.5; color: var(--t2); padding-top: 12px; border-top: 1px solid rgba(201,164,92,.2); }

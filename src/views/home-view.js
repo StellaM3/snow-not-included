@@ -73,6 +73,7 @@ function stepVisual(s, i, active) {
     <p class="sv-theme">${s.theme}</p>
     <div class="sv-delta"><b>${s.delta}</b><span>${s.deltaK}</span></div>
     <div class="sv-chart">${stepViz(i, s)}</div>
+    <p class="sv-read">${s.read}</p>
   </div>`
 }
 

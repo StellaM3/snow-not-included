@@ -133,7 +133,13 @@ export function homeView() {
       <header class="lp-sec-head"><span class="rn">${h.trendsK.split(' · ')[0]}</span><h2>${h.trendsT}</h2></header>
       <div class="tboard">${[['up', h.colUp], ['peak', h.colPeak], ['down', h.colDown]].map(([k, title]) => `
         <div class="tcol ${k}"><p class="tcol-h"><span>${k === 'up' ? '↗' : k === 'peak' ? '●' : '↘'}</span>${title}</p>
-          <ul>${h.trends.filter(([, , st]) => (k === 'up' ? st === 'up' || st === 'new' : st === k)).map(([c, t, st]) => `<li class="reveal"><span class="tr-c">${c}${st === 'new' ? ` · <em>${h.status.new}</em>` : ''}</span><p>${t}</p></li>`).join('')}</ul></div>`).join('')}</div>
+          <ul>${h.trends.filter(([, , st]) => (k === 'up' ? st === 'up' || st === 'new' : st === k)).map(([c, t, st, n]) => `<li class="reveal"><span class="tr-c">${c}${st === 'new' ? ` · <em>${h.status.new}</em>` : ''}</span><p>${t}</p>${n ? `<span class="tr-n">${n}</span>` : ''}</li>`).join('')}</ul></div>`).join('')}</div>
+      <div class="ins">
+        <header class="ins-head"><p class="lp-k">${h.insightsK}</p><h3>${h.insightsT}</h3></header>
+        <div class="ins-grid">${h.insights.map(([t, n, d, a]) => `
+          <article class="ins-c reveal"><b class="ins-n">${n}</b><h4>${t}</h4><p>${d}</p><p class="ins-a">${a}</p></article>`).join('')}</div>
+        <p class="ins-note">${h.insightsNote}</p>
+      </div>
     </section>
 
     <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>

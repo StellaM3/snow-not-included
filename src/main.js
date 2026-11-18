@@ -2,7 +2,11 @@ import './style.css'
 import { chapterContent, mountainCard } from './views/data-view.js'
 import { hiddenView } from './views/hidden-view.js'
 import { initTips } from './util.js'
-import { topNav, homeView, chapterHead, chapterFoot, routeFromHash } from './nav.js'
+import { topNav, chapterHead, chapterFoot, routeFromHash } from './nav.js'
+import { homeView, watchHome } from './views/home-view.js'
+import '@fontsource/fraunces/300.css'
+import '@fontsource/fraunces/300-italic.css'
+import '@fontsource/inter/300.css'
 import { T, setLang, lang } from './i18n.js'
 
 // État de la page. Le mode « face cachée » est gardé dans l'URL (#cache) pour pouvoir partager un lien.
@@ -55,10 +59,11 @@ function render(keepScroll = true) {
   document.body.classList.toggle('hidden', p === 'cache')
   document.body.classList.toggle('is-home', !p)
   let body
-  if (!p) body = homeView(header())
+  if (!p) body = homeView()
   else body = `<div class="chapter-page">${chapterHead(p)}${p === 'cache' ? hiddenView(st) : chapterContent(p, st)}${chapterFoot(p)}</div>`
   app.innerHTML = `${topNav(p, langBtns())}<main class="page">${body}${footer()}</main>`
   if (keepScroll) window.scrollTo({ top: y, behavior: 'instant' })
+  if (!p) watchHome()
 }
 function go(page) {
   stopPlay()
@@ -76,11 +81,12 @@ function pickYear(y) {
   st.years = [...st.picked].sort((a, b) => a - b)
 }
 
-const SEL = '[data-songy],[data-filmy],[data-go],[data-rel],[data-play],[data-decm],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
+const SEL = '[data-anchor],[data-songy],[data-filmy],[data-go],[data-rel],[data-play],[data-decm],[data-year],[data-vyear],[data-prod],[data-deca],[data-decb],[data-item],[data-lang]'
 app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
   const d = b.dataset
+  if (d.anchor) { e.preventDefault(); document.getElementById(d.anchor)?.scrollIntoView({ behavior: 'smooth' }); return }
   if (d.go !== undefined) { e.preventDefault(); go(d.go); return }
   if (d.rel) st.relYear = d.rel
   if (d.songy) st.songYear = +d.songy

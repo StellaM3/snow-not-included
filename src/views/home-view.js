@@ -1,7 +1,8 @@
 // Page d'accueil : récit défilant (hier → aujourd'hui → demain), style noir, ivoire, bordeaux et or
-import { lang } from '../i18n.js'
+import { lang, DICT } from '../i18n.js'
 import { HOME, TREND_SOURCES } from '../homeTexts.js'
 import { CHAPTERS } from '../nav.js'
+const q = (t) => lang === 'en' ? `“${t}”` : `« ${t} »`
 import imgHeritage from '../assets/impl/heritage.jpg'
 import imgSeconde from '../assets/impl/seconde-main.jpg'
 import imgPerso from '../assets/impl/personnalisation.jpg'
@@ -129,7 +130,7 @@ export function homeView() {
             <p class="st-nums"><span>${s.a}</span> → <b>${s.b}</b></p>
             <div class="st-viz">${stepVisual(s, i, i)}</div>
             <p class="st-text">${s.text}</p>
-            <a class="st-link" href="#/${s.ch}" data-go="${s.ch}">${h.see} →</a>
+            <a class="st-link" href="#/${s.ch}" data-go="${s.ch}">${h.see} ${q((DICT[lang] || DICT.fr).chaps[s.ch][0])} →</a>
           </article>`).join('')}</div>
       </div>
     </section>
@@ -200,7 +201,7 @@ export function homeView() {
       <div class="ex-grid">${CHAPTERS.map((id, k) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">
           <div class="ex-art">${chapterArt(id)}${id === 'cache' ? '<span class="ex-k">VI</span>' : ''}</div>
-          <div class="ex-body"><span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} →</span></div></a>` }).join('')}</div>
+          <div class="ex-body"><span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} ${q((DICT[lang] || DICT.fr).chaps[id][0])} →</span></div></a>` }).join('')}</div>
       <details class="lp-src"><summary>${h.srcK}</summary><ul>${TREND_SOURCES.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('')}</ul></details>
     </section>
   </div>`

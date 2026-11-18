@@ -31,7 +31,7 @@ export const HOME = {
     "actT": "Sept glissements en une génération",
     "then": "Avant",
     "now": "Aujourd'hui",
-    "see": "Voir le chapitre",
+    "see": "En savoir plus sur",
     "steps": [
       {
         "ch": "neige",
@@ -630,7 +630,7 @@ export const HOME = {
         "La face cachée"
       ]
     },
-    "explore": "Explorer",
+    "explore": "Lire",
     "srcK": "Sources des tendances"
   },
   "en": {
@@ -664,7 +664,7 @@ export const HOME = {
     "actT": "Seven shifts in one generation",
     "then": "Then",
     "now": "Now",
-    "see": "See the chapter",
+    "see": "Read more on",
     "steps": [
       {
         "ch": "neige",
@@ -1263,7 +1263,7 @@ export const HOME = {
         "The dark side"
       ]
     },
-    "explore": "Explore",
+    "explore": "Read",
     "srcK": "Trend sources"
   }
 }

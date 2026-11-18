@@ -182,7 +182,7 @@ export function homeView() {
         <div class="far-grid">${h.far.map(([t, d]) => `<div class="reveal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
       </div>
       <div class="impl">
-        <p class="lp-k">${h.implK}</p>
+        <header class="impl-head"><p class="lp-k">${h.implK}</p><h3>${h.implT}</h3></header>
         <div class="impl-grid">${h.impl.map(([t, d], i) => `<div class="reveal"><figure class="impl-img"><img src="${IMPL_IMG[i]}" alt="" loading="lazy"></figure><b>${t}</b><p>${d}</p></div>`).join('')}</div>
         <p class="impl-note">${h.implNote}</p>
       </div>

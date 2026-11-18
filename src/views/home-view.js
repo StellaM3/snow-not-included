@@ -2,6 +2,7 @@
 import { lang, DICT } from '../i18n.js'
 import { HOME, TREND_SOURCES } from '../homeTexts.js'
 import { CHAPTERS } from '../nav.js'
+import CULT from '../data/culture.json'
 const q = (t) => lang === 'en' ? `“${t}”` : `« ${t} »`
 import imgHeritage from '../assets/impl/heritage.jpg'
 import imgSeconde from '../assets/impl/seconde-main.jpg'
@@ -59,11 +60,15 @@ function stepViz(i, s) {
     const v = s.viz, C = [GOLD, IV, '#9C7C45', '#6E5A4A'], N = [14, 8, 11, 3], col = []
     N.forEach((n, c) => { for (let k = 0; k < n; k++) col.push(C[c]) })
     g += label(0, 10, v.head)
-    for (let k = 0; k < 100; k++) { const x = 9 + (k % 20) * 26.4, y = 40 + Math.floor(k / 20) * 26; g += k < 36 ? `<circle cx="${x}" cy="${y}" r="9" fill="${col[k]}"/>` : `<circle cx="${x}" cy="${y}" r="8.5" fill="none" stroke="#3A302B"/>` }
-    let lx = 0; v.cats.forEach((t, c) => { g += `<circle cx="${lx + 5}" cy="${H - 6}" r="5" fill="${C[c]}"/>` + label(lx + 15, H - 2, t.toUpperCase(), C[c] === '#6E5A4A' ? '#8A776A' : C[c]); lx += 30 + t.length * 9.6 })
-  } else { // top 30 : cases des chansons de Noël
-    const grid = (x0, on, c, yr) => { let r = label(x0, 10, yr, c); for (let k = 0; k < 30; k++) r += `<rect x="${x0 + (k % 6) * 34}" y="${22 + Math.floor(k / 6) * 34}" width="26" height="26" fill="${k < on ? c : 'none'}" stroke="${k < on ? c : '#3A302B'}"/>`; return r }
-    g += grid(0, 0, MUTE, s.ay) + grid(280, 26, GOLD, s.by)
+    for (let k = 0; k < 100; k++) { const x = 9 + (k % 20) * 26.4, y = 34 + Math.floor(k / 20) * 24; g += k < 36 ? `<circle cx="${x}" cy="${y}" r="9" fill="${col[k]}"/>` : `<circle cx="${x}" cy="${y}" r="8.5" fill="none" stroke="#3A302B"/>` }
+    v.cats.forEach((t, c) => { const lx = (c % 2) * 260, ly = c < 2 ? H - 26 : H - 6; g += `<circle cx="${lx + 5}" cy="${ly - 4}" r="5" fill="${C[c]}"/>` + label(lx + 15, ly, t.toUpperCase(), C[c] === '#6E5A4A' ? '#8A776A' : C[c]) })
+  } else { // chansons de Noël dans le top 30, chaque année 1990–2025 (hitparade.ch)
+    const yrs = Object.keys(CULT.songs), bw = 520 / yrs.length, k = (H - 40) / 30, y0 = H - 16
+    yrs.forEach((y, j) => { const n = CULT.songs[y]; if (n) g += `<rect x="${j * bw + 1.5}" y="${y0 - n * k}" width="${bw - 3}" height="${n * k}" fill="${+y >= 2017 ? GOLD : IV}" opacity="${+y >= 2017 ? 1 : .55}"/>`; else g += `<rect x="${j * bw + 1.5}" y="${y0 - 1}" width="${bw - 3}" height="1" fill="#3A302B"/>` })
+    const xs = yrs.indexOf('2014') * bw
+    g += `<line x1="${xs}" x2="${xs}" y1="18" y2="${y0}" stroke="${IV}" stroke-dasharray="3 4" opacity=".7"/>` + label(xs - 6, 14, s.viz.stream, IV, 'end')
+    g += `<line x1="0" x2="520" y1="${y0 - 30 * k}" y2="${y0 - 30 * k}" stroke="#3A302B"/>` + label(520, y0 - 30 * k - 6, s.viz.max, MUTE, 'end')
+    ;['1990', '2000', '2010', '2025'].forEach((y) => { g += label(y === '1990' ? 0 : y === '2025' ? 520 : yrs.indexOf(y) * bw + bw / 2, H - 2, y, y === '2025' ? GOLD : MUTE, y === '1990' ? 'start' : y === '2025' ? 'end' : 'middle') })
   }
   return `<svg class="sv-viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="${s.theme}">${g}</svg>`
 }

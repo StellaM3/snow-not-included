@@ -122,7 +122,7 @@ export const HOME = {
         ],
         "text": "En 2014, plus d'un Suisse sur deux prévoyait de glisser un livre sous le sapin. En 2025, ils ne sont plus qu'un sur trois. Le livre n'a pas perdu ses lecteurs pour autant, les ventes en librairie se maintiennent. On l'offre simplement moins par habitude, et plutôt à quelqu'un dont on sait qu'il aime lire.",
         "delta": "−46 %",
-        "deltaK": "de Suisses qui offrent un livre à Noël : de 56\u00a0% en 2014 à 30\u00a0% en 2025",
+        "deltaK": "de Suisses qui offrent un livre à Noël : de 56 % en 2014 à 30 % en 2025",
         "read": "Part des Suisses qui prévoient d'offrir un livre à Noël. Presque deux fois moins qu'il y a dix ans (sondage EY / Swiss Retail Federation)."
       },
       {
@@ -138,8 +138,8 @@ export const HOME = {
           100
         ],
         "text": "En 1970, presque tous les Suisses appartenaient à une Église. Aujourd'hui, plus d'un sur trois se dit sans religion. Cela ne veut pas dire qu'ils ne fêtent plus Noël, ni qu'ils ne croient en rien : beaucoup parlent d'une force supérieure ou se disent spirituels. Noël est simplement devenu, avant tout, une fête de famille.",
-        "delta": "36 %",
-        "deltaK": "des Suisses sont sans religion (1 % en 1970)",
+        "delta": "×36",
+        "deltaK": "de Suisses sans religion depuis 1970 : de 1 % à 36 %",
         "viz": {
           "head": "100 SUISSES EN 2023 · 36 SANS RELIGION",
           "cats": [
@@ -163,10 +163,14 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Chaque décembre, on relance les mêmes chansons : Wham!, Mariah Carey, Brenda Lee. En 1990 pourtant, aucune chanson de Noël n'apparaissait dans le hit-parade, qui ne comptait alors que les disques vendus. Depuis que les écoutes en streaming sont prises en compte, ces classiques reviennent chaque année et occupent presque tout le top 30.",
+        "text": "Pendant près de trente ans, les chansons de Noël apparaissaient à peine dans le hit-parade suisse : zéro, une ou deux par an. Le classement ne comptait alors que les disques vendus, et un tube de Noël, on l'achetait une fois. En 2014, les écoutes en streaming entrent dans le calcul. Quelques années plus tard, le basculement est net : 6 chansons de Noël en 2017, 14 en 2018, 26 sur 30 en 2025.",
         "delta": "26 / 30",
         "deltaK": "chansons de Noël dans le top 30 (0 en 1990)",
-        "read": "Chaque case = une place du top 30. Dorées : les chansons de Noël. Avant 2014, le classement ne comptait que les disques vendus ; depuis, chaque écoute en streaming compte."
+        "read": "Chaque barre = le nombre de chansons de Noël dans le top 30 suisse, la semaine avant Noël, de 1990 à 2025. Pointillé : depuis 2014, le classement compte aussi les écoutes en streaming.",
+        "viz": {
+          "stream": "STREAMING COMPTÉ DÈS 2014",
+          "max": "30 PLACES"
+        }
       }
     ],
     "forcesK": "II · Ce qui est en train de changer",
@@ -771,8 +775,8 @@ export const HOME = {
           100
         ],
         "text": "In 1970, almost every Swiss person belonged to a church. Today, more than one in three says they have no religion. That doesn't mean they no longer celebrate Christmas, or that they believe in nothing: many speak of a higher power or call themselves spiritual. Christmas has simply become, above all, a family holiday.",
-        "delta": "36%",
-        "deltaK": "of Swiss people have no religion (1% in 1970)",
+        "delta": "×36",
+        "deltaK": "more Swiss people with no religion since 1970: from 1% to 36%",
         "viz": {
           "head": "100 SWISS PEOPLE IN 2023 · 36 WITH NO RELIGION",
           "cats": [
@@ -796,10 +800,14 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Every December we put on the same songs: Wham!, Mariah Carey, Brenda Lee. Yet in 1990 no Christmas song appeared in the charts, which only counted records sold. Since streams have been counted, these classics come back every year and fill almost the whole top 30.",
+        "text": "For almost thirty years, Christmas songs barely showed up in the Swiss charts: none, one or two a year. The chart only counted records sold, and you bought a Christmas hit once. In 2014, streams were added to the count. A few years later the shift is clear: 6 Christmas songs in 2017, 14 in 2018, 26 out of 30 in 2025.",
         "delta": "26 / 30",
         "deltaK": "Christmas songs in the top 30 (0 in 1990)",
-        "read": "Each square = one place in the top 30. Gold: Christmas songs. Before 2014 the chart only counted records sold; since then, every stream counts."
+        "read": "Each bar = the number of Christmas songs in the Swiss top 30 the week before Christmas, 1990 to 2025. Dotted line: since 2014 the chart also counts streams.",
+        "viz": {
+          "stream": "STREAMS COUNTED FROM 2014",
+          "max": "30 PLACES"
+        }
       }
     ],
     "forcesK": "II · What is changing",

@@ -3,13 +3,14 @@ import { T } from './i18n.js'
 import { scene } from './scenes.js'
 
 // La face cachée est le 7e chapitre (plus d'interrupteur)
-export const CHAPTERS = ['import', 'voyage', 'neige', 'commerce', 'traditions', 'cache']
+export const CHAPTERS = ['import', 'neige', 'commerce', 'traditions', 'cache']
 export const ICONS = { import: '🎁', voyage: '🌍', climat: '🌡️', neige: '❄️', commerce: '🛍️', traditions: '🎶', cache: '🌙' }
 
 // Route courante : '' = accueil, sinon un identifiant de chapitre (#/neige)
 export function routeFromHash() {
   let h = location.hash.replace(/^#\/?/, '')
   if (h === 'climat') h = 'neige' // ancien chapitre fusionné avec la neige
+  if (h === 'voyage') h = 'import' // le voyage est fusionné dans « Importé »
   return CHAPTERS.includes(h) ? h : ''
 }
 
@@ -49,7 +50,7 @@ export function homeView(header) {
 // Haut et bas d'une page chapitre
 export function chapterHead(id) {
   const i = CHAPTERS.indexOf(id)
-  const k = `<p class="chap-k">${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 5)}</p>`
+  const k = `<p class="chap-k">${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 4)}</p>`
   return id === 'cache' ? `${k}<div class="section-head"><h2 class="h2 hidden-h">${T.h1Hidden}</h2><p class="lead">${T.chaps.cache[1]}.</p></div>` : k
 }
 export function chapterFoot(id) {

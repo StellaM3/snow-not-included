@@ -206,7 +206,7 @@ export function homeView() {
       <header class="lp-sec-head"><span class="rn">${h.exploreK.split(' · ')[0]}</span><h2>${h.exploreT}</h2></header>
       <div class="ex-grid">${CHAPTERS.map((id, k) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">
-          <div class="ex-art">${chapterArt(id)}${id === 'cache' ? '<span class="ex-k">VI</span>' : ''}</div>
+          <div class="ex-art">${chapterArt(id)}${id === 'cache' ? '<span class="ex-k">V</span>' : ''}</div>
           <div class="ex-body"><span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} ${q((DICT[lang] || DICT.fr).chaps[id][0])} →</span></div></a>` }).join('')}</div>
       <details class="lp-src"><summary>${h.srcK}</summary><ul>${TREND_SOURCES.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('')}</ul></details>
     </section>

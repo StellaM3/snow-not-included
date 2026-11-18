@@ -1466,3 +1466,11 @@ body:not(.is-home) .topbar { padding-left: clamp(24px, 6vw, 120px) !important; p
 .sv-read { margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.5; color: var(--t2); padding-top: 12px; border-top: 1px solid rgba(201,164,92,.2); }
 .pz-id h4 { display: flex; flex-direction: column; gap: 6px; }
 .pz-id h4 span { margin-left: 0 !important; font-size: 16px; }
+/* v30 — 5 chapitres : 3 + 2 */
+@media (min-width: 1101px) {
+  .ex-grid { grid-template-columns: repeat(6, 1fr) !important; }
+  .ex-grid > .ex { grid-column: span 2; }
+  .ex-grid > .ex:nth-child(n+4) { grid-column: span 3; }
+}
+@media (min-width: 761px) and (max-width: 1100px) { .ex-grid > .ex:last-child { grid-column: 1 / -1; } }
+@media (min-width: 1101px) { .ex-grid > .ex:nth-child(n+4) .ex-art { aspect-ratio: auto !important; height: clamp(200px, 19vw, 280px); } .ex-grid > .ex:nth-child(n+4) .ex-art svg { height: 100%; width: auto; margin: 0 auto; display: block; } }

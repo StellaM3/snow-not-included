@@ -51,7 +51,7 @@ export const HOME = {
         "read": "Pointillé : altitude où Noël était blanc une année sur deux dans les années 1960. Ligne dorée : la même limite aujourd'hui."
       },
       {
-        "ch": "voyage",
+        "ch": "import",
         "theme": "Une déco mondialisée",
         "a": "14 %",
         "ay": "1990",
@@ -606,7 +606,7 @@ export const HOME = {
       "import": [
         "100 %",
         "des mandarines et du foie gras vendus en Suisse sont importés",
-        "Ce qui vient de l'étranger"
+        "Ce qui vient de l'étranger, et d'où"
       ],
       "voyage": [
         "65 %",
@@ -688,7 +688,7 @@ export const HOME = {
         "read": "Dotted line: altitude where Christmas was white one year in two in the 1960s. Gold line: the same limit today."
       },
       {
-        "ch": "voyage",
+        "ch": "import",
         "theme": "Decor goes global",
         "a": "14%",
         "ay": "1990",
@@ -1243,7 +1243,7 @@ export const HOME = {
       "import": [
         "100%",
         "of mandarins and foie gras sold in Switzerland are imported",
-        "What comes from abroad"
+        "What comes from abroad, and from where"
       ],
       "voyage": [
         "65%",

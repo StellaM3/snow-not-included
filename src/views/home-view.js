@@ -88,6 +88,7 @@ export function homeView() {
       <a class="lp-scroll" href="#act1" data-anchor="act1"><span>${h.scroll}</span><i aria-hidden="true"></i></a>
     </section>
 
+    <div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
     <section class="lp-act" id="act1">
       <header class="lp-sec-head"><p class="lp-k">${h.actK}</p><h2>${h.actT}</h2></header>
       <div class="scrolly">
@@ -102,19 +103,19 @@ export function homeView() {
       </div>
     </section>
 
-    <section class="lp-band lp-forces">
+    <section class="lp-band lp-forces"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><p class="lp-k">${h.forcesK}</p><h2>${h.forcesT}</h2></header>
       <ol class="forces">${h.forces.map(([t, d, n], i) => `
         <li class="reveal"><span class="f-n">${n}</span><b>${t}</b><p>${d}</p><i class="f-i">${String(i + 1).padStart(2, '0')}</i></li>`).join('')}</ol>
     </section>
 
-    <section class="lp-ivory">
+    <section class="lp-ivory"><div class="lp-orn on-ivory" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><p class="lp-k">${h.trendsK}</p><h2>${h.trendsT}</h2></header>
       <div class="trends">${h.trends.map(([c, t, st]) => `
         <div class="tr reveal"><span class="tr-c">${c}</span><p>${t}</p><span class="pill ${st}">${h.status[st]}</span></div>`).join('')}</div>
     </section>
 
-    <section class="lp-next">
+    <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><p class="lp-k">${h.nextK}</p><h2>${h.nextT}</h2><p class="lp-lead small">${h.nextLead}</p></header>
       <div class="next-grid">${h.next.map(([t, d, c], i) => `
         <article class="nx reveal"><span class="nx-n">${String(i + 1).padStart(2, '0')}</span><b>${t}</b><p>${d}</p>
@@ -130,7 +131,7 @@ export function homeView() {
       </div>
     </section>
 
-    <section class="lp-explore">
+    <section class="lp-explore"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><p class="lp-k">${h.exploreK}</p><h2>${h.exploreT}</h2></header>
       <div class="ex-grid">${CHAPTERS.map((id) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">

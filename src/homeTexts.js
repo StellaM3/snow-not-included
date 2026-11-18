@@ -1,8 +1,8 @@
 // Textes de la page d'accueil (récit : hier, aujourd'hui, demain). FR et EN.
 export const HOME = {
   fr: {
-    kicker: 'Le Noël suisse en données · 1960 → 2031',
-    title: 'En Suisse, tout s\'importe à Noël. <em>Sauf la neige.</em>',
+    kicker: 'Données, consommation et tendances · 1960 → 2031',
+    title: 'Ce que Noël dit de la Suisse.<br><em>Hier, aujourd\'hui, demain.</em>',
     lead: 'Comment c\'était, comment c\'est, et où ça va. Un regard sur ce que les Suisses achètent, mangent, écoutent et croient à Noël, et sur ce qui est en train de changer.',
     scroll: 'Défiler',
     by: 'Un projet de Estelle Rossier',
@@ -87,8 +87,8 @@ export const HOME = {
     srcK: 'Sources des tendances',
   },
   en: {
-    kicker: 'Swiss Christmas in data · 1960 → 2031',
-    title: 'In Switzerland, everything is imported at Christmas. <em>Except the snow.</em>',
+    kicker: 'Data, consumption and trends · 1960 → 2031',
+    title: 'What Christmas says about Switzerland.<br><em>Then, now, next.</em>',
     lead: 'How it was, how it is, and where it is going. A look at what the Swiss buy, eat, listen to and believe at Christmas, and at what is changing.',
     scroll: 'Scroll',
     by: 'A project by Estelle Rossier',

@@ -45,7 +45,7 @@ export const HOME = {
           927,
           1200
         ],
-        "text": "Nos grands-parents avaient la neige devant la porte à Noël. Aujourd'hui, il faut monter près de 400 mètres plus haut pour la trouver : le Noël blanc est devenu une excursion.",
+        "text": "Dans les années 1960, il suffisait d'habiter à 570 mètres pour avoir une chance sur deux de voir de la neige le jour de Noël. Aujourd'hui, il faut être à 927 mètres. Des villes comme Fribourg ou Saint-Gall, qui avaient encore souvent un Noël blanc, le passent désormais le plus souvent sans neige, et c'est en montagne qu'on va la chercher.",
         "delta": "+357 m",
         "deltaK": "la neige de Noël est remontée (570 m → 927 m)",
         "read": "Pointillé : altitude où Noël était blanc une année sur deux dans les années 1960. Ligne dorée : la même limite aujourd'hui."
@@ -62,7 +62,7 @@ export const HOME = {
           65,
           100
         ],
-        "text": "En une génération, le sapin suisse s'est habillé en « made in China » : deux décorations importées sur trois en viennent aujourd'hui, contre une sur sept en 1990.",
+        "text": "En 1990, une décoration de Noël importée sur sept venait de Chine. Depuis, la production s'y est peu à peu concentrée, et aujourd'hui ce sont deux sur trois. Les boules et les guirlandes qu'on accroche au sapin ont donc le plus souvent traversé la moitié du monde avant d'arriver dans le salon.",
         "delta": "×4,6",
         "deltaK": "part chinoise de la déco importée (14 % → 65 %)",
         "read": "Chaque point = 1 % de la déco de fête importée. En couleur : la part venue de Chine."
@@ -79,7 +79,7 @@ export const HOME = {
           79,
           90
         ],
-        "text": "La fondue reste suisse dans nos têtes, mais un fromage sur trois dans nos frigos vient d'ailleurs. Et Noël n'y change rien.",
+        "text": "Quand on pense à Noël en Suisse, on pense fondue et raclette. Pourtant, plus d'un tiers du fromage qu'on mange vient de l'étranger, surtout les fromages frais et les pâtes molles comme le brie. Et contrairement à ce qu'on pourrait croire, les fêtes n'y changent rien : en décembre, la Suisse en importe autant qu'un autre mois.",
         "delta": "37 %",
         "deltaK": "du fromage consommé en Suisse est importé (2025)",
         "viz": {
@@ -103,7 +103,7 @@ export const HOME = {
           64,
           100
         ],
-        "text": "Le pop du bouchon est resté, la bouteille a changé : le prosecco, cinq fois moins cher, s'est invité partout, de l'apéro d'été au réveillon.",
+        "text": "Il y a trente ans, une bouteille de bulles importée, c'était presque toujours du champagne. Le champagne n'a pas disparu, la Suisse en achète autant qu'avant. Mais le prosecco, cinq fois moins cher, est arrivé à côté et ses volumes ont plus que triplé, surtout pour l'apéritif d'été. Aujourd'hui, près de deux bouteilles de mousseux importées sur trois viennent d'Italie.",
         "delta": "×16",
         "deltaK": "part italienne des mousseux importés (4 % → 64 %)",
         "read": "Chaque colonne = 100 % des mousseux importés. Doré : France (champagne). Clair : Italie (prosecco)."
@@ -120,7 +120,7 @@ export const HOME = {
           30,
           100
         ],
-        "text": "On n'offre plus un livre à tout le monde, on l'offre à quelqu'un qui lit. Moins de cadeaux-réflexes, mais un marché qui tient, relancé par BookTok chez les jeunes.",
+        "text": "En 2014, plus d'un Suisse sur deux prévoyait de glisser un livre sous le sapin. En 2025, ils ne sont plus qu'un sur trois. Le livre n'a pas perdu ses lecteurs pour autant, les ventes en librairie se maintiennent. On l'offre simplement moins par habitude, et plutôt à quelqu'un dont on sait qu'il aime lire.",
         "delta": "30 %",
         "deltaK": "des Suisses offrent un livre à Noël (56 % en 2014)",
         "read": "Chaque livre = 10 % des Suisses. En couleur : ceux qui prévoient d'en offrir un à Noël."
@@ -137,7 +137,7 @@ export const HOME = {
           36,
           100
         ],
-        "text": "Moins d'église, pas moins de Noël : un Suisse sur trois n'a plus de religion, sans renoncer à la fête, ni forcément à toute croyance.",
+        "text": "En 1970, presque tous les Suisses appartenaient à une Église. Aujourd'hui, plus d'un sur trois se dit sans religion. Cela ne veut pas dire qu'ils ne fêtent plus Noël, ni qu'ils ne croient en rien : beaucoup parlent d'une force supérieure ou se disent spirituels. Noël est simplement devenu, avant tout, une fête de famille.",
         "delta": "36 %",
         "deltaK": "des Suisses sont sans religion (1 % en 1970)",
         "viz": {
@@ -163,7 +163,7 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Chaque décembre, la Suisse appuie sur « play » et remonte le temps : Wham!, Mariah Carey et Brenda Lee occupent le hit-parade comme jamais.",
+        "text": "Chaque décembre, on relance les mêmes chansons : Wham!, Mariah Carey, Brenda Lee. En 1990 pourtant, aucune chanson de Noël n'apparaissait dans le hit-parade, qui ne comptait alors que les disques vendus. Depuis que les écoutes en streaming sont prises en compte, ces classiques reviennent chaque année et occupent presque tout le top 30.",
         "delta": "26 / 30",
         "deltaK": "chansons de Noël dans le top 30 (0 en 1990)",
         "read": "Chaque case = une place du top 30. Dorées : les chansons de Noël. Avant 2014, le classement ne comptait que les disques vendus ; depuis, chaque écoute en streaming compte."
@@ -678,7 +678,7 @@ export const HOME = {
           927,
           1200
         ],
-        "text": "Our grandparents had snow on the doorstep at Christmas. Today you have to climb almost 400 metres higher to find it: a white Christmas has become a day trip.",
+        "text": "In the 1960s, living at 570 metres gave you an even chance of snow on Christmas Day. Today you need to be at 927 metres. Towns like Fribourg or St. Gallen, which still often had a white Christmas, now mostly spend it without snow, and people head to the mountains to find it.",
         "delta": "+357 m",
         "deltaK": "Christmas snow has moved uphill (570 m → 927 m)",
         "read": "Dotted line: altitude where Christmas was white one year in two in the 1960s. Gold line: the same limit today."
@@ -695,7 +695,7 @@ export const HOME = {
           65,
           100
         ],
-        "text": "In one generation, the Swiss tree has dressed itself “made in China”: two imported decorations in three now come from there, against one in seven in 1990.",
+        "text": "In 1990, one imported Christmas decoration in seven came from China. Since then production has gradually moved there, and today it is two in three. The baubles and lights we hang on the tree have usually crossed half the world before reaching the living room.",
         "delta": "×4.6",
         "deltaK": "China's share of imported decorations (14% → 65%)",
         "read": "Each dot = 1% of imported festive decorations. Coloured: the share from China."
@@ -712,7 +712,7 @@ export const HOME = {
           79,
           90
         ],
-        "text": "Fondue stays Swiss in our minds, but one cheese in three in our fridges comes from abroad. And Christmas changes nothing.",
+        "text": "When we think of Christmas in Switzerland, we think of fondue and raclette. Yet more than a third of the cheese we eat comes from abroad, mostly fresh and soft cheeses like brie. And contrary to what you might expect, the holidays change nothing: in December, Switzerland imports as much as in any other month.",
         "delta": "37%",
         "deltaK": "of the cheese eaten in Switzerland is imported (2025)",
         "viz": {
@@ -736,7 +736,7 @@ export const HOME = {
           64,
           100
         ],
-        "text": "The pop of the cork stayed, the bottle changed: prosecco, five times cheaper, has turned up everywhere, from summer aperitifs to New Year's Eve.",
+        "text": "Thirty years ago, an imported bottle of bubbles was almost always champagne. Champagne hasn't disappeared; Switzerland buys as much as before. But prosecco, five times cheaper, arrived alongside it and its volumes have more than tripled, mostly for summer aperitifs. Today, nearly two in three imported bottles of sparkling wine come from Italy.",
         "delta": "×16",
         "deltaK": "Italy's share of imported sparkling wine (4% → 64%)",
         "read": "Each column = 100% of imported sparkling wine. Gold: France (champagne). Light: Italy (prosecco)."
@@ -753,7 +753,7 @@ export const HOME = {
           30,
           100
         ],
-        "text": "We no longer give a book to everyone; we give it to someone who reads. Fewer reflex gifts, but a market that holds, revived by BookTok among the young.",
+        "text": "In 2014, more than one Swiss person in two planned to put a book under the tree. In 2025, only one in three did. Books haven't lost their readers, though; bookshop sales are holding up. People simply give them less out of habit, and more to someone they know loves to read.",
         "delta": "30%",
         "deltaK": "of Swiss people give a book at Christmas (56% in 2014)",
         "read": "Each book = 10% of Swiss people. Coloured: those planning to give one at Christmas."
@@ -770,7 +770,7 @@ export const HOME = {
           36,
           100
         ],
-        "text": "Less church, no less Christmas: one Swiss person in three has no religion, without giving up the holiday, or necessarily all belief.",
+        "text": "In 1970, almost every Swiss person belonged to a church. Today, more than one in three says they have no religion. That doesn't mean they no longer celebrate Christmas, or that they believe in nothing: many speak of a higher power or call themselves spiritual. Christmas has simply become, above all, a family holiday.",
         "delta": "36%",
         "deltaK": "of Swiss people have no religion (1% in 1970)",
         "viz": {
@@ -796,7 +796,7 @@ export const HOME = {
           26,
           30
         ],
-        "text": "Every December, Switzerland presses play and travels back in time: Wham!, Mariah Carey and Brenda Lee fill the charts like never before.",
+        "text": "Every December we put on the same songs: Wham!, Mariah Carey, Brenda Lee. Yet in 1990 no Christmas song appeared in the charts, which only counted records sold. Since streams have been counted, these classics come back every year and fill almost the whole top 30.",
         "delta": "26 / 30",
         "deltaK": "Christmas songs in the top 30 (0 in 1990)",
         "read": "Each square = one place in the top 30. Gold: Christmas songs. Before 2014 the chart only counted records sold; since then, every stream counts."

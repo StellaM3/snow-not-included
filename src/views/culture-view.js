@@ -64,23 +64,35 @@ export function oysterBlock(st) {
 function glasses(n, color) {
   return `<div class="glasses">${Array.from({ length: n }, () => `<i style="background:${color}"></i>`).join('')}</div>`
 }
+function bottle(v, max, col, y) {
+  const top = 46, bot = 236, h = ((bot - top) * v) / max
+  const shape = 'M38 6 H62 V40 C62 58 84 66 84 92 V230 C84 238 78 242 70 242 H30 C22 242 16 238 16 230 V92 C16 66 38 58 38 40 Z'
+  const id = 'bt' + y
+  return `<figure class="bt"><svg viewBox="0 0 100 250" data-tip="${y} : ${String(v).replace('.', ',')} L"><defs><clipPath id="${id}"><path d="${shape}"/></clipPath></defs>
+    <rect x="0" y="${bot - h + 6}" width="100" height="${h + 10}" fill="${col}" opacity=".9" clip-path="url(#${id})"/>
+    <path d="${shape}" fill="none" stroke="${C.t1}" stroke-width="2.5"/><rect x="34" y="0" width="32" height="10" rx="2" fill="${C.gold}"/></svg>
+    <figcaption><b style="color:${col}">${String(v).replace('.', ',')} L</b><span>${y}</span></figcaption></figure>`
+}
+function mug(on) {
+  return `<svg viewBox="0 0 40 48" class="mug ${on ? 'on' : ''}" aria-hidden="true"><path d="M6 10 H28 V42 C28 45 26 46 24 46 H10 C8 46 6 45 6 42 Z" fill="${on ? '#9FD3B4' : 'rgba(234,244,255,.16)'}" stroke="${on ? '#9FD3B4' : 'rgba(234,244,255,.35)'}" stroke-width="2"/><path d="M28 16 H33 C36 16 37 18 37 21 V29 C37 32 36 34 33 34 H28" fill="none" stroke="${on ? '#9FD3B4' : 'rgba(234,244,255,.35)'}" stroke-width="2.5"/><path d="M5 10 C5 4 12 3 14 6 C16 2 24 2 26 6 C30 4 33 8 29 11 Z" fill="${on ? '#E8F6EE' : 'rgba(234,244,255,.3)'}"/></svg>`
+}
 export function alcoholCard(st) {
   const ys = st.years, last = ys[ys.length - 1]
   const A = T.alc
   return `<div class="card alc-card">
-    <div class="section-sub"><h3 class="card-title">🥂 ${A.title}</h3><p class="chart-note">${A.lead}</p></div>
+    <div class="section-sub"><h3 class="card-title">🥂 ${A.title}</h3>${A.lead ? `<p class="chart-note">${A.lead}</p>` : ''}</div>
     <div class="grid2 rev-grid">
       <div class="rev-col">
         <h4 class="mini-title">${A.downTitle}</h4>
-        <div class="detail-big"><span class="big" style="color:${C.red}">10,6 L</span><span class="yr">2001</span><span class="big arrow">→</span><span class="big" style="color:${C.snow}">7,6 L</span><span class="yr">2024</span></div>
-        <p class="chart-note">${A.downRead}</p>
-        <div class="gl-row"><span class="gl-y">2001</span>${glasses(84, C.red)}<b>≈ 840</b></div>
-        <div class="gl-row"><span class="gl-y">2024</span>${glasses(60, C.snow)}<b>≈ 600</b></div>
-        <p class="legend-txt"><i class="gl-key"></i> ${A.glassKey}</p>
-        <h4 class="mini-title" style="margin-top:10px">${A.zeroTitle}</h4>
-        <div class="zero">${A.zeroBeer.map(([y, v]) => `<div class="z-row"><span class="gl-y">${y}</span><div class="z-track"><div class="z-bar" style="width:${v * 8}%"></div></div><b>${pct(v)}</b></div>`).join('')}</div>
+        <div class="bottles">
+          ${bottle(10.6, 10.6, C.red, '2001')}
+          <div class="bt-mid"><b>−28 %</b><span>${A.downRead}</span></div>
+          ${bottle(7.6, 10.6, C.snow, '2024')}
+        </div>
+        <h4 class="mini-title" style="margin-top:34px">${A.zeroTitle}</h4>
+        <div class="mugs">${Array.from({ length: 13 }, (_, i) => mug(i === 0)).join('')}</div>
         <p class="chart-note">${A.zeroBeerNote}</p>
-        <ul class="facts">${A.zeroWine.map((f) => `<li>${f}</li>`).join('')}</ul>
+        ${A.zeroWine.length ? `<p class="chart-note">${A.zeroWine[0]}</p>` : ''}
       </div>
       <div class="rev-col">
         <h4 class="mini-title">${T.bubTitle}</h4>
@@ -88,7 +100,7 @@ export function alcoholCard(st) {
         <div class="flutes">${ys.map((y) => `<div class="fl-wrap">${flute(y)}<div class="fl-txt"><b>${pct(rev.bubbles[y].IT)}</b> ${T.bubOrigins.IT.split(' (')[0]}<br><b>${pct(rev.bubbles[y].FR)}</b> ${T.bubOrigins.FR.split(' (')[0]}<br><span>${T.bubPerCap(dec(rev.bubbles[y].perCap))}</span></div></div>`).join('')}</div>
         <div class="b-legend">${Object.keys(BCOL).map((k) => `<span><i style="background:${BCOL[k]}"></i>${T.bubOrigins[k]}</span>`).join('')}</div>
         <p class="chart-note">${T.bubNote}</p>
-        <ul class="facts"><li>${A.bubMore}</li><li>${T.bubPrice(dec(rev.bubbles[last].chfL_FR), dec(rev.bubbles[last].chfL_IT))}</li></ul>
+        <p class="chart-note">${T.bubPrice(dec(rev.bubbles[last].chfL_FR), dec(rev.bubbles[last].chfL_IT))}</p>
       </div>
     </div>
     <p class="src">${A.src} · ${T.revSrc}</p>

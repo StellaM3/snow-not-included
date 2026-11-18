@@ -369,16 +369,28 @@ function monthBars(k, years) {
   })
   return `<svg viewBox="0 0 ${W} ${H}" class="mb-svg">${s}</svg>`
 }
+function monthSpark(k, y) {
+  const B = months.months[k][y], max = Math.max(...B), W = 132, H = 34, bw = W / 12
+  return `<svg viewBox="0 0 ${W} ${H}" class="m-spark" aria-hidden="true"><rect x="${bw * 9}" y="0" width="${bw * 3}" height="${H}" rx="3" fill="${C.gold}" opacity=".14"/>${B.map((v, m) => { const h = Math.max(1.5, (v / max) * (H - 4)); return `<rect x="${m * bw + 1.5}" y="${H - h}" width="${bw - 3}" height="${h}" rx="1.5" fill="${m >= 9 ? C.snow : '#5E7D70'}" data-tip="${T.monthsLong[m]} ${y} : ${pct(Math.round(v))}"/>` }).join('')}</svg>`
+}
 function importRows(years) {
-  const I = industry.imports, yB = years[years.length - 1]
+  const I = industry.imports, yB = years[years.length - 1], yA = years.length > 1 ? years[0] : null
   const val = (k, y) => k === 'huitres' ? months.oysterValue[y] : I[k][y]?.[0]
-  return `<div class="imp2">${IMP_ORDER.map((k) => {
+  const f = (v) => (v < 10 ? dec(v) : fmt(v))
+  const keys = [...IMP_ORDER].sort((a, b) => val(b, yB) - val(a, yB))
+  const max = Math.max(...keys.flatMap((k) => [val(k, yB), yA ? val(k, yA) : 0]))
+  return `<div class="imp3">${keys.map((k) => {
+    const b = val(k, yB), a = yA ? val(k, yA) : null
     const B = months.months[k][yB], peak = B.indexOf(Math.max(...B))
-    const v = years.map((y, i) => `<b style="color:${YCOL[years.length > 1 ? i : 1]}">${val(k, y) < 10 ? dec(val(k, y)) : fmt(val(k, y))}</b>`).join('<span class="arrow"> → </span>')
-    return `<div class="imp2-row">
-      <div class="i2-name"><span class="i2-ico">${IMP_ICON[k]}</span><b>${T.impNames[k]}</b><span class="i2-val">${v} <small>${T.mioChf}</small></span></div>
-      ${monthBars(k, years)}
-      <div class="i2-peak"><span>${T.peakLabel}</span><b>${T.monthsLong[peak]}</b><em>${pct(Math.round(B[peak]))}</em></div>
+    const g = a ? Math.round((b / a - 1) * 100) : null
+    return `<div class="imp3-row">
+      <div class="i3-name"><span class="i3-ico">${IMP_ICON[k]}</span><b>${T.impNames[k]}</b></div>
+      <div class="i3-bars">
+        <div class="i3-bar now" style="width:${Math.max(0.6, (b / max) * 100)}%" data-tip="${T.impNames[k]} ${yB} : ${f(b)} ${T.mioChf}"></div>
+        ${a !== null ? `<div class="i3-bar then" style="width:${Math.max(0.6, (a / max) * 100)}%" data-tip="${T.impNames[k]} ${yA} : ${f(a)} ${T.mioChf}"></div>` : ''}
+      </div>
+      <div class="i3-val"><b>${f(b)}</b><small>${T.mioChf}</small>${g !== null ? `<em class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${Math.abs(g)} %<span>${T.vsYear ? T.vsYear(yA) : 'vs ' + yA}</span></em>` : ''}</div>
+      <div class="i3-when">${monthSpark(k, yB)}<span>${T.peakLabel} : ${T.monthsLong[peak]}</span></div>
     </div>`
   }).join('')}</div>`
 }
@@ -413,7 +425,7 @@ function industrySection(st) {
     <div class="card"><h3 class="card-title">${T.impTitle}</h3>
       <p class="chart-note">${T.impNote}</p>
       ${yearCompare(st.years, T)}
-      <p class="legend-txt imp-legend"><span class="k-bar"></span> ${st.years[st.years.length - 1]} <span class="k-line"></span> ${st.years.length > 1 ? st.years[0] : ''} <span class="k-zone"></span> ${T.impZone}</p>
+      <p class="legend-txt imp-legend"><span class="k-bar"></span> ${st.years[st.years.length - 1]} ${st.years.length > 1 ? `<span class="k-line2"></span> ${st.years[0]}` : ''} <span class="k-zone"></span> ${T.impWhen} : ${T.impZone}</p>
       ${importRows(st.years)}
       <p class="src">${T.impSrc}</p></div>
     ${alcoholCard(st)}

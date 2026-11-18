@@ -157,7 +157,7 @@ export const HOME = {
           26,
           30
         ],
-        "text": "En 1990, aucune chanson de Noël dans le top 30 la semaine avant Noël ; en 2025, 26 sur 30 : avec le streaming, la Suisse réécoute chaque décembre les mêmes classiques.",
+        "text": "En 1990, « Last Christmas » existait déjà. Mais le hit-parade comptait les disques vendus : une fois le single acheté, on le ressortait chaque Noël sans le racheter, et le classement restait sans chanson de Noël. Depuis 2014, chaque écoute en streaming compte. Chaque décembre, toute la Suisse relance les mêmes titres, et les classiques des années 50 à 90 reprennent 26 places sur 30.",
         "delta": "26 / 30",
         "deltaK": "chansons de Noël dans le top 30 (0 en 1990)"
       }
@@ -783,7 +783,7 @@ export const HOME = {
           26,
           30
         ],
-        "text": "In 1990, no Christmas song in the top 30 the week before Christmas; in 2025, 26 out of 30: with streaming, Switzerland replays the same classics every December.",
+        "text": "In 1990, “Last Christmas” already existed. But the charts counted records sold: once you owned the single, you played it every Christmas without buying it again, so no Christmas song made the chart. Since 2014, every stream counts. Each December the whole country presses play on the same songs, and classics from the 1950s to the 90s take back 26 of the 30 places.",
         "delta": "26 / 30",
         "deltaK": "Christmas songs in the top 30 (0 in 1990)"
       }

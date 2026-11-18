@@ -437,7 +437,7 @@ function industrySection(st) {
         <p class="src">${T.postSrc}</p></div>
       <div class="card"><h3 class="card-title">${T.shopsTitle}</h3>
         <ul class="facts">${T.shopsFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
-        <p class="why" style="background:rgba(234,244,255,.06);border-color:${C.snow}">${T.shopsUnknown}</p>
+        <p class="why">${T.shopsUnknown}</p>
         <p class="src">${T.shopsSrc}</p></div>
     </div>
   </section>`

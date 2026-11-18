@@ -1195,3 +1195,16 @@ body.is-home .topbar { grid-template-areas: "home nav meta" !important; grid-tem
 .bt-mid span { display: block; margin-top: 10px; font-size: 14px; line-height: 1.45; color: var(--t2, #C6D3CC); }
 .mugs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; }
 .mug { width: 34px; height: 41px; }
+
+/* v18 : cartes et titres plus élégants (pages chapitres) */
+.card { border-radius: 14px; padding: 40px 40px 34px; border-color: rgba(234,244,255,.08); background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)), var(--card); gap: 22px; }
+.card-title { font-weight: 400; font-size: 32px; letter-spacing: -.012em; line-height: 1.12; }
+.card-title::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); margin-top: 16px; opacity: .8; }
+.mini-title { font-family: var(--serif); font-weight: 400; font-size: 21px; letter-spacing: -.005em; }
+.facts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.facts li { position: relative; padding-left: 22px; }
+.facts li::before { content: ''; position: absolute; left: 0; top: .78em; width: 10px; height: 1px; background: var(--gold); }
+.why { background: transparent; border-left: 1px solid var(--gold); border-radius: 0; padding: 4px 0 4px 18px; font-size: 16px; color: var(--t2); }
+.why b { color: var(--gold); font-weight: 600; }
+.src { border-top: 1px solid rgba(234,244,255,.07); padding-top: 14px; }
+@media (max-width: 680px) { .card { padding: 28px 22px 24px; } .card-title { font-size: 25px; } }

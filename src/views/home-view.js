@@ -35,10 +35,13 @@ function stepViz(i, s) {
   } else if (i === 1) { // 100 décorations : part chinoise
     g += `<g transform="translate(0 20)">${dots(100, 14, 20, 4, 12, MUTE, '#3A302B')}</g>${label(0, 10, s.ay)}`
     g += `<g transform="translate(270 20)">${dots(100, 65, 20, 4, 12, GOLD, '#3A302B')}</g>${label(270, 10, s.by, GOLD)}`
-  } else if (i === 2) { // meules de fromage proportionnelles
-    const r1 = Math.sqrt(26) * 9.5, r2 = Math.sqrt(79) * 9.5 + 8
-    g += `<circle cx="${80}" cy="${H - 20 - r1}" r="${r1}" fill="none" stroke="${MUTE}" stroke-width="1.2"/><circle cx="80" cy="${H - 20 - r1}" r="${r1 * .35}" fill="none" stroke="${MUTE}" stroke-dasharray="2 4"/>${label(80, H - 4, s.ay, MUTE, 'middle')}`
-    g += `<circle cx="${320}" cy="${H - 20 - r2 + 8}" r="${r2 - 8}" fill="${GOLD}" fill-opacity=".1" stroke="${GOLD}" stroke-width="1.2"/><circle cx="320" cy="${H - 20 - r2 + 8}" r="${(r2 - 8) * .35}" fill="none" stroke="${GOLD}" stroke-dasharray="2 4"/>${label(320, H - 4, s.by, GOLD, 'middle')}`
+  } else if (i === 2) { // fromage : part importée + saisonnalité des importations (OFDF 0406, moyenne 2021–2025)
+    const v = s.viz, M = [7.5, 7.7, 9.5, 8.4, 9.0, 8.8, 8.4, 8.5, 8.1, 8.0, 8.0, 8.2], ML = 'JFMAMJJASOND'
+    g += `<rect x="0" y="6" width="${520 * .37}" height="14" fill="${GOLD}"/><rect x="${520 * .37}" y="6" width="${520 * .63}" height="14" fill="none" stroke="${MUTE}"/>`
+    g += label(0, 36, v.imp, GOLD) + label(520, 36, v.ch, MUTE, 'end') + label(0, 66, v.months)
+    const y0 = H - 16, k = 7.5, bw = 30, gap = (520 - 12 * bw) / 11, yb = y0 - 8.33 * k
+    M.forEach((m, j) => { const x = j * (bw + gap); g += `<rect x="${x}" y="${y0 - m * k}" width="${bw}" height="${m * k}" fill="${j === 11 ? GOLD : IV}" opacity="${j === 11 ? 1 : .22}"/>${label(x + bw / 2, H - 2, ML[j], j === 11 ? GOLD : MUTE, 'middle')}` })
+    g += `<line x1="0" x2="520" y1="${yb}" y2="${yb}" stroke="${IV}" stroke-dasharray="3 5" opacity=".7"/>` + label(0, yb - 6, v.base, IV) + label(520, y0 - 8.2 * k - 6, v.dec, GOLD, 'end')
   } else if (i === 3) { // bulles : France et Italie, deux années
     const bar = (x, yr, fr, it, c) => {
       const h = 150, w = 46

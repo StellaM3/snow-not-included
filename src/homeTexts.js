@@ -67,7 +67,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Le fromage s'importe",
+        "theme": "Le fromage s'importe, toute l'année",
         "a": "26 000 t",
         "ay": "1990",
         "b": "79 000 t",
@@ -77,9 +77,16 @@ export const HOME = {
           79,
           90
         ],
-        "text": "La Suisse importait 26 000 tonnes de fromage en 1990, elle en importe 79 000 aujourd'hui : fondue et raclette restent suisses dans l'imaginaire, de moins en moins dans l'assiette.",
-        "delta": "×3",
-        "deltaK": "de fromage importé chaque année"
+        "text": "Plus d'un fromage sur trois mangé en Suisse vient de l'étranger, et jusqu'à trois sur quatre pour les pâtes molles. Noël n'y change rien : décembre pèse 8,2 % des importations de l'année, un mois ordinaire. Seul le mascarpone double (15 %), pour les desserts de fête.",
+        "delta": "37 %",
+        "deltaK": "du fromage consommé en Suisse est importé (2025)",
+        "viz": {
+          "imp": "IMPORTÉ 37 %",
+          "ch": "SUISSE 63 %",
+          "months": "IMPORTATIONS PAR MOIS · MOYENNE 2021–2025",
+          "base": "MOIS ORDINAIRE 8,3 %",
+          "dec": "DÉC. 8,2 %"
+        }
       },
       {
         "ch": "commerce",
@@ -677,7 +684,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Cheese is imported",
+        "theme": "Cheese is imported, all year round",
         "a": "26,000 t",
         "ay": "1990",
         "b": "79,000 t",
@@ -687,9 +694,16 @@ export const HOME = {
           79,
           90
         ],
-        "text": "Switzerland imported 26,000 tonnes of cheese in 1990 and 79,000 today: fondue and raclette stay Swiss in our minds, less and less on the plate.",
-        "delta": "×3",
-        "deltaK": "more cheese imported each year"
+        "text": "More than one cheese in three eaten in Switzerland comes from abroad, and up to three in four for soft cheeses. Christmas changes nothing: December accounts for 8.2% of the year's imports, an ordinary month. Only mascarpone doubles (15%), for festive desserts.",
+        "delta": "37%",
+        "deltaK": "of the cheese eaten in Switzerland is imported (2025)",
+        "viz": {
+          "imp": "IMPORTED 37%",
+          "ch": "SWISS 63%",
+          "months": "IMPORTS BY MONTH · 2021–2025 AVERAGE",
+          "base": "ORDINARY MONTH 8.3%",
+          "dec": "DEC. 8.2%"
+        }
       },
       {
         "ch": "commerce",

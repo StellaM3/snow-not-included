@@ -219,8 +219,8 @@ function goes() {
       <div class="card"><h3 class="card-title">${T.whiteTitle}</h3>${bigPair(pct(38), pct(9), C.snow)}
         <p class="chart-note">${T.whiteNote}</p><p class="hint">${T.hintHover}</p>
         ${series(fdata.S600, C.snow, pct('x').slice(1))}<p class="src">${T.whiteSrc}</p></div>
-      <div class="card"><div class="fondue-head">${ICON_FONDUE}<h3 class="card-title">${T.fondueTitle}</h3></div>
-        <p class="fondue-what">${T.fondueWhat}</p>${bigPair('65', '40' + T.days, C.gold)}
+      <div class="card"><h3 class="card-title">${T.fondueTitle}</h3>
+        <p class="why">${T.fondueWhat}</p>${bigPair('65', '40' + T.days, C.gold)}
         <p class="chart-note">${T.fondueNote}</p><p class="hint">${T.hintHover}</p>
         ${series(fdata.FON, C.gold, T.days)}<p class="src">${T.fondueSrc}</p></div>
     </div>

@@ -1250,3 +1250,47 @@ body.hidden .cn.on::after { background: var(--red); }
   .hb-t { display: none !important; }
   .chap-k { font-size: 18px !important; margin-bottom: -14px !important; }
 }
+
+/* v20 : système typographique et d'espacement unifié pour les pages chapitres
+   2 familles seulement hors graphiques : Fraunces (titres, chiffres) et Inter (texte, libellés).
+   Échelle : 13 · 16 · 19 · 26 · 42 · 84 px — espacements : 8 · 16 · 24 · 40 · 64 · 128 px */
+body:not(.is-home) {
+  --fs-xs: 13px; --fs-s: 16px; --fs-m: 19px; --fs-l: 26px; --fs-xl: 42px; --fs-xxl: clamp(52px, 6vw, 84px);
+  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 40px; --sp-5: 64px; --sp-6: 128px;
+}
+/* libellés hors SVG : Inter partout (plus de mono) */
+body:not(.is-home) :is(.kicker, .src, .hint, .tip, .hbar span.v, .compare-label, .detail-big .yr, .imp-head span, .s-bar span, .p-year, .o-imp, .o-ch, .wx-y, .next span, .fl-txt b, .fl-txt span, .sp-v, .dots-n b, .disc span, .st-y, .st-p, .on-y, .on-web, .gh-row .g-name small, .gh-years, .base-lab, .gl-row b, .gl-y, .z-row b, .i2-peak span, .sp-head em, .fl-m, .i3-val em, .bt figcaption span, .lang button, .origins .mono, .pcard .mono, .dossier) {
+  font-family: var(--sans, Inter), Inter, system-ui, sans-serif !important; font-variant-numeric: tabular-nums; letter-spacing: 0;
+}
+/* chiffres et titres : Fraunces 400 (plus de 900) */
+body:not(.is-home) :is(.big, .meter-row .val, .pcard .pct, .snow-head .t, .snow-head .nums b, .cal-nums b, .myth, .calls-nums b, .help .nums b, .origins .pct, .mtn-nums b, .g-val, .i-val b, .p-n, .orn-val, .wx-row b, .dots-y, .lit-row b, .gh-row .g-val, .i2-val b, .i3-val b, .bt figcaption b, .bt-mid b) {
+  font-family: var(--serif) !important; font-weight: 400 !important; letter-spacing: -.02em;
+}
+body:not(.is-home) .big { font-size: var(--fs-xl) !important; line-height: 1; }
+body:not(.is-home) .detail-big { gap: var(--sp-2); align-items: baseline; }
+/* hiérarchie des titres */
+body:not(.is-home) .chap-k { font-size: var(--fs-m) !important; margin: 0 0 calc(-1 * var(--sp-4)) !important; }
+body:not(.is-home) .h2 { font-size: var(--fs-xxl); font-weight: 300; letter-spacing: -.03em; line-height: 1; color: var(--t1); }
+body:not(.is-home) .card-title { font-size: var(--fs-xl); font-weight: 400; letter-spacing: -.02em; line-height: 1.08; color: #FBF8F1; }
+body:not(.is-home) .card-title::after { width: 48px; height: 1px; margin-top: var(--sp-3); opacity: 1; }
+body:not(.is-home) .mini-title { font-size: var(--fs-l); font-weight: 400; letter-spacing: -.012em; line-height: 1.15; color: #FBF8F1; margin: 0; }
+body:not(.is-home) .section-sub { display: flex; flex-direction: column; gap: var(--sp-2); }
+/* texte courant : une seule taille, un seul interligne */
+body:not(.is-home) .lead { font-size: var(--fs-m); line-height: 1.6; font-weight: 300; }
+body:not(.is-home) :is(.chart-note, .facts, .why, .legend-txt, .b-legend, .p-label, .card p:not(.src):not(.hint):not(.kicker)) { font-size: var(--fs-s); line-height: 1.6; }
+body:not(.is-home) :is(.chart-note, .legend-txt, .b-legend) { color: var(--t2); font-weight: 400; }
+body:not(.is-home) :is(.src, .hint) { font-size: var(--fs-xs) !important; line-height: 1.5; color: var(--t3); font-style: normal; }
+body:not(.is-home) .hint::before { content: '↳ '; color: var(--gold); }
+/* espacements */
+body:not(.is-home) .page { gap: var(--sp-6); padding-top: var(--sp-6); padding-bottom: var(--sp-6); }
+body:not(.is-home) .section { gap: var(--sp-5); }
+body:not(.is-home) .section-head { gap: var(--sp-3); }
+body:not(.is-home) .grid2 { gap: var(--sp-4); }
+body:not(.is-home) .card { padding: var(--sp-5); gap: var(--sp-4); }
+body:not(.is-home) .card > .card-title + * { margin-top: calc(-1 * var(--sp-1)); }
+body:not(.is-home) .rev-col { display: flex; flex-direction: column; gap: var(--sp-3); }
+body:not(.is-home) .src { margin-top: var(--sp-2); padding-top: var(--sp-3); }
+@media (max-width: 760px) {
+  body:not(.is-home) { --fs-l: 22px; --fs-xl: 32px; --fs-xxl: 44px; --sp-5: 40px; --sp-6: 72px; }
+  body:not(.is-home) .card { padding: 32px 22px; }
+}

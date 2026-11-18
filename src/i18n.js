@@ -95,7 +95,7 @@ export const DICT = {
     byLines: ["Master Digital Experience Design · 1er semestre · ECAL", "Workshop « Make Sense » avec Pascal Wicht · novembre 2026"],
     yearShown: "Année affichée",
     compareLabel: "Comparer deux années",
-    compareHint: "Clique deux années. Rouge : la plus ancienne. Blanc : la plus récente.",
+    compareHint: "Cliquer deux années. Rouge : la plus ancienne. Blanc : la plus récente.",
     fondueWhat: "Un « jour à fondue », c'est un jour où il ne fait pas plus de 5 °C, même l'après-midi : le froid idéal pour sortir le caquelon.",
     before: "Avant",
     after: "Après",

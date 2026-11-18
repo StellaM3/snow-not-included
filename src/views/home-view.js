@@ -95,12 +95,14 @@ export function homeView() {
     <section class="lp-hero">
       <div class="lp-snow" aria-hidden="true">${Array.from({ length: 28 }, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-delay:${(i % 9) * 1.3}s;animation-duration:${9 + (i % 5) * 2}s"></i>`).join('')}</div>
       ${heroArt()}
+      <p class="lp-eyebrow">${h.eyebrow}</p>
       <h1 class="lp-h1">${h.title}</h1>
+      <ul class="lp-proof">${h.proof.map(([n, t]) => `<li><b>${n}</b><span>${t}</span></li>`).join('')}</ul>
       <a class="lp-scroll" href="#prologue" data-anchor="prologue" aria-label="${h.scroll}"><i aria-hidden="true"></i></a>
       <p class="lp-sign">${h.by} · ${h.byMeta}</p>
     </section>
 
-    <section class="lp-prologue" id="prologue">${h.prologue.map((l, i) => `<p class="pro reveal ${i === h.prologue.length - 1 ? 'gold' : ''}">${l}</p>`).join('')}</section>
+    <section class="lp-prologue" id="prologue" style="--n:${h.prologue.length}"><div class="pro-stage">${h.prologue.map((l, i) => `<p class="pro ${i === 0 ? 'on' : ''} ${i === h.prologue.length - 1 ? 'gold' : ''}">${l}</p>`).join('')}</div></section>
 
     <section class="lp-act" id="act1">
       <header class="lp-sec-head"><span class="rn">I</span><h2>${h.actT}</h2></header>
@@ -108,7 +110,7 @@ export function homeView() {
         <div class="scrolly-vis"><div class="sv-stack">${h.steps.map((s, i) => stepVisual(s, i, 0)).join('')}</div></div>
         <div class="scrolly-steps">${h.steps.map((s, i) => `
           <article class="step ${i === 0 ? 'on' : ''}" data-step="${i}">
-            <p class="st-theme">${String(i + 1).padStart(2, '0')} · ${s.theme}</p>
+            <p class="st-theme">${s.theme}</p>
             <p class="st-nums"><span>${s.a}</span> → <b>${s.b}</b></p>
             <div class="st-viz">${stepVisual(s, i, i)}</div>
             <p class="st-text">${s.text}</p>
@@ -120,7 +122,7 @@ export function homeView() {
     <section class="lp-band lp-forces"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><span class="rn">${h.forcesK.split(' · ')[0]}</span><h2>${h.forcesT}</h2></header>
       <ol class="forces2">${h.forces.map(([t, d, n], i) => `
-        <li class="reveal"><span class="f2-i">${String(i + 1).padStart(2, '0')}</span><b class="f2-t">${t}</b><span class="f2-n">${n}</span><p>${d}</p></li>`).join('')}</ol>
+        <li class="reveal"><b class="f2-t">${t}</b><span class="f2-n">${n}</span><p>${d}</p></li>`).join('')}</ol>
     </section>
 
     <section class="lp-ivory"><div class="lp-orn on-ivory" aria-hidden="true"><i></i><span>✦</span><i></i></div>
@@ -133,10 +135,11 @@ export function homeView() {
     <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><span class="rn">${h.nextK.split(' · ')[0]}</span><h2>${h.nextT}</h2><p class="lp-lead small">${h.nextLead}</p></header>
       <div class="next-grid">${h.next.map(([t, d, c], i) => `
-        <article class="nx reveal"><span class="nx-n">${String(i + 1).padStart(2, '0')}</span><b>${t}</b><p>${d}</p>
+        <article class="nx reveal"><b>${t}</b><p>${d}</p>
           <span class="conf ${c}"><i></i><i></i><i></i>${h.conf[c]}</span></article>`).join('')}</div>
       <div class="far">
-        <p class="lp-k">${h.farK}</p>
+        <div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>
+        <header class="far-head"><p class="lp-k">${h.farK}</p><h3>${h.farT}</h3></header>
         <div class="far-grid">${h.far.map(([t, d]) => `<div class="reveal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
       </div>
       <div class="impl">
@@ -150,7 +153,7 @@ export function homeView() {
       <header class="lp-sec-head"><span class="rn">${h.exploreK.split(' · ')[0]}</span><h2>${h.exploreT}</h2></header>
       <div class="ex-grid">${CHAPTERS.map((id, k) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">
-          <div class="ex-art">${chapterArt(id)}<span class="ex-k">${id === 'cache' ? '★' : String(k + 1).padStart(2, '0')}</span></div>
+          <div class="ex-art">${chapterArt(id)}${id === 'cache' ? '<span class="ex-k">★</span>' : ''}</div>
           <div class="ex-body"><span class="ex-t">${t}</span><b class="ex-n">${n}</b><p>${d}</p><span class="ex-go">${h.explore} →</span></div></a>` }).join('')}</div>
       <details class="lp-src"><summary>${h.srcK}</summary><ul>${TREND_SOURCES.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('')}</ul></details>
     </section>
@@ -163,7 +166,17 @@ let onSc
 export function watchHome() {
   obs1?.disconnect(); obs2?.disconnect()
   if (onSc) window.removeEventListener('scroll', onSc)
-  onSc = () => document.body.classList.toggle('scrolled', scrollY > 40)
+  const pro = document.querySelector('.lp-prologue'), lines = [...document.querySelectorAll('.pro')], hero = document.querySelector('.lp-hero')
+  onSc = () => {
+    document.body.classList.toggle('scrolled', scrollY > 40)
+    if (hero) hero.style.setProperty('--fade', Math.max(0, 1 - scrollY / (innerHeight * 0.55)).toFixed(3))
+    if (pro && lines.length) {
+      const r = pro.getBoundingClientRect(), span = r.height - innerHeight
+      const k = Math.min(lines.length - 1, Math.max(0, Math.floor((-r.top / span) * lines.length)))
+      const inView = r.top < innerHeight * 0.5 && r.bottom > innerHeight * 0.5
+      lines.forEach((l, i) => l.classList.toggle('on', inView && i === k))
+    }
+  }
   window.addEventListener('scroll', onSc, { passive: true }); onSc()
   const vis = [...document.querySelectorAll('.scrolly-vis .sv')], steps = [...document.querySelectorAll('.step')]
   if (!steps.length) return

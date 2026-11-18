@@ -95,9 +95,7 @@ export function homeView() {
     <section class="lp-hero">
       <div class="lp-snow" aria-hidden="true">${Array.from({ length: 28 }, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-delay:${(i % 9) * 1.3}s;animation-duration:${9 + (i % 5) * 2}s"></i>`).join('')}</div>
       ${heroArt()}
-      <p class="lp-eyebrow">${h.eyebrow}</p>
       <h1 class="lp-h1">${h.title}</h1>
-      <ul class="lp-proof">${h.proof.map(([n, t]) => `<li><b>${n}</b><span>${t}</span></li>`).join('')}</ul>
       <a class="lp-scroll" href="#prologue" data-anchor="prologue" aria-label="${h.scroll}"><i aria-hidden="true"></i></a>
       <p class="lp-sign">${h.by} · ${h.byMeta}</p>
     </section>

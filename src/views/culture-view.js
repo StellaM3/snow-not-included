@@ -110,20 +110,30 @@ export function alcoholCard(st) {
 /* ---------- Les traditions ---------- */
 function wordBubbles() {
   const R = (v) => Math.sqrt(v) * 13
-  const pos = [[150, 150], [345, 112], [330, 260], [180, 315]]
+  const pos = [[150, 160], [345, 122], [330, 272], [180, 330]]
   const col = [C.gold, C.snow, '#9FD3B4', C.red]
+  // petit crochet et capuchon doré, comme une boule de Noël
+  const hook = (x, y, r) => {
+    const cw = Math.max(16, r * 0.34), ch = Math.max(8, r * 0.14), top = y - r - ch + 3
+    return `<path d="M${x} ${top - 1} c -7 -3 -7 -15 0 -15 c 7 0 7 9 2 11" fill="none" stroke="#C9A45C" stroke-width="2" stroke-linecap="round"/>
+      <rect x="${x - cw / 2}" y="${top}" width="${cw}" height="${ch}" rx="2" fill="#C9A45C"/>
+      <line x1="${x - cw / 2 + 3}" x2="${x + cw / 2 - 3}" y1="${top + ch * 0.45}" y2="${top + ch * 0.45}" stroke="#8C6E33" stroke-width="1"/>`
+  }
   let s = ''
   T.words.forEach(([w, v], i) => {
     const [x, y] = pos[i], r = R(v)
+    s += hook(x, y, r)
     s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${col[i]}" data-tip="${w} : ${pct(v)}"/>`
     s += `<text x="${x}" y="${y - 4}" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="${i === 0 ? 46 : 30}" fill="#0F1F1A" pointer-events="none">${v} %</text>`
     s += `<text x="${x}" y="${y + (i === 0 ? 30 : 22)}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="${i === 0 ? 20 : 15}" fill="#0F1F1A" pointer-events="none">${w}</text>`
   })
-  // la foi : une toute petite bulle, avec son explication juste à côté
-  s += `<circle cx="70" cy="428" r="${R(8)}" fill="none" stroke="${C.t2}" stroke-width="2" stroke-dasharray="4 4" data-tip="8 % : ${T.faith8}"/>`
-  s += `<text x="70" y="435" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="20" fill="${C.t1}" pointer-events="none">8 %</text>`
-  s += `<text x="120" y="422" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8a}</text><text x="120" y="444" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8b}</text>`
-  return `<svg viewBox="0 0 500 470" class="words">${s}</svg>`
+  // la foi : boule pleine elle aussi, avec son explication juste à côté
+  const fx = 70, fy = 440, fr = R(8)
+  s += hook(fx, fy, fr)
+  s += `<circle cx="${fx}" cy="${fy}" r="${fr}" fill="#7E9C8F" data-tip="8 % : ${T.faith8}"/>`
+  s += `<text x="${fx}" y="${fy + 7}" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="20" fill="#0F1F1A" pointer-events="none">8 %</text>`
+  s += `<text x="122" y="434" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8a}</text><text x="122" y="456" font-family="Inter" font-size="17" fill="${C.t2}">${T.faith8b}</text>`
+  return `<svg viewBox="0 0 500 486" class="words">${s}</svg>`
 }
 
 function spoilBars() {

@@ -7,6 +7,10 @@ import imgSeconde from '../assets/impl/seconde-main.jpg'
 import imgPerso from '../assets/impl/personnalisation.jpg'
 import imgSans from '../assets/impl/sans-alcool.jpg'
 const IMPL_IMG = [imgHeritage, imgSeconde, imgPerso, imgSans]
+import pSarah from '../assets/personas/sarah.jpg'
+import pLeo from '../assets/personas/leo.jpg'
+import pMonique from '../assets/personas/monique.jpg'
+const PERSONA_IMG = { sarah: pSarah, leo: pLeo, monique: pMonique }
 
 
 const H = () => HOME[lang] || HOME.fr
@@ -142,15 +146,27 @@ export function homeView() {
       </div>
       <div class="pers">
         <header class="ins-head"><p class="lp-k">${h.personasK}</p><h3>${h.personasT}</h3><p class="pers-lead">${h.personasLead}</p></header>
-        <div class="pers-grid">${h.personas.map((p) => `
-          <article class="per reveal">
-            <div class="per-top"><span class="per-ini">${p.ini}</span><div><h4>${p.name}</h4><p class="per-who">${p.who}</p></div></div>
-            <blockquote>« ${p.quote} »</blockquote>
-            <div class="per-b"><b>${p.budget}</b><span>${p.budgetNote}</span></div>
-            <p class="per-k">${h.personasHabits}</p>
-            <ul>${p.habits.map((x) => `<li>${x}</li>`).join('')}</ul>
-            <p class="per-k">${h.personasPain}</p><p class="per-t">${p.pain}</p>
-            <p class="per-k">${h.personasHook}</p><p class="per-hook">${p.hook}</p>
+        <div class="pers-list">${h.personas.map((p) => `
+          <article class="pz reveal">
+            <aside class="pz-id">
+              <figure class="pz-ph"><img src="${PERSONA_IMG[p.img]}" alt="" loading="lazy"></figure>
+              <h4>${p.name}<span>${p.age}</span></h4>
+              <ul class="pz-meta">${p.meta.map((x) => `<li>${x}</li>`).join('')}</ul>
+              <blockquote>« ${p.quote} »</blockquote>
+            </aside>
+            <div class="pz-body">
+              <div class="pz-s pz-bio"><p class="pz-k">${h.personasBio}</p><p>${p.bio}</p></div>
+              <div class="pz-two">
+                <div class="pz-s"><p class="pz-k">${h.personasGoals}</p><ul class="pz-list">${p.goals.map((x) => `<li>${x}</li>`).join('')}</ul></div>
+                <div class="pz-s"><p class="pz-k">${h.personasPains}</p><ul class="pz-list pain">${p.pains.map((x) => `<li>${x}</li>`).join('')}</ul></div>
+              </div>
+              <div class="pz-two">
+                <div class="pz-s"><p class="pz-k">${h.personasProfile}</p>${p.scales.map(([l, r, v]) => `<div class="pz-sc"><span>${l}</span><i><b style="left:${v}%"></b></i><span>${r}</span></div>`).join('')}</div>
+                <div class="pz-s"><p class="pz-k">${h.personasBudget}</p><p class="pz-bud"><b>${p.budget}</b><span>${p.budgetNote}</span></p>
+                  <p class="pz-k">${h.personasBuys}</p><p class="pz-tags">${p.buys.map((x) => `<span>${x}</span>`).join('')}</p></div>
+              </div>
+              <p class="pz-hook"><span>${h.personasHookK}</span>${p.hook}</p>
+            </div>
           </article>`).join('')}</div>
       </div>
     </section>

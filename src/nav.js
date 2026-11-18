@@ -14,12 +14,13 @@ export function routeFromHash() {
 }
 
 // Barre du haut : accueil, chapitres en icônes, langue
+const ROMAN = ['I', 'II', 'III', 'IV', 'V']
 export function topNav(page, langBtns) {
   return `<div class="topbar" id="top">
-    <a class="home-btn ${page ? '' : 'on'}" href="#/" data-go=""><span aria-hidden="true">🏠</span><span class="hb-t">${T.home}</span></a>
+    <a class="home-btn ${page ? '' : 'on'}" href="#/" data-go="" aria-label="${T.home}"><span class="hb-mark" aria-hidden="true">✦</span><span class="hb-t">${T.home}</span></a>
     <nav class="chapnav" aria-label="${T.navAria}">${CHAPTERS.map((id, i) => `
       <a href="#/${id}" class="cn ${id === page ? 'on' : ''} ${id === 'cache' ? 'dark' : ''}" data-go="${id}" title="${T.chaps[id][0]}" ${id === page ? 'aria-current="page"' : ''}>
-        <span class="cn-n">${id === 'cache' ? '★' : i + 1}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
+        <span class="cn-n">${id === 'cache' ? '★' : ROMAN[i]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
     </nav>
     <div class="meta">${langBtns}</div>
   </div>`
@@ -48,7 +49,7 @@ export function homeView(header) {
 // Haut et bas d'une page chapitre
 export function chapterHead(id) {
   const i = CHAPTERS.indexOf(id)
-  const k = `<p class="chap-k"><span class="chap-ico" aria-hidden="true">${ICONS[id]}</span>${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 5)}</p>`
+  const k = `<p class="chap-k">${id === 'cache' ? T.chapHidden : T.chapter(i + 1, 5)}</p>`
   return id === 'cache' ? `${k}<div class="section-head"><h2 class="h2 hidden-h">${T.h1Hidden}</h2><p class="lead">${T.chaps.cache[1]}.</p></div>` : k
 }
 export function chapterFoot(id) {

@@ -51,7 +51,7 @@ export function oysterBlock(st) {
   const big = ys.map((y, k) => `<span class="big" style="color:${YCOL[ys.length > 1 ? k : 1]}">${Math.round(rev.oysters[y].months[11])} %</span>`).join('<span class="big arrow">→</span>')
   return `<div class="oy-block">
     <div class="oy-text">
-      <h4 class="mini-title">🦪 ${T.oyTitle}</h4>
+      <h4 class="mini-title">${T.oyTitle}</h4>
       <div class="detail-big">${big}</div>
       <p class="chart-note">${T.oyRead(ys.join(' / '))}. ${T.oyNote}</p>
       <ul class="facts"><li>${ys.map((y) => `${y} : ${T.oyTonnes(rev.oysters[y].t)}`).join(' · ')}</li><li>${T.oyFrance}</li></ul>
@@ -80,7 +80,7 @@ export function alcoholCard(st) {
   const ys = st.years, last = ys[ys.length - 1]
   const A = T.alc
   return `<div class="card alc-card">
-    <div class="section-sub"><h3 class="card-title">🥂 ${A.title}</h3>${A.lead ? `<p class="chart-note">${A.lead}</p>` : ''}</div>
+    <div class="section-sub"><h3 class="card-title">${A.title}</h3>${A.lead ? `<p class="chart-note">${A.lead}</p>` : ''}</div>
     <div class="grid2 rev-grid">
       <div class="rev-col">
         <h4 class="mini-title">${A.downTitle}</h4>
@@ -222,7 +222,7 @@ export function traditionsSection(st) {
         <div class="lit">${T.litRows.map(([l, v]) => `<div class="lit-row"><div class="bulbs">${Array.from({ length: 10 }, (_, i) => `<i class="${i < Math.round(v / 10) ? 'off' : 'on'}"></i>`).join('')}</div><b>${v} %</b><span>${l}</span></div>`).join('')}</div>
         <p class="src">${T.litSrc}</p></div>
     </div>
-    <div class="card"><h3 class="card-title">🎵 ${T.songTitle}</h3>
+    <div class="card"><h3 class="card-title">${T.songTitle}</h3>
       <div class="detail-big"><span class="big" style="color:${C.gold}">${d[1990]}</span><span class="yr">1990</span><span class="big arrow">→</span><span class="big" style="color:${C.red}">${d[2025]}</span><span class="yr">2025</span></div>
       <p class="chart-note">${T.songRead(d[1990], d[2025], 1990, 2025)} ${T.songNote}</p>
       <p class="hint">${T.songClick}</p>
@@ -231,13 +231,13 @@ export function traditionsSection(st) {
       <p class="why">${T.songOld} ${T.songMariah}</p>
       <p class="src">${T.songSrc}</p></div>
     <div class="grid2">
-      <div class="card"><h3 class="card-title">🎬 ${T.filmTitle}</h3><p class="chart-note">${T.filmNote}</p>${filmStrips()}
+      <div class="card"><h3 class="card-title">${T.filmTitle}</h3><p class="chart-note">${T.filmNote}</p>${filmStrips()}
         <div class="compare"><span class="compare-label">${T.filmPick}</span><div class="chips">${Object.keys(culture.films).map((k) => `<button class="chip ${k === st.filmYear ? 'on' : ''}" data-filmy="${k}">${k}</button>`).join('')}</div></div>
         <p class="mini-title">${T.filmTopTitle(st.filmYear)}</p>
         ${filmList(st.filmYear)}
         <ul class="facts">${T.filmClassics.map((f) => `<li>${f}</li>`).join('')}</ul>
         <p class="src">${T.filmSrc}</p></div>
-      <div class="card"><h3 class="card-title">📺 ${T.tvTitle}</h3><ul class="facts">${T.tvFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
+      <div class="card"><h3 class="card-title">${T.tvTitle}</h3><ul class="facts">${T.tvFacts.map((f) => `<li>${f}</li>`).join('')}</ul>
         <p class="why">${T.tvUnknown}</p><p class="src">${T.tvSrc}</p></div>
     </div>
   </section>`

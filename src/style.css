@@ -1208,3 +1208,45 @@ body.is-home .topbar { grid-template-areas: "home nav meta" !important; grid-tem
 .why b { color: var(--gold); font-weight: 600; }
 .src { border-top: 1px solid rgba(234,244,255,.07); padding-top: 14px; }
 @media (max-width: 680px) { .card { padding: 28px 22px 24px; } .card-title { font-size: 25px; } }
+
+/* v19 : pages chapitres en accord avec l'accueil (vert conservé) — titres serif fins, nav épurée, boîtes raffinées */
+body:not(.is-home) .page { gap: 120px; padding-top: 88px; padding-bottom: 120px; }
+body:not(.is-home) .section { gap: 40px; }
+body:not(.is-home) .section-head { gap: 22px; max-width: 980px; }
+body:not(.is-home) .h2 { font-weight: 300; font-size: clamp(44px, 5.2vw, 76px); line-height: 1.02; letter-spacing: -.025em; }
+body:not(.is-home) .lead { font-size: 18px; line-height: 1.65; color: var(--t2); max-width: 62ch; font-weight: 300; }
+.chap-k { margin: 0 0 -28px !important; font-family: var(--serif) !important; font-style: italic; font-weight: 300; font-size: 22px !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--gold); }
+.chap-ico { display: none; }
+/* boîtes */
+body:not(.is-home) .card { border-radius: 4px; padding: 64px 64px 48px; gap: 30px; border: 1px solid rgba(234,244,255,.07); background: rgba(255,255,255,.022); box-shadow: none; }
+body:not(.is-home) .grid2 { gap: 32px; }
+body:not(.is-home) .card-title { font-weight: 300; font-size: clamp(30px, 2.6vw, 40px); line-height: 1.1; letter-spacing: -.018em; }
+body:not(.is-home) .card-title::after { width: 44px; margin-top: 22px; opacity: .7; }
+body:not(.is-home) .mini-title { font-weight: 300; font-size: 24px; letter-spacing: -.01em; }
+body:not(.is-home) .chart-note { font-size: 16px; line-height: 1.65; color: var(--t2); max-width: 68ch; font-weight: 300; }
+body:not(.is-home) .facts { font-size: 15.5px; line-height: 1.6; }
+body:not(.is-home) .hint { font-family: var(--sans, Inter), sans-serif; font-style: italic; font-size: 13px; color: var(--t3); letter-spacing: .01em; }
+body:not(.is-home) .hint::before { content: '— '; color: var(--gold); font-style: normal; }
+body:not(.is-home) .src { font-size: 11px; letter-spacing: .02em; opacity: .85; padding-top: 18px; margin-top: 6px; }
+/* navigation du haut */
+body:not(.is-home) .topbar { background: color-mix(in srgb, var(--bg) 92%, transparent); border-bottom: 1px solid rgba(234,244,255,.06); padding-top: 18px; padding-bottom: 18px; }
+.home-btn { border: 0 !important; background: none !important; height: auto; padding: 0 !important; gap: 10px; color: var(--t1) !important; font-weight: 400; }
+.hb-mark { color: var(--gold); font-size: 16px; }
+.hb-t { display: inline !important; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 18px; }
+.home-btn:hover .hb-t { color: var(--gold); }
+.chapnav { gap: 6px !important; }
+.cn { height: 40px; padding: 0 14px !important; border: 0 !important; border-radius: 0 !important; background: none !important; color: var(--t3) !important; font-weight: 400; font-size: 14px; gap: 10px; position: relative; }
+.cn-n { width: auto !important; height: auto !important; border: 0 !important; background: none !important; border-radius: 0 !important; font-family: var(--serif) !important; font-style: italic; font-weight: 300; font-size: 17px !important; color: var(--gold) !important; }
+.cn.on { color: var(--t1) !important; }
+.cn.on::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 1px; background: var(--gold); }
+.cn:hover { color: var(--t1) !important; }
+.cn.dark .cn-n { color: var(--red) !important; font-style: normal; font-size: 13px !important; }
+body.hidden .cn.on { background: none !important; color: var(--t1) !important; }
+body.hidden .cn.on::after { background: var(--red); }
+@media (max-width: 760px) {
+  body:not(.is-home) .page { gap: 72px; padding-top: 48px; }
+  body:not(.is-home) .card { padding: 34px 22px 28px; }
+  body:not(.is-home) .h2 { font-size: 40px; }
+  .hb-t { display: none !important; }
+  .chap-k { font-size: 18px !important; margin-bottom: -14px !important; }
+}

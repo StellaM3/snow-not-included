@@ -941,3 +941,28 @@ body.is-home .cn.dark .cn-n { background: transparent; border-color: var(--gold)
   .tr:nth-child(even) { padding-left: 0; border-left: 0; }
   .lp-src ul { columns: 1; }
 }
+
+/* v11 : visualisations du récit et illustration d'ambiance */
+.scrolly-vis { height: 560px; top: calc(50vh - 280px); }
+.sv { justify-content: flex-start; gap: 22px; }
+.sv-nums { display: flex; align-items: flex-end; gap: 36px; flex-wrap: wrap; }
+.sv-now b { font-size: clamp(64px, 7vw, 108px); }
+.sv-viz { width: 100%; height: auto; margin-top: auto; }
+.sv-viz * { transition: opacity .6s; }
+.lp-art { position: absolute; right: 0; bottom: 0; width: min(78vw, 1200px); height: 88%; pointer-events: none; opacity: .9; }
+.lp-hero > *:not(.lp-art):not(.lp-snow) { position: relative; z-index: 1; }
+.lp-window { animation: flick 4s ease-in-out infinite; }
+@keyframes flick { 0%, 100% { opacity: .95; } 50% { opacity: .7; } }
+@media (max-width: 760px) {
+  .scrolly-vis { height: 380px; top: 110px; }
+  .sv-now b { font-size: 56px; }
+  .sv-then b { font-size: 28px; }
+  .sv-nums { gap: 20px; }
+  .lp-art { width: 150vw; height: 45%; opacity: .45; }
+}
+@media (prefers-reduced-motion: reduce) { .lp-window { animation: none; } }
+.lp-hero > .lp-scroll { position: absolute; }
+.lp-art { width: min(56vw, 860px); height: 74%; right: -2%; opacity: .8; }
+@media (min-width: 761px) { .lp-h1, .lp-lead { max-width: min(13ch, 60vw); } .lp-lead { max-width: 40ch; } }
+.lp-hero > .lp-scroll { position: relative; left: auto; bottom: auto; margin-top: 44px; align-self: flex-start; }
+.lp-hero { padding-top: clamp(64px, 9vw, 120px) !important; }

@@ -188,7 +188,7 @@ export function homeView() {
       </div>
     </section>
 
-    <section class="lp-explore"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
+    <section class="lp-explore" id="explore"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><span class="rn">${h.exploreK.split(' · ')[0]}</span><h2>${h.exploreT}</h2></header>
       <div class="ex-grid">${CHAPTERS.map((id, k) => { const [n, d, t] = h.cards[id]; return `
         <a class="ex reveal ${id === 'cache' ? 'dark' : ''}" href="#/${id}" data-go="${id}">

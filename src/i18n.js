@@ -308,6 +308,7 @@ export const DICT = {
     faith8a: "seulement : c'est la part qui juge",
     faith8b: "l'origine religieuse de Noël importante",
     impWhen: "Arrivée par mois",
+    navData: "Données",
   },
   en: {
     h1: "In Switzerland {CH}, everything at Christmas {TREE} is imported.<br><em>Except the snow.</em>",
@@ -615,6 +616,7 @@ export const DICT = {
     faith8a: "only: the share who say the",
     faith8b: "religious origin of Christmas matters",
     impWhen: "Arrivals by month",
+    navData: "Data",
   },
 }
 

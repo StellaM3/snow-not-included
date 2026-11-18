@@ -86,7 +86,12 @@ app.addEventListener('click', (e) => {
   const b = e.target.closest(SEL)
   if (!b || b.disabled) return
   const d = b.dataset
-  if (d.anchor) { e.preventDefault(); document.getElementById(d.anchor)?.scrollIntoView({ behavior: 'smooth' }); return }
+  if (d.anchor) {
+    e.preventDefault()
+    const el = document.getElementById(d.anchor)
+    if (el) { el.scrollIntoView({ behavior: 'smooth' }); return }
+    go(''); setTimeout(() => document.getElementById(d.anchor)?.scrollIntoView({ behavior: 'smooth' }), 80); return
+  }
   if (d.go !== undefined) { e.preventDefault(); go(d.go); return }
   if (d.rel) st.relYear = d.rel
   if (d.songy) st.songYear = +d.songy

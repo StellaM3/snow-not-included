@@ -22,7 +22,7 @@ export function topNav(page, langBtns) {
       <a href="#/${id}" class="cn ${id === page ? 'on' : ''} ${id === 'cache' ? 'dark' : ''}" data-go="${id}" title="${T.chaps[id][0]}" ${id === page ? 'aria-current="page"' : ''}>
         <span class="cn-n">${ROMAN[i]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
     </nav>
-    <div class="meta">${langBtns}</div>
+    <div class="meta"><a class="nav-data" href="#explore" data-anchor="explore">${T.navData}</a>${langBtns}</div>
   </div>`
 }
 

@@ -354,7 +354,7 @@ export const HOME = {
     "personas": [
       {
         "img": "sarah",
-        "name": "Sarah",
+        "name": "L'Orchestratrice familiale",
         "age": "41 ans",
         "meta": [
           "Lausanne",
@@ -362,7 +362,7 @@ export const HOME = {
           "Infirmière à 80 %"
         ],
         "quote": "Je veux que ce soit magique pour les enfants, sans y passer toutes mes soirées.",
-        "bio": "Sarah organise Noël pour toute la famille. Elle fait une liste en novembre, achète surtout en magasin le samedi et complète en ligne le soir.",
+        "bio": "Elle organise Noël pour toute la famille. Elle fait une liste en novembre, achète surtout en magasin le samedi et complète en ligne le soir.",
         "goals": [
           "Voir les enfants émerveillés",
           "Tenir le budget sans se priver",
@@ -407,7 +407,7 @@ export const HOME = {
       },
       {
         "img": "leo",
-        "name": "Léo",
+        "name": "Le Chineur de singularité",
         "age": "28 ans",
         "meta": [
           "Zurich",
@@ -415,7 +415,7 @@ export const HOME = {
           "Graphiste"
         ],
         "quote": "Je préfère un Lego vintage trouvé en ligne à un truc neuf que tout le monde a.",
-        "bio": "Léo fête deux Noëls : un en famille, un entre amis autour d'une raclette. Il chine sur Ricardo, s'inspire sur TikTok et cherche le cadeau qu'on ne trouve nulle part ailleurs.",
+        "bio": "Il fête deux Noëls : un en famille, un entre amis autour d'une raclette. Il chine sur Ricardo, s'inspire sur TikTok et cherche le cadeau qu'on ne trouve nulle part ailleurs.",
         "goals": [
           "Offrir quelque chose d'unique",
           "Dépenser malin",
@@ -460,7 +460,7 @@ export const HOME = {
       },
       {
         "img": "monique",
-        "name": "Monique",
+        "name": "La Gardienne de la tradition",
         "age": "68 ans",
         "meta": [
           "Fribourg",
@@ -468,7 +468,7 @@ export const HOME = {
           "Retraitée, ancienne enseignante"
         ],
         "quote": "Je ressors les mêmes boules chaque année, mais j'aime en ajouter une belle.",
-        "bio": "Monique reçoit toute la famille le 24. Elle aime le conseil en magasin, offre encore des livres et du chocolat, et garde ses décorations depuis trente ans.",
+        "bio": "Elle reçoit toute la famille le 24. Elle aime le conseil en magasin, offre encore des livres et du chocolat, et garde ses décorations depuis trente ans.",
         "goals": [
           "Réunir la famille",
           "Des objets qui durent",
@@ -987,7 +987,7 @@ export const HOME = {
     "personas": [
       {
         "img": "sarah",
-        "name": "Sarah",
+        "name": "The Family Orchestrator",
         "age": "41",
         "meta": [
           "Lausanne",
@@ -995,7 +995,7 @@ export const HOME = {
           "Nurse, 80%"
         ],
         "quote": "I want it to be magical for the kids, without spending all my evenings on it.",
-        "bio": "Sarah organises Christmas for the whole family. She makes a list in November, shops mostly in store on Saturdays and tops up online in the evening.",
+        "bio": "She organises Christmas for the whole family. She makes a list in November, shops mostly in store on Saturdays and tops up online in the evening.",
         "goals": [
           "Seeing the kids amazed",
           "Staying on budget without going without",
@@ -1040,7 +1040,7 @@ export const HOME = {
       },
       {
         "img": "leo",
-        "name": "Léo",
+        "name": "The Curated Hunter",
         "age": "28",
         "meta": [
           "Zurich",
@@ -1048,7 +1048,7 @@ export const HOME = {
           "Graphic designer"
         ],
         "quote": "I'd rather find a vintage Lego online than buy something new everyone has.",
-        "bio": "Léo celebrates two Christmases: one with family, one with friends around a raclette. He hunts on Ricardo, gets ideas on TikTok and looks for the gift you can't find anywhere else.",
+        "bio": "He celebrates two Christmases: one with family, one with friends around a raclette. He hunts on Ricardo, gets ideas on TikTok and looks for the gift you can't find anywhere else.",
         "goals": [
           "Giving something unique",
           "Spending smart",
@@ -1093,7 +1093,7 @@ export const HOME = {
       },
       {
         "img": "monique",
-        "name": "Monique",
+        "name": "The Heritage Keeper",
         "age": "68",
         "meta": [
           "Fribourg",
@@ -1101,7 +1101,7 @@ export const HOME = {
           "Retired teacher"
         ],
         "quote": "I bring out the same baubles every year, but I like to add a beautiful one.",
-        "bio": "Monique hosts the whole family on the 24th. She values in-store advice, still gives books and chocolate, and has kept her decorations for thirty years.",
+        "bio": "She hosts the whole family on the 24th. She values in-store advice, still gives books and chocolate, and has kept her decorations for thirty years.",
         "goals": [
           "Bringing the family together",
           "Things that last",

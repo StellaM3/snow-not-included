@@ -140,6 +140,19 @@ export function homeView() {
           <article class="ins-c reveal"><b class="ins-n">${n}</b><h4>${t}</h4><p>${d}</p><p class="ins-a">${a}</p></article>`).join('')}</div>
         <p class="ins-note">${h.insightsNote}</p>
       </div>
+      <div class="pers">
+        <header class="ins-head"><p class="lp-k">${h.personasK}</p><h3>${h.personasT}</h3><p class="pers-lead">${h.personasLead}</p></header>
+        <div class="pers-grid">${h.personas.map((p) => `
+          <article class="per reveal">
+            <div class="per-top"><span class="per-ini">${p.ini}</span><div><h4>${p.name}</h4><p class="per-who">${p.who}</p></div></div>
+            <blockquote>« ${p.quote} »</blockquote>
+            <div class="per-b"><b>${p.budget}</b><span>${p.budgetNote}</span></div>
+            <p class="per-k">${h.personasHabits}</p>
+            <ul>${p.habits.map((x) => `<li>${x}</li>`).join('')}</ul>
+            <p class="per-k">${h.personasPain}</p><p class="per-t">${p.pain}</p>
+            <p class="per-k">${h.personasHook}</p><p class="per-hook">${p.hook}</p>
+          </article>`).join('')}</div>
+      </div>
     </section>
 
     <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>

@@ -106,7 +106,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Le livre décroche",
+        "theme": "Le livre : moins offert, pas moins vendu",
         "a": "56 %",
         "ay": "2014",
         "b": "30 %",
@@ -116,9 +116,9 @@ export const HOME = {
           30,
           100
         ],
-        "text": "En 2014, plus d'un Suisse sur deux offrait un livre à Noël ; en 2025, moins d'un sur trois : bons, expériences et cadeaux personnalisés ont pris sa place.",
-        "delta": "−26 pts",
-        "deltaK": "de Suisses qui offrent un livre"
+        "text": "En 2014, plus d'un Suisse sur deux prévoyait d'offrir un livre ; en 2025, moins d'un sur trois. Pourtant le marché tient : 581,8 millions de francs en Suisse alémanique en 2025, +1,1 %, avec de bonnes ventes de Noël. Le livre quitte le rôle de cadeau par défaut et devient un achat choisi, relancé chez les jeunes par BookTok.",
+        "delta": "30 %",
+        "deltaK": "des Suisses offrent un livre à Noël (56 % en 2014)"
       },
       {
         "ch": "traditions",
@@ -133,8 +133,8 @@ export const HOME = {
           100
         ],
         "text": "Les Suisses sans religion sont passés de 1 % en 1970 à 36 % en 2023 : Noël reste la fête de presque tous, mais on la célèbre pour la famille plus que pour la foi.",
-        "delta": "+35 pts",
-        "deltaK": "de Suisses sans religion"
+        "delta": "36 %",
+        "deltaK": "des Suisses sont sans religion (1 % en 1970)"
       },
       {
         "ch": "traditions",
@@ -723,7 +723,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Books fall away",
+        "theme": "Books: given less, not sold less",
         "a": "56%",
         "ay": "2014",
         "b": "30%",
@@ -733,9 +733,9 @@ export const HOME = {
           30,
           100
         ],
-        "text": "In 2014, more than one Swiss person in two gave a book at Christmas; in 2025, fewer than one in three: vouchers, experiences and personalised gifts took its place.",
-        "delta": "−26 pts",
-        "deltaK": "Swiss people giving a book"
+        "text": "In 2014, more than one Swiss person in two planned to give a book; in 2025, fewer than one in three. Yet the market holds: CHF 581.8 million in German-speaking Switzerland in 2025, +1.1%, with strong Christmas sales. Books are no longer the default gift but a deliberate purchase, revived among young people by BookTok.",
+        "delta": "30%",
+        "deltaK": "of Swiss people give a book at Christmas (56% in 2014)"
       },
       {
         "ch": "traditions",
@@ -750,8 +750,8 @@ export const HOME = {
           100
         ],
         "text": "People with no religion went from 1% in 1970 to 36% in 2023: Christmas is still almost everyone's holiday, celebrated for family more than faith.",
-        "delta": "+35 pts",
-        "deltaK": "Swiss people with no religion"
+        "delta": "36%",
+        "deltaK": "of Swiss people have no religion (1% in 1970)"
       },
       {
         "ch": "traditions",
@@ -1304,5 +1304,13 @@ export const TREND_SOURCES = [
   [
     "Statista / Chocosuisse, consommation 2021",
     "https://de.statista.com/infografik/amp/20328/schokoladenverzehr-pro-kopf-in-europa"
+  ],
+  [
+    "SBVV / GfK, marché du livre en Suisse alémanique 2025",
+    "https://www.suedostschweiz.ch/schweiz-und-welt/deutschschweizer-buchmarkt-zeigt-2025-ein-moderates-wachstum-2-1540114"
+  ],
+  [
+    "Producteurs Suisses de Lait, consommation de fromage 2025",
+    "https://api.swissmilk.ch/wp-content/uploads/2026/04/communique-de-presse-nouvelle-hausse-de-la-consommation-de-fromage-en-suisse-20260331-fr.pdf"
   ]
 ]

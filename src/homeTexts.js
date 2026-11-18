@@ -47,7 +47,7 @@ export const HOME = {
         ],
         "text": "Dans les années 1960, il suffisait d'habiter à 570 m pour avoir un Noël blanc une année sur deux ; aujourd'hui il faut monter à 927 m, et la neige devient une destination.",
         "delta": "+357 m",
-        "deltaK": "la neige de Noël est remontée"
+        "deltaK": "la neige de Noël est remontée (570 m → 927 m)"
       },
       {
         "ch": "voyage",
@@ -63,7 +63,7 @@ export const HOME = {
         ],
         "text": "En 1990, une décoration de fête importée sur sept venait de Chine ; en 2024, deux sur trois : la déco de Noël est devenue un produit de masse mondialisé.",
         "delta": "×4,6",
-        "deltaK": "pour la part chinoise de la déco importée"
+        "deltaK": "part chinoise de la déco importée (14 % → 65 %)"
       },
       {
         "ch": "import",
@@ -102,7 +102,7 @@ export const HOME = {
         ],
         "text": "En 1990, 4 % des bulles importées venaient d'Italie ; en 2025, 64 % : le prosecco a pris la place du champagne, on garde le rituel et on baisse le ticket.",
         "delta": "×16",
-        "deltaK": "pour la part italienne des mousseux importés"
+        "deltaK": "part italienne des mousseux importés (4 % → 64 %)"
       },
       {
         "ch": "commerce",
@@ -132,9 +132,18 @@ export const HOME = {
           36,
           100
         ],
-        "text": "Les Suisses sans religion sont passés de 1 % en 1970 à 36 % en 2023 : Noël reste la fête de presque tous, mais on la célèbre pour la famille plus que pour la foi.",
+        "text": "Les Suisses sans religion sont passés de 1 % en 1970 à 36 % en 2023. Sans religion ne veut pas dire sans croyance : parmi eux, environ 4 sur 10 ne croient en aucune divinité, 2 sur 10 sont agnostiques, 3 sur 10 croient en une force supérieure, et un quart se disent spirituels. Noël reste la fête de presque tous, célébrée pour la famille plus que pour la foi.",
         "delta": "36 %",
-        "deltaK": "des Suisses sont sans religion (1 % en 1970)"
+        "deltaK": "des Suisses sont sans religion (1 % en 1970)",
+        "viz": {
+          "head": "100 SUISSES EN 2023 · 36 SANS RELIGION",
+          "cats": [
+            "aucune divinité",
+            "agnostiques",
+            "force supérieure",
+            "un dieu"
+          ]
+        }
       },
       {
         "ch": "traditions",
@@ -149,8 +158,8 @@ export const HOME = {
           30
         ],
         "text": "En 1990, aucune chanson de Noël dans le top 30 la semaine avant Noël ; en 2025, 26 sur 30 : avec le streaming, la Suisse réécoute chaque décembre les mêmes classiques.",
-        "delta": "+26",
-        "deltaK": "chansons de Noël dans le top 30"
+        "delta": "26 / 30",
+        "deltaK": "chansons de Noël dans le top 30 (0 en 1990)"
       }
     ],
     "forcesK": "II · Ce qui est en train de changer",
@@ -664,7 +673,7 @@ export const HOME = {
         ],
         "text": "In the 1960s, living at 570 m gave you a white Christmas one year in two; today you need to be at 927 m, and snow is becoming a destination.",
         "delta": "+357 m",
-        "deltaK": "Christmas snow has moved uphill"
+        "deltaK": "Christmas snow has moved uphill (570 m → 927 m)"
       },
       {
         "ch": "voyage",
@@ -680,7 +689,7 @@ export const HOME = {
         ],
         "text": "In 1990, one imported festive decoration in seven came from China; in 2024, two in three: Christmas decor has become a global mass product.",
         "delta": "×4.6",
-        "deltaK": "China's share of imported decorations"
+        "deltaK": "China's share of imported decorations (14% → 65%)"
       },
       {
         "ch": "import",
@@ -719,7 +728,7 @@ export const HOME = {
         ],
         "text": "In 1990, 4% of imported bubbles came from Italy; in 2025, 64%: prosecco has taken champagne's place, keeping the ritual at a lower price.",
         "delta": "×16",
-        "deltaK": "Italy's share of imported sparkling wine"
+        "deltaK": "Italy's share of imported sparkling wine (4% → 64%)"
       },
       {
         "ch": "commerce",
@@ -749,9 +758,18 @@ export const HOME = {
           36,
           100
         ],
-        "text": "People with no religion went from 1% in 1970 to 36% in 2023: Christmas is still almost everyone's holiday, celebrated for family more than faith.",
+        "text": "People with no religion went from 1% in 1970 to 36% in 2023. No religion doesn't mean no belief: about 4 in 10 believe in no deity, 2 in 10 are agnostic, 3 in 10 believe in a higher power, and a quarter call themselves spiritual. Christmas is still almost everyone's holiday, celebrated for family more than faith.",
         "delta": "36%",
-        "deltaK": "of Swiss people have no religion (1% in 1970)"
+        "deltaK": "of Swiss people have no religion (1% in 1970)",
+        "viz": {
+          "head": "100 SWISS PEOPLE IN 2023 · 36 WITH NO RELIGION",
+          "cats": [
+            "no deity",
+            "agnostic",
+            "higher power",
+            "one god"
+          ]
+        }
       },
       {
         "ch": "traditions",
@@ -766,8 +784,8 @@ export const HOME = {
           30
         ],
         "text": "In 1990, no Christmas song in the top 30 the week before Christmas; in 2025, 26 out of 30: with streaming, Switzerland replays the same classics every December.",
-        "delta": "+26",
-        "deltaK": "Christmas songs in the top 30"
+        "delta": "26 / 30",
+        "deltaK": "Christmas songs in the top 30 (0 in 1990)"
       }
     ],
     "forcesK": "II · What is changing",
@@ -1312,5 +1330,9 @@ export const TREND_SOURCES = [
   [
     "Producteurs Suisses de Lait, consommation de fromage 2025",
     "https://api.swissmilk.ch/wp-content/uploads/2026/04/communique-de-presse-nouvelle-hausse-de-la-consommation-de-fromage-en-suisse-20260331-fr.pdf"
+  ],
+  [
+    "OFS, les personnes sans religion en Suisse (ELRC 2019)",
+    "https://dam-api.bfs.admin.ch/hub/api/dam/assets/25225676/master"
   ]
 ]

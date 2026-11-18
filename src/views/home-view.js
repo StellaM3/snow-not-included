@@ -53,8 +53,12 @@ function stepViz(i, s) {
     const row = (y0, on, c, yr) => { let r = label(0, y0 + 44, yr, c); for (let k = 0; k < 10; k++) r += `<rect x="${60 + k * 30}" y="${y0 + (k % 3) * 4}" width="20" height="${56 - (k % 3) * 4}" rx="2" fill="${k < on ? c : 'none'}" stroke="${k < on ? c : '#3A302B'}"/>`; return r }
     g += row(20, 5.6, MUTE, s.ay) + row(110, 3, GOLD, s.by)
   } else if (i === 5) { // 100 personnes : sans religion
-    g += `<g transform="translate(0 20)">${dots(100, 1, 20, 4, 12, MUTE, '#3A302B')}</g>${label(0, 10, s.ay)}`
-    g += `<g transform="translate(270 20)">${dots(100, 36, 20, 4, 12, GOLD, '#3A302B')}</g>${label(270, 10, s.by, GOLD)}`
+    // 36 sans religion, répartis selon leurs croyances (OFS, ELRC 2019) : 14 aucune divinité, 8 agnostiques, 11 force supérieure, 3 un dieu
+    const v = s.viz, C = [GOLD, IV, '#9C7C45', '#6E5A4A'], N = [14, 8, 11, 3], col = []
+    N.forEach((n, c) => { for (let k = 0; k < n; k++) col.push(C[c]) })
+    g += label(0, 10, v.head)
+    for (let k = 0; k < 100; k++) { const x = 9 + (k % 20) * 26.4, y = 40 + Math.floor(k / 20) * 26; g += k < 36 ? `<circle cx="${x}" cy="${y}" r="9" fill="${col[k]}"/>` : `<circle cx="${x}" cy="${y}" r="8.5" fill="none" stroke="#3A302B"/>` }
+    let lx = 0; v.cats.forEach((t, c) => { g += `<circle cx="${lx + 5}" cy="${H - 6}" r="5" fill="${C[c]}"/>` + label(lx + 15, H - 2, t.toUpperCase(), C[c] === '#6E5A4A' ? '#8A776A' : C[c]); lx += 30 + t.length * 9.6 })
   } else { // top 30 : cases des chansons de Noël
     const grid = (x0, on, c, yr) => { let r = label(x0, 10, yr, c); for (let k = 0; k < 30; k++) r += `<rect x="${x0 + (k % 6) * 34}" y="${22 + Math.floor(k / 6) * 34}" width="26" height="26" fill="${k < on ? c : 'none'}" stroke="${k < on ? c : '#3A302B'}"/>`; return r }
     g += grid(0, 0, MUTE, s.ay) + grid(280, 26, GOLD, s.by)
@@ -69,7 +73,6 @@ function stepVisual(s, i, active) {
     <p class="sv-theme">${s.theme}</p>
     <div class="sv-delta"><b>${s.delta}</b><span>${s.deltaK}</span></div>
     <div class="sv-chart">${stepViz(i, s)}</div>
-    <div class="sv-pair"><div><small>${s.ay}</small><b>${s.a}</b></div><i aria-hidden="true">→</i><div><small>${s.by}</small><b>${s.b}</b></div></div>
   </div>`
 }
 

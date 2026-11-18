@@ -137,19 +137,18 @@ export const HOME = {
           36,
           100
         ],
-        "text": "En 1970, presque tous les Suisses appartenaient à une Église. Aujourd'hui, plus d'un sur trois se dit sans religion. Cela ne veut pas dire qu'ils ne fêtent plus Noël, ni qu'ils ne croient en rien : beaucoup parlent d'une force supérieure ou se disent spirituels. Noël est simplement devenu, avant tout, une fête de famille.",
+        "text": "En 1970, presque tous les Suisses appartenaient à une Église. Aujourd'hui, plus d'un sur trois se dit sans religion. La plupart ne se considèrent ni religieux ni spirituels, mais un sur quatre se dit quand même spirituel. Et cela ne les empêche pas de fêter Noël : la fête est simplement devenue, avant tout, une fête de famille.",
         "delta": "×36",
         "deltaK": "de Suisses sans religion depuis 1970 : de 1 % à 36 %",
         "viz": {
           "head": "100 SUISSES EN 2023 · 36 SANS RELIGION",
           "cats": [
-            "aucune divinité",
-            "agnostiques",
-            "force supérieure",
-            "un dieu"
+            "ni religieux ni spirituels",
+            "spirituels",
+            "religieux"
           ]
         },
-        "read": "100 points = 100 Suisses en 2023. Pleins : les 36 sans religion, colorés selon ce qu'ils croient (OFS)."
+        "read": "100 points = 100 Suisses en 2023. Pleins : les 36 sans religion, selon comment ils se décrivent (OFS)."
       },
       {
         "ch": "traditions",
@@ -774,19 +773,18 @@ export const HOME = {
           36,
           100
         ],
-        "text": "In 1970, almost every Swiss person belonged to a church. Today, more than one in three says they have no religion. That doesn't mean they no longer celebrate Christmas, or that they believe in nothing: many speak of a higher power or call themselves spiritual. Christmas has simply become, above all, a family holiday.",
+        "text": "In 1970, almost every Swiss person belonged to a church. Today, more than one in three says they have no religion. Most consider themselves neither religious nor spiritual, but one in four still calls themselves spiritual. And that doesn't stop them celebrating Christmas: it has simply become, above all, a family holiday.",
         "delta": "×36",
         "deltaK": "more Swiss people with no religion since 1970: from 1% to 36%",
         "viz": {
           "head": "100 SWISS PEOPLE IN 2023 · 36 WITH NO RELIGION",
           "cats": [
-            "no deity",
-            "agnostic",
-            "higher power",
-            "one god"
+            "neither religious nor spiritual",
+            "spiritual",
+            "religious"
           ]
         },
-        "read": "100 dots = 100 Swiss people in 2023. Filled: the 36 with no religion, coloured by what they believe (FSO)."
+        "read": "100 dots = 100 Swiss people in 2023. Filled: the 36 with no religion, by how they describe themselves (FSO)."
       },
       {
         "ch": "traditions",

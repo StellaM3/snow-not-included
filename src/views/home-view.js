@@ -56,8 +56,8 @@ function stepViz(i, s) {
     const bar = (y0, v, c, yr) => `${label(0, y0 - 10, yr, c)}<rect x="0" y="${y0}" width="520" height="40" fill="none" stroke="#3A302B"/><rect x="0" y="${y0}" width="${5.2 * v}" height="40" fill="${c}"/><text x="${5.2 * v + 12}" y="${y0 + 28}" fill="${c}" font-family="Fraunces" font-size="24">${v} %</text>`
     g += bar(28, 56, MUTE, s.ay) + bar(122, 30, GOLD, s.by)
   } else if (i === 5) { // 100 personnes : sans religion
-    // 36 sans religion, répartis selon leurs croyances (OFS, ELRC 2019) : 14 aucune divinité, 8 agnostiques, 11 force supérieure, 3 un dieu
-    const v = s.viz, C = [GOLD, IV, '#9C7C45', '#6E5A4A'], N = [14, 8, 11, 3], col = []
+    // 36 sans religion, selon comment ils se voient (OFS, ELRC 2019) : 67 % ni religieux ni spirituels, 26 % spirituels, 6 % religieux
+    const v = s.viz, C = [GOLD, IV, '#6E5A4A'], N = [24, 10, 2], col = []
     N.forEach((n, c) => { for (let k = 0; k < n; k++) col.push(C[c]) })
     g += label(0, 10, v.head)
     for (let k = 0; k < 100; k++) { const x = 9 + (k % 20) * 26.4, y = 34 + Math.floor(k / 20) * 24; g += k < 36 ? `<circle cx="${x}" cy="${y}" r="9" fill="${col[k]}"/>` : `<circle cx="${x}" cy="${y}" r="8.5" fill="none" stroke="#3A302B"/>` }

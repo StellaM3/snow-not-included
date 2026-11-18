@@ -143,7 +143,7 @@ function spoilBars() {
 }
 
 const RCOL = { cat: C.gold, prot: '#9FD3B4', other: '#5E7D70', none: C.red }
-const NSHARE = [.38, .22, .30, .10], NCOL = [C.red, '#F2A0A4', '#A8323A', '#6E2026']
+const NSHARE = [.67, .27, .06], NCOL = [C.red, '#F2A0A4', '#7A2228']
 function dots(y) {
   const r = culture.religion[y], keys = ['cat', 'prot', 'other', 'none']
   const tot = keys.reduce((a, k) => a + r[k], 0)

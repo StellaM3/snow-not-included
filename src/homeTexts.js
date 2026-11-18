@@ -988,7 +988,7 @@ export const HOME = {
       {
         "img": "sarah",
         "name": "The Family Orchestrator",
-        "age": "41",
+        "age": "Age 41",
         "meta": [
           "Lausanne",
           "Married, two children (6 and 9)",
@@ -1041,7 +1041,7 @@ export const HOME = {
       {
         "img": "leo",
         "name": "The Curated Hunter",
-        "age": "28",
+        "age": "Age 28",
         "meta": [
           "Zurich",
           "Shared flat, Christmas with friends",
@@ -1094,7 +1094,7 @@ export const HOME = {
       {
         "img": "monique",
         "name": "The Heritage Keeper",
-        "age": "68",
+        "age": "Age 68",
         "meta": [
           "Fribourg",
           "Widowed, four grandchildren",

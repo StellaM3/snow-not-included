@@ -77,7 +77,7 @@ export const HOME = {
       ['Personnaliser sur place', 'Gravure, broderie, ateliers créatifs en décembre.'],
       ['Une table festive sans alcool', 'Bulles sans alcool haut de gamme à côté du champagne.'],
     ],
-    implNote: 'Ces pistes sont des recommandations tirées des tendances ci-dessus. Images d\'ambiance générées avec Adobe Firefly.',
+    implNote: 'Ces pistes sont des recommandations tirées des tendances ci-dessus.',
     exploreK: 'Les données',
     exploreT: 'Explorer chaque chapitre',
     cards: {
@@ -168,7 +168,7 @@ export const HOME = {
       ['Personalise in store', 'Engraving, embroidery, craft workshops in December.'],
       ['An alcohol-free festive table', 'Premium alcohol-free bubbles next to the champagne.'],
     ],
-    implNote: 'These ideas are recommendations drawn from the trends above. Mood images generated with Adobe Firefly.',
+    implNote: 'These ideas are recommendations drawn from the trends above.',
     exploreK: 'The data',
     exploreT: 'Explore each chapter',
     cards: {

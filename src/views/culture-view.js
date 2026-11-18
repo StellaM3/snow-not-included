@@ -143,6 +143,7 @@ function spoilBars() {
 }
 
 const RCOL = { cat: C.gold, prot: '#9FD3B4', other: '#5E7D70', none: C.red }
+const NSHARE = [.38, .22, .30, .10], NCOL = [C.red, '#F2A0A4', '#A8323A', '#6E2026']
 function dots(y) {
   const r = culture.religion[y], keys = ['cat', 'prot', 'other', 'none']
   const tot = keys.reduce((a, k) => a + r[k], 0)
@@ -152,9 +153,15 @@ function dots(y) {
   raw.map((v, i) => [v - fl[i], i]).sort((a, b) => b[0] - a[0]).slice(0, rest).forEach(([, i]) => fl[i]++)
   let cells = []
   keys.forEach((k, i) => { for (let j = 0; j < fl[i]; j++) cells.push(k) })
+  // 2023 : les sans-religion répartis selon ce qu'ils croient (OFS, ELRC 2019 : 38 % aucune divinité, 22 % agnostiques, 30 % force supérieure, 10 % un dieu)
+  const nNone = fl[3], split = y === '2023' ? NSHARE.map((v) => Math.round(v * nNone)) : null
+  if (split) split[0] += nNone - split.reduce((a, b) => a + b, 0)
+  const sub = []; if (split) split.forEach((n, c) => { for (let j = 0; j < n; j++) sub.push(c) })
+  let ni = 0
   const s = cells.map((k, i) => {
     const cx = 14 + (i % 10) * 26, cy = 14 + Math.floor(i / 10) * 26
-    return `<g data-tip="${y} · ${T.relCats[k]} : ${pct(Math.round(r[k]))}"><circle cx="${cx}" cy="${cy - 4}" r="5" fill="${RCOL[k]}"/><path d="M${cx - 7} ${cy + 10} q7 -12 14 0z" fill="${RCOL[k]}"/></g>`
+    const c = k === 'none' && split ? sub[ni++] : -1, col = c >= 0 ? NCOL[c] : RCOL[k], tip = c >= 0 ? `${T.relCats.none} · ${T.relSub[c]}` : `${T.relCats[k]} : ${pct(Math.round(r[k]))}`
+    return `<g data-tip="${y} · ${tip}"><circle cx="${cx}" cy="${cy - 4}" r="5" fill="${col}"/><path d="M${cx - 7} ${cy + 10} q7 -12 14 0z" fill="${col}"/></g>`
   }).join('')
   return `<div class="dots"><svg viewBox="0 0 262 262">${s}</svg><div class="dots-y">${y}</div><p class="dots-n"><b style="color:${C.red}">${Math.round(r.none)}</b> / 100 ${T.relCats.none.toLowerCase()}</p></div>`
 }
@@ -167,6 +174,7 @@ function religionCard(st) {
     <div class="compare"><span class="compare-label">${T.relPick}</span><div class="chips">${ys.map((k) => `<button class="chip ${k === y ? 'on' : ''}" data-rel="${k}" aria-pressed="${k === y}">${k}</button>`).join('')}</div></div>
     <div class="dots-pair">${dots('1970')}<span class="big arrow">→</span>${dots(y)}</div>
     <div class="b-legend">${Object.keys(RCOL).map((k) => `<span><i style="background:${RCOL[k]}"></i>${T.relCats[k]}</span>`).join('')}</div>
+    ${y === '2023' ? `<div class="b-legend rel-sub"><b>${T.relSubK}</b>${T.relSub.map((t, c) => `<span><i style="background:${NCOL[c]}"></i>${t}</span>`).join('')}</div>` : ''}
     <p class="why">${T.relBut}</p>
     <p class="src">${T.relSrc}</p>
   </div>`

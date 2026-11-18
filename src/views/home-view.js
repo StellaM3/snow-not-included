@@ -2,6 +2,12 @@
 import { lang } from '../i18n.js'
 import { HOME, TREND_SOURCES } from '../homeTexts.js'
 import { CHAPTERS } from '../nav.js'
+import imgHeritage from '../assets/impl/heritage.jpg'
+import imgSeconde from '../assets/impl/seconde-main.jpg'
+import imgPerso from '../assets/impl/personnalisation.jpg'
+import imgSans from '../assets/impl/sans-alcool.jpg'
+const IMPL_IMG = [imgHeritage, imgSeconde, imgPerso, imgSans]
+
 
 const H = () => HOME[lang] || HOME.fr
 
@@ -142,7 +148,7 @@ export function homeView() {
       </div>
       <div class="impl">
         <p class="lp-k">${h.implK}</p>
-        <div class="impl-grid">${h.impl.map(([t, d]) => `<div class="reveal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
+        <div class="impl-grid">${h.impl.map(([t, d], i) => `<div class="reveal"><figure class="impl-img"><img src="${IMPL_IMG[i]}" alt="" loading="lazy"></figure><b>${t}</b><p>${d}</p></div>`).join('')}</div>
         <p class="impl-note">${h.implNote}</p>
       </div>
     </section>

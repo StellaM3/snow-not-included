@@ -6,7 +6,7 @@ import { CHAPTERS } from '../nav.js'
 const H = () => HOME[lang] || HOME.fr
 
 // Petites visualisations de données, une par étape (traits fins, or et ivoire)
-const GOLD = '#C9A45C', IV = '#F3ECDF', MUTE = '#5A4F47'
+const GOLD = '#C9A45C', IV = '#F2E4CE', MUTE = '#5A4F47'
 function dots(n, on, cols, r, gap, colOn, colOff) {
   let s = ''
   for (let i = 0; i < n; i++) s += `<circle cx="${(i % cols) * gap + r}" cy="${Math.floor(i / cols) * gap + r}" r="${r}" fill="${i < on ? colOn : 'none'}" stroke="${i < on ? colOn : colOff}" stroke-width="1"/>`

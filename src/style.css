@@ -782,8 +782,8 @@ body.hidden .chap-k { color: var(--red); }
    ========================================================= */
 body.is-home {
   --bg: #0E0B0A; --card: #17110F; --line: #2E2522;
-  --t1: #F3ECDF; --t2: #CFC4B4; --t3: #8E8476;
-  --gold: #C9A45C; --red: #8A2433; --ivory: #F3ECDF; --ink: #16100E; --bord: #4A1520;
+  --t1: #F2E4CE; --t2: #CFC4B4; --t3: #8E8476;
+  --gold: #C9A45C; --red: #8A2433; --ivory: #F2E4CE; --ink: #16100E; --bord: #4A1520;
   background: var(--bg); color: var(--t1);
 }
 body.is-home .page { max-width: none; padding: 0; gap: 0; zoom: 1; }
@@ -995,8 +995,8 @@ section > .lp-orn { position: absolute; top: clamp(48px, 6vw, 88px); left: 0; ri
 /* Fondus : chaque section commence dans la couleur de la précédente */
 .lp-act { background: linear-gradient(180deg, #120709 0%, #160809 50%, #120709 100%); }
 .sv-stack { background: linear-gradient(160deg, #2B0A10, #160809 70%); border-color: rgba(201,164,92,.2); }
-.lp-band { background: linear-gradient(180deg, #120709 0%, #3A0D16 18%, #4B111C 40%, #4B111C 70%, #6B4A45 92%, #F3ECDF 100%); }
-.lp-ivory { background: linear-gradient(180deg, #F3ECDF 0%, #F3ECDF 80%, #3A1C1F 100%); }
+.lp-band { background: linear-gradient(180deg, #120709 0%, #3A0D16 18%, #4B111C 40%, #4B111C 70%, #6B4A45 92%, #F2E4CE 100%); }
+.lp-ivory { background: linear-gradient(180deg, #F2E4CE 0%, #F2E4CE 80%, #3A1C1F 100%); }
 .lp-ivory .trends { margin-bottom: 120px; }
 .lp-next { background: linear-gradient(180deg, #3A1C1F 0%, #1A080C 14%, #120709 100%); }
 .nx { background: #120709; }
@@ -1032,7 +1032,7 @@ body.is-home .footer .src { color: #CDB8AC; }
 .lp-h1 em { display: inline-block; margin-top: .08em; font-size: .82em; }
 /* Transitions en arche (plus de fondu brun) */
 .lp-band { background: linear-gradient(180deg, #120709 0%, #3A0D16 16%, #4B111C 34%, #4B111C 100%); padding-bottom: clamp(240px, 22vw, 340px) !important; }
-.lp-ivory { background: #F3ECDF; margin-top: -160px; border-radius: 50% 50% 0 0 / 160px 160px 0 0; z-index: 1; padding-bottom: clamp(240px, 22vw, 340px) !important; }
+.lp-ivory { background: #F2E4CE; margin-top: -160px; border-radius: 50% 50% 0 0 / 160px 160px 0 0; z-index: 1; padding-bottom: clamp(240px, 22vw, 340px) !important; }
 .lp-ivory .trends { margin-bottom: 0; }
 .lp-next { background: linear-gradient(180deg, #1A080C 0%, #120709 30%); margin-top: -160px; border-radius: 50% 50% 0 0 / 160px 160px 0 0; z-index: 2; }
 .lp-explore { margin-top: 0; }

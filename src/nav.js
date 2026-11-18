@@ -14,13 +14,13 @@ export function routeFromHash() {
 }
 
 // Barre du haut : accueil, chapitres en icônes, langue
-const ROMAN = ['I', 'II', 'III', 'IV', 'V']
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI']
 export function topNav(page, langBtns) {
   return `<div class="topbar" id="top">
     <a class="home-btn ${page ? '' : 'on'}" href="#/" data-go="" aria-label="${T.home}"><span class="hb-mark" aria-hidden="true">✦</span><span class="hb-t">${T.home}</span></a>
     <nav class="chapnav" aria-label="${T.navAria}">${CHAPTERS.map((id, i) => `
       <a href="#/${id}" class="cn ${id === page ? 'on' : ''} ${id === 'cache' ? 'dark' : ''}" data-go="${id}" title="${T.chaps[id][0]}" ${id === page ? 'aria-current="page"' : ''}>
-        <span class="cn-n">${id === 'cache' ? '★' : ROMAN[i]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
+        <span class="cn-n">${ROMAN[i]}</span><span class="cn-t">${T.chaps[id][0]}</span></a>`).join('')}
     </nav>
     <div class="meta">${langBtns}</div>
   </div>`
@@ -31,7 +31,7 @@ const card = (id, i, cls = '') => `
   <a class="scene-card ${id === 'cache' ? 'dark' : ''} ${cls}" href="#/${id}" data-go="${id}">
     <div class="sc-art">${scene(id)}</div>
     <div class="sc-body">
-      <span class="sc-n">${id === 'cache' ? '★' : String(i + 1).padStart(2, '0')}</span>
+      <span class="sc-n">${ROMAN[i]}</span>
       <b>${T.chaps[id][0]}</b>
       <span>${T.chaps[id][1]}</span>
     </div>

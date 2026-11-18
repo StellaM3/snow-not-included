@@ -127,9 +127,8 @@ function wordBubbles() {
 }
 
 function spoilBars() {
-  const ico = ['😤', '📱', '😒', '😰', '🍷']
   return `<div class="spoil">${T.spoils.map(([l, v], i) => `
-    <div class="sp-row" data-tip="${l} : ${pct(v)}"><span class="sp-ico">${ico[i]}</span><span class="sp-l">${l}</span>
+    <div class="sp-row" data-tip="${l} : ${pct(v)}"><span class="sp-l">${l}</span>
       <div class="sp-track"><div class="sp-bar" style="width:${v}%"></div></div><b class="sp-v">${pct(v)}</b></div>`).join('')}</div>`
 }
 
@@ -193,7 +192,7 @@ function songPanel(y) {
   </div>`
 }
 function filmList(y) {
-  return `<ol class="film-list">${culture.films[y].map(([t, w, best, x]) => `<li class="${x ? 'x' : ''}"><span class="fl-t">${x ? '🎄 ' : ''}${t}</span><span class="fl-m">${T.filmWeeks(w, best)}</span></li>`).join('')}</ol>`
+  return `<ol class="film-list">${culture.films[y].map(([t, w, best, x]) => `<li class="${x ? 'x' : ''}"><span class="fl-t">${t}</span><span class="fl-m">${T.filmWeeks(w, best)}</span></li>`).join('')}</ol>`
 }
 function filmStrips() {
   const N = culture.netflix
@@ -216,7 +215,7 @@ export function traditionsSection(st) {
     ${religionCard(st)}
     <div class="grid2">
       <div class="card debate"><h3 class="card-title">${T.debTitle}</h3><p class="chart-note">${T.debLead}</p>
-        <div class="bubbles"><p class="bub l">🎁 ${T.debFor}</p><p class="bub r">🎄 ${T.debAgainst}</p><p class="bub l">📚 ${T.debMid}</p></div>
+        <div class="bubbles"><p class="bub l">${T.debFor}</p><p class="bub r">${T.debAgainst}</p><p class="bub l">${T.debMid}</p></div>
         <p class="why">${T.debKnow}</p><p class="src">${T.debSrc}</p></div>
       <div class="card"><h3 class="card-title">${T.litTitle}</h3><p class="chart-note">${T.litNote}</p>
         <div class="lit">${T.litRows.map(([l, v]) => `<div class="lit-row"><div class="bulbs">${Array.from({ length: 10 }, (_, i) => `<i class="${i < Math.round(v / 10) ? 'off' : 'on'}"></i>`).join('')}</div><b>${v} %</b><span>${l}</span></div>`).join('')}</div>

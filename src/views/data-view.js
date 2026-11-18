@@ -55,7 +55,6 @@ function meter() {
   const M = [[100], [100], [55], [37], [30, 1], [0]]
   const labels = [pct(100), pct(100), '≈ ' + pct(55), pct(37), pct('1–30'), pct(0)]
   return `<section class="section meter2">
-    <div class="garland" aria-hidden="true"></div>
     ${head(T.meterTitle, T.meterLead)}
     <div class="legend"><span><i style="background:${C.red}"></i>${T.originImp}</span><span><i style="background:#2E5A47"></i>${T.originCh}</span></div>
     <div class="orn-grid">${M.map(([hi, lo], i) => { const [n, note] = T.meter[i]; return `
@@ -327,7 +326,7 @@ function onlineViz() {
   const o = industry.ey.online
   return `<div class="online"><p class="mini-title">${T.onlineTitle}</p>${Object.entries(o).map(([y, v]) => `
     <div class="on-row"><span class="on-y">${y}</span>
-      <div class="on-bar" data-tip="${y} : ${pct(v)} ${T.onlineWeb}"><div class="on-web" style="width:${v}%"><span>📦 ${pct(v)}</span></div><div class="on-shop"><span>${T.onlineShop}</span></div></div></div>`).join('')}
+      <div class="on-bar" data-tip="${y} : ${pct(v)} ${T.onlineWeb}"><div class="on-web" style="width:${v}%"><span>${pct(v)}</span></div><div class="on-shop"><span>${T.onlineShop}</span></div></div></div>`).join('')}
     <p class="legend-txt"><span class="o-key web"></span> ${T.onlineWeb} <span class="o-key shop"></span> ${T.onlineShop} · ${T.onlineFoot}</p></div>`
 }
 function giftBars() {
@@ -384,7 +383,7 @@ function importRows(years) {
     const B = months.months[k][yB], peak = B.indexOf(Math.max(...B))
     const g = a ? Math.round((b / a - 1) * 100) : null
     return `<div class="imp3-row">
-      <div class="i3-name"><span class="i3-ico">${IMP_ICON[k]}</span><b>${T.impNames[k]}</b></div>
+      <div class="i3-name"><b>${T.impNames[k]}</b></div>
       <div class="i3-bars">
         <div class="i3-bar now" style="width:${Math.max(0.6, (b / max) * 100)}%" data-tip="${T.impNames[k]} ${yB} : ${f(b)} ${T.mioChf}"></div>
         ${a !== null ? `<div class="i3-bar then" style="width:${Math.max(0.6, (a / max) * 100)}%" data-tip="${T.impNames[k]} ${yA} : ${f(a)} ${T.mioChf}"></div>` : ''}

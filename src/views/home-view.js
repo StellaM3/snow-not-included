@@ -119,14 +119,15 @@ export function homeView() {
 
     <section class="lp-band lp-forces"><div class="lp-orn on-bord" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><span class="rn">${h.forcesK.split(' · ')[0]}</span><h2>${h.forcesT}</h2></header>
-      <ol class="forces">${h.forces.map(([t, d, n], i) => `
-        <li class="reveal"><span class="f-n">${n}</span><b>${t}</b><p>${d}</p><i class="f-i">${String(i + 1).padStart(2, '0')}</i></li>`).join('')}</ol>
+      <ol class="forces2">${h.forces.map(([t, d, n], i) => `
+        <li class="reveal"><span class="f2-i">${String(i + 1).padStart(2, '0')}</span><b class="f2-t">${t}</b><span class="f2-n">${n}</span><p>${d}</p></li>`).join('')}</ol>
     </section>
 
     <section class="lp-ivory"><div class="lp-orn on-ivory" aria-hidden="true"><i></i><span>✦</span><i></i></div>
       <header class="lp-sec-head"><span class="rn">${h.trendsK.split(' · ')[0]}</span><h2>${h.trendsT}</h2></header>
-      <div class="trends">${h.trends.map(([c, t, st]) => `
-        <div class="tr reveal"><span class="tr-c">${c}</span><p>${t}</p><span class="pill ${st}">${h.status[st]}</span></div>`).join('')}</div>
+      <div class="tboard">${[['up', h.colUp], ['peak', h.colPeak], ['down', h.colDown]].map(([k, title]) => `
+        <div class="tcol ${k}"><p class="tcol-h"><span>${k === 'up' ? '↗' : k === 'peak' ? '●' : '↘'}</span>${title}</p>
+          <ul>${h.trends.filter(([, , st]) => (k === 'up' ? st === 'up' || st === 'new' : st === k)).map(([c, t, st]) => `<li class="reveal"><span class="tr-c">${c}${st === 'new' ? ` · <em>${h.status.new}</em>` : ''}</span><p>${t}</p></li>`).join('')}</ul></div>`).join('')}</div>
     </section>
 
     <section class="lp-next"><div class="lp-orn" aria-hidden="true"><i></i><span>✦</span><i></i></div>

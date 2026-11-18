@@ -32,6 +32,7 @@ export const HOME = {
       ['Noël se sécularise', '8 % seulement pensent à l\'origine religieuse de la fête. Les rituels passent au repas, à la déco, à la musique.', '8 %'],
     ],
     trendsK: 'III · Noël 2026',
+    colUp: 'Ce qui monte', colPeak: 'Au sommet', colDown: 'Ce qui s\'en va',
     trendsT: 'Ce qui est en vogue cette saison',
     status: { up: 'montante', peak: 'au sommet', down: 'en déclin', new: 'nouvelle' },
     trends: [
@@ -119,6 +120,7 @@ export const HOME = {
       ['Christmas goes secular', 'Only 8% think of its religious origin. Rituals move to the meal, the decor, the music.', '8%'],
     ],
     trendsK: 'III · Christmas 2026',
+    colUp: 'Rising', colPeak: 'Peaking', colDown: 'Fading',
     trendsT: 'What is in vogue this season',
     status: { up: 'rising', peak: 'peaking', down: 'fading', new: 'new' },
     trends: [

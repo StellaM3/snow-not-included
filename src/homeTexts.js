@@ -35,7 +35,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "Climat · le Noël blanc",
+        "theme": "Moins de neige à Noël",
         "a": "570 m",
         "ay": "années 1960",
         "b": "927 m",
@@ -51,7 +51,7 @@ export const HOME = {
       },
       {
         "ch": "voyage",
-        "theme": "Décoration · l'origine",
+        "theme": "Une déco mondialisée",
         "a": "14 %",
         "ay": "1990",
         "b": "65 %",
@@ -67,7 +67,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Alimentation · le fromage",
+        "theme": "Le fromage s'importe",
         "a": "26 000 t",
         "ay": "1990",
         "b": "79 000 t",
@@ -83,7 +83,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Réveillon · les bulles",
+        "theme": "Le prosecco détrône le champagne",
         "a": "4 %",
         "ay": "1990",
         "b": "64 %",
@@ -99,7 +99,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Cadeaux · le livre",
+        "theme": "Le livre décroche",
         "a": "56 %",
         "ay": "2014",
         "b": "30 %",
@@ -115,7 +115,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Société · la religion",
+        "theme": "Noël se sécularise",
         "a": "1 %",
         "ay": "1970",
         "b": "36 %",
@@ -131,7 +131,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Culture · la musique",
+        "theme": "La nostalgie en playlist",
         "a": "0",
         "ay": "1990",
         "b": "26",
@@ -645,7 +645,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "Climate · white Christmas",
+        "theme": "Less snow at Christmas",
         "a": "570 m",
         "ay": "1960s",
         "b": "927 m",
@@ -661,7 +661,7 @@ export const HOME = {
       },
       {
         "ch": "voyage",
-        "theme": "Decorations · origin",
+        "theme": "Decor goes global",
         "a": "14%",
         "ay": "1990",
         "b": "65%",
@@ -677,7 +677,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Food · cheese",
+        "theme": "Cheese is imported",
         "a": "26,000 t",
         "ay": "1990",
         "b": "79,000 t",
@@ -693,7 +693,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Festive table · sparkling wine",
+        "theme": "Prosecco overtakes champagne",
         "a": "4%",
         "ay": "1990",
         "b": "64%",
@@ -709,7 +709,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Gifts · books",
+        "theme": "Books fall away",
         "a": "56%",
         "ay": "2014",
         "b": "30%",
@@ -725,7 +725,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Society · religion",
+        "theme": "Christmas turns secular",
         "a": "1%",
         "ay": "1970",
         "b": "36%",
@@ -741,7 +741,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Culture · music",
+        "theme": "Nostalgia on repeat",
         "a": "0",
         "ay": "1990",
         "b": "26",

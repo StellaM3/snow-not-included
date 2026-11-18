@@ -65,8 +65,8 @@ function stepVisual(s, i, active) {
   return `<div class="sv ${i === active ? 'on' : ''}" data-sv="${i}" aria-hidden="${i !== active}">
     <p class="sv-theme">${s.theme}</p>
     <div class="sv-delta"><b>${s.delta}</b><span>${s.deltaK}</span></div>
+    <div class="sv-chart">${stepViz(i, s)}</div>
     <div class="sv-pair"><div><small>${s.ay}</small><b>${s.a}</b></div><i aria-hidden="true">→</i><div><small>${s.by}</small><b>${s.b}</b></div></div>
-    ${stepViz(i, s)}
   </div>`
 }
 

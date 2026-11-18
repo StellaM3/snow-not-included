@@ -199,15 +199,15 @@ export const HOME = {
       ]
     ],
     "trendsK": "III · Noël 2026",
-    "colUp": "En croissance",
-    "colPeak": "À maturité",
-    "colDown": "En recul",
-    "trendsT": "Ce qui progresse, ce qui plafonne, ce qui recule",
+    "colUp": "Tendances émergentes",
+    "colPeak": "Tendances mainstream",
+    "colDown": "Tendances en déclin",
+    "trendsT": "Tendances émergentes, installées, en déclin",
     "status": {
-      "up": "en croissance",
-      "peak": "à maturité",
-      "down": "en recul",
-      "new": "émergent"
+      "up": "émergente",
+      "peak": "mainstream",
+      "down": "en déclin",
+      "new": "signal faible"
     },
     "trends": [
       [
@@ -832,15 +832,15 @@ export const HOME = {
       ]
     ],
     "trendsK": "III · Christmas 2026",
-    "colUp": "Growing",
-    "colPeak": "Mature",
-    "colDown": "Declining",
-    "trendsT": "What is growing, what has peaked, what is declining",
+    "colUp": "Emerging trends",
+    "colPeak": "Mainstream trends",
+    "colDown": "Declining trends",
+    "trendsT": "Emerging, mainstream and declining trends",
     "status": {
-      "up": "growing",
-      "peak": "mature",
+      "up": "emerging",
+      "peak": "mainstream",
       "down": "declining",
-      "new": "emerging"
+      "new": "weak signal"
     },
     "trends": [
       [

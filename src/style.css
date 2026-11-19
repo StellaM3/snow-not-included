@@ -1476,3 +1476,7 @@ body:not(.is-home) .topbar { padding-left: clamp(24px, 6vw, 120px) !important; p
 @media (min-width: 1101px) { .ex-grid > .ex:nth-child(n+4) .ex-art { aspect-ratio: auto !important; height: clamp(200px, 19vw, 280px); } .ex-grid > .ex:nth-child(n+4) .ex-art svg { height: 100%; width: auto; margin: 0 auto; display: block; } }
 .rel-sub { margin-top: 8px; }
 .rel-sub b { font-weight: 500; color: var(--t2); margin-right: 8px; }
+/* v31 — bloc « idée reçue » aligné sur les titres de cartes */
+body:not(.is-home) .myth { font-size: var(--fs-xxl) !important; line-height: 1.02 !important; font-weight: 300 !important; color: #FBF8F1; margin: var(--sp-1) 0 var(--sp-3) !important; }
+body:not(.is-home) .myth-txt { margin: 0; font-size: var(--fs-m) !important; line-height: 1.5; color: var(--t2); }
+@media (max-width: 760px) { body:not(.is-home) .myth { font-size: var(--fs-xl) !important; } body:not(.is-home) .myth-txt { font-size: var(--fs-s) !important; } }

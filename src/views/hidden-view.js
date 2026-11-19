@@ -197,7 +197,7 @@ export function hiddenView(st) {
     <div class="card myth-card">
       <p class="kicker">${T.mythK}</p>
       <p class="myth">${T.myth}</p>
-      <p class="txt" style="margin:0;font-size:15px;line-height:1.5;color:var(--t2)">${T.mythTxt}</p>
+      <p class="txt myth-txt">${T.mythTxt}</p>
       <p class="why">${T.mythWhy}</p>
       <p class="src">${T.mythSrc}</p>
       <div class="help">

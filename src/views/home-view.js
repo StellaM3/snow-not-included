@@ -77,7 +77,6 @@ function stepViz(i, s) {
 function stepVisual(s, i, active) {
   const h = H()
   return `<div class="sv ${i === active ? 'on' : ''}" data-sv="${i}" aria-hidden="${i !== active}">
-    <p class="sv-theme">${s.theme}</p>
     <div class="sv-delta"><b>${s.delta}</b><span>${s.deltaK}</span></div>
     <div class="sv-chart">${stepViz(i, s)}</div>
     <p class="sv-read">${s.read}</p>

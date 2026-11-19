@@ -23,7 +23,7 @@ export const HOME = {
     "prologue": [
       "Chaque décembre, la Suisse rejoue le même Noël.",
       "Le sapin. La fondue. La neige. Les cadeaux.",
-      "Mais ce qu'on met dans le panier n'est plus le même."
+      "Mais le panier n'est plus le même, et pour voir la neige, il faut désormais monter plus haut."
     ],
     "by": "Un projet de Estelle Rossier",
     "byMeta": "Master DXD, ECAL · Workshop Make Sense avec Pascal Wicht · 2026",
@@ -659,7 +659,7 @@ export const HOME = {
     "prologue": [
       "Every December, Switzerland replays the same Christmas.",
       "The tree. The fondue. The snow. The gifts.",
-      "But what goes into the basket is no longer the same."
+      "But the basket is no longer the same, and to see the snow, you now have to climb higher."
     ],
     "by": "A project by Estelle Rossier",
     "byMeta": "Master DXD, ECAL · Make Sense workshop with Pascal Wicht · 2026",

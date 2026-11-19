@@ -35,7 +35,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "Moins de neige à Noël",
+        "theme": "Le Noël blanc se limite désormais à l'altitude",
         "a": "570 m",
         "ay": "années 1960",
         "b": "927 m",
@@ -52,7 +52,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Une déco mondialisée",
+        "theme": "La déco de Noël importée en Suisse vient majoritairement de Chine",
         "a": "14 %",
         "ay": "1990",
         "b": "65 %",
@@ -69,7 +69,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Le fromage s'importe, toute l'année",
+        "theme": "La demande en fromage importé reste stable toute l'année, sans pic à Noël",
         "a": "26 000 t",
         "ay": "1990",
         "b": "79 000 t",
@@ -93,7 +93,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Le prosecco démocratise les bulles",
+        "theme": "La croissance du mousseux se fait sur le prosecco",
         "a": "4 %",
         "ay": "1990",
         "b": "64 %",
@@ -110,7 +110,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Le livre : moins offert, pas moins vendu",
+        "theme": "Le livre recule comme cadeau mais garde ses volumes de vente",
         "a": "56 %",
         "ay": "2014",
         "b": "30 %",
@@ -127,7 +127,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Noël se sécularise",
+        "theme": "Les sans-religion progressent fortement, Noël reste célébré",
         "a": "1 %",
         "ay": "1970",
         "b": "36 %",
@@ -152,7 +152,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "La nostalgie en playlist",
+        "theme": "Le streaming fait dominer les classiques de Noël au hit-parade",
         "a": "0",
         "ay": "1990",
         "b": "26",
@@ -671,7 +671,7 @@ export const HOME = {
     "steps": [
       {
         "ch": "neige",
-        "theme": "Less snow at Christmas",
+        "theme": "White Christmas is now limited to higher altitudes",
         "a": "570 m",
         "ay": "1960s",
         "b": "927 m",
@@ -688,7 +688,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Decor goes global",
+        "theme": "Most Christmas decor imported into Switzerland comes from China",
         "a": "14%",
         "ay": "1990",
         "b": "65%",
@@ -705,7 +705,7 @@ export const HOME = {
       },
       {
         "ch": "import",
-        "theme": "Cheese is imported, all year round",
+        "theme": "Demand for imported cheese stays stable all year, with no Christmas peak",
         "a": "26,000 t",
         "ay": "1990",
         "b": "79,000 t",
@@ -729,7 +729,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Prosecco democratises bubbles",
+        "theme": "Sparkling wine growth comes from prosecco",
         "a": "4%",
         "ay": "1990",
         "b": "64%",
@@ -746,7 +746,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Books: given less, not sold less",
+        "theme": "Books are declining as a gift but holding their sales volume",
         "a": "56%",
         "ay": "2014",
         "b": "30%",
@@ -763,7 +763,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Christmas turns secular",
+        "theme": "People with no religion are rising sharply, Christmas is still celebrated",
         "a": "1%",
         "ay": "1970",
         "b": "36%",
@@ -788,7 +788,7 @@ export const HOME = {
       },
       {
         "ch": "traditions",
-        "theme": "Nostalgia on repeat",
+        "theme": "Streaming makes Christmas classics dominate the charts",
         "a": "0",
         "ay": "1990",
         "b": "26",

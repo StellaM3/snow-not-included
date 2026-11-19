@@ -125,6 +125,7 @@ export function homeView() {
 
     <section class="lp-prologue" id="prologue" style="--n:${h.prologue.length}"><div class="pro-stage">${h.prologue.map((l, i) => `<p class="pro ${i === 0 ? 'on' : ''} ${i === h.prologue.length - 1 ? 'gold' : ''}">${l}</p>`).join('')}</div></section>
 
+    <section class="lp-angle reveal"><p class="lp-k">${h.angleK}</p><h2>${h.angleT}</h2><p class="ang-q">${h.angleQ}</p></section>
     <section class="lp-act" id="act1">
       <header class="lp-sec-head"><span class="rn">I</span><h2>${h.actT}</h2></header>
       <div class="scrolly">

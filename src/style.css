@@ -1480,3 +1480,8 @@ body:not(.is-home) .topbar { padding-left: clamp(24px, 6vw, 120px) !important; p
 body:not(.is-home) .myth { font-size: var(--fs-xxl) !important; line-height: 1.02 !important; font-weight: 300 !important; color: #FBF8F1; margin: var(--sp-1) 0 var(--sp-3) !important; }
 body:not(.is-home) .myth-txt { margin: 0; font-size: var(--fs-m) !important; line-height: 1.5; color: var(--t2); }
 @media (max-width: 760px) { body:not(.is-home) .myth { font-size: var(--fs-xl) !important; } body:not(.is-home) .myth-txt { font-size: var(--fs-s) !important; } }
+
+/* v32 — l'angle, entre le prologue et l'acte I */
+.lp-angle { max-width: 900px; margin: 0 auto; padding: clamp(80px, 9vw, 140px) clamp(24px, 6vw, 80px) clamp(40px, 5vw, 80px); text-align: center; }
+.lp-angle h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 4.4vw, 60px); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 28px; color: var(--ivory, #F2E4CE); }
+.lp-angle .ang-q { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; color: rgba(242,228,206,.72); max-width: 640px; margin: 0 auto; }

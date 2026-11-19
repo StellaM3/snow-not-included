@@ -634,7 +634,10 @@ export const HOME = {
       ]
     },
     "explore": "Lire",
-    "srcK": "Sources des tendances"
+    "srcK": "Sources des tendances",
+    "angleK": "L'angle",
+    "angleT": "Une analyse de marché de la consommation à Noël en Suisse.",
+    "angleQ": "Avec tout ce qu'on achète pendant les fêtes, Noël doit peser sur la durabilité. Ce qu'on consomme, d'où ça vient, et ce que ça coûte : que révèle Noël sur notre façon de consommer ?"
   },
   "en": {
     "kicker": "Consumer analysis · Switzerland · 1960 → 2031",
@@ -1270,7 +1273,10 @@ export const HOME = {
       ]
     },
     "explore": "Read",
-    "srcK": "Trend sources"
+    "srcK": "Trend sources",
+    "angleK": "The angle",
+    "angleT": "A market analysis of Christmas consumption in Switzerland.",
+    "angleQ": "With everything we buy over the holidays, Christmas must weigh on sustainability. What we consume, where it comes from, and what it costs: what does Christmas reveal about the way we consume?"
   }
 }
 

@@ -176,7 +176,7 @@ export const HOME = {
     "forcesT": "Cinq moteurs qui orientent les achats",
     "forces": [
       [
-        "La nostalgie tire la déco",
+        "La nostalgie influence la déco",
         "Vidéos de déco de Noël ×2 sur TikTok en un an, portées par l'esthétique des années 1990.",
         "×2"
       ],

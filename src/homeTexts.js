@@ -23,7 +23,7 @@ export const HOME = {
     "prologue": [
       "Chaque décembre, la Suisse rejoue le même Noël.",
       "Le sapin. La fondue. La neige. Les cadeaux.",
-      "Derrière le rituel, le panier a presque entièrement changé."
+      "Mais ce qu'on met dans le panier n'est plus le même."
     ],
     "by": "Un projet de Estelle Rossier",
     "byMeta": "Master DXD, ECAL · Workshop Make Sense avec Pascal Wicht · 2026",
@@ -93,7 +93,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Le prosecco détrône le champagne",
+        "theme": "Le prosecco démocratise les bulles",
         "a": "4 %",
         "ay": "1990",
         "b": "64 %",
@@ -173,7 +173,7 @@ export const HOME = {
       }
     ],
     "forcesK": "II · Ce qui est en train de changer",
-    "forcesT": "Cinq changements qui pèsent sur les ventes",
+    "forcesT": "Cinq moteurs qui orientent les achats",
     "forces": [
       [
         "La nostalgie tire la déco",
@@ -182,7 +182,7 @@ export const HOME = {
       ],
       [
         "L'occasion entre dans le cadeau",
-        "Environ 70 % des articles vendus sur Ricardo pendant les fêtes 2025 étaient d'occasion. Ce n'est plus un plan B.",
+        "Environ 70 % des articles vendus sur Ricardo pendant les fêtes 2025 étaient d'occasion.",
         "70 %"
       ],
       [
@@ -192,12 +192,12 @@ export const HOME = {
       ],
       [
         "Le lien passe avant l'objet",
-        "45 % associent d'abord Noël à la famille, 18 % aux cadeaux. La valeur se déplace vers le moment partagé.",
+        "45 % associent d'abord Noël à la famille, 18 % seulement aux cadeaux.",
         "45 %"
       ],
       [
-        "Noël se sécularise",
-        "8 % seulement jugent l'origine religieuse importante. Les rituels se reportent sur le repas, la déco et la musique, donc sur des achats.",
+        "Un Noël familial plus que religieux",
+        "8 % seulement jugent l'origine religieuse de Noël importante. La fête reste, mais elle se célèbre en famille, autour du repas.",
         "8 %"
       ]
     ],
@@ -205,7 +205,7 @@ export const HOME = {
     "colUp": "Tendances émergentes",
     "colPeak": "Tendances mainstream",
     "colDown": "Tendances en déclin",
-    "trendsT": "Tendances émergentes, installées, en déclin",
+    "trendsT": "Cartographie des tendances, Noël 2026",
     "status": {
       "up": "émergente",
       "peak": "mainstream",
@@ -311,7 +311,7 @@ export const HOME = {
       ]
     ],
     "insightsK": "Insights consommateurs",
-    "insightsT": "Six signaux à retenir",
+    "insightsT": "Ce qui guide l'achat en 2026",
     "insights": [
       [
         "Un marché polarisé",
@@ -320,7 +320,7 @@ export const HOME = {
         "Couvrir les deux bouts de gamme : la pièce d'exception et le petit prix soigné."
       ],
       [
-        "L'aversion au mauvais cadeau",
+        "Le risque du mauvais cadeau",
         "+35 %",
         "d'objets remis en vente sur Ricardo juste après Noël 2025. Bons et argent restent n° 1.",
         "Réduire le risque d'achat : échange facile, carte cadeau, liste d'envies."
@@ -332,10 +332,10 @@ export const HOME = {
         "Segment prioritaire de décembre."
       ],
       [
-        "L'occasion : la valeur, pas la vertu",
+        "Une seconde main tirée par le prix",
         "35 %",
         "disent que la durabilité ne compte pas, alors que la seconde main explose.",
-        "Vendre l'unicité et le prix, pas la bonne conscience."
+        "Argumenter sur le prix et la rareté plutôt que sur l'écologie."
       ],
       [
         "Le magasin garde la main",
@@ -659,7 +659,7 @@ export const HOME = {
     "prologue": [
       "Every December, Switzerland replays the same Christmas.",
       "The tree. The fondue. The snow. The gifts.",
-      "Behind the ritual, the basket has almost entirely changed."
+      "But what goes into the basket is no longer the same."
     ],
     "by": "A project by Estelle Rossier",
     "byMeta": "Master DXD, ECAL · Make Sense workshop with Pascal Wicht · 2026",
@@ -729,7 +729,7 @@ export const HOME = {
       },
       {
         "ch": "commerce",
-        "theme": "Prosecco overtakes champagne",
+        "theme": "Prosecco democratises bubbles",
         "a": "4%",
         "ay": "1990",
         "b": "64%",
@@ -809,7 +809,7 @@ export const HOME = {
       }
     ],
     "forcesK": "II · What is changing",
-    "forcesT": "Five shifts that shape what people buy",
+    "forcesT": "Five drivers shaping what people buy",
     "forces": [
       [
         "Nostalgia drives decor",
@@ -818,7 +818,7 @@ export const HOME = {
       ],
       [
         "Second-hand becomes a gift",
-        "About 70% of items sold on Ricardo over the 2025 holidays were second-hand. It is no longer a plan B.",
+        "About 70% of items sold on Ricardo over the 2025 holidays were second-hand.",
         "70%"
       ],
       [
@@ -828,12 +828,12 @@ export const HOME = {
       ],
       [
         "The bond beats the object",
-        "45% first link Christmas to family, 18% to gifts. Value is shifting to the shared moment.",
+        "45% first link Christmas to family, only 18% to gifts.",
         "45%"
       ],
       [
-        "Christmas turns secular",
-        "Only 8% find its religious origin important. Rituals move to the meal, decor and music, and so to purchases.",
+        "A family Christmas more than a religious one",
+        "Only 8% find the religious origin of Christmas important. The holiday stays, but it is celebrated as a family meal.",
         "8%"
       ]
     ],
@@ -841,7 +841,7 @@ export const HOME = {
     "colUp": "Emerging trends",
     "colPeak": "Mainstream trends",
     "colDown": "Declining trends",
-    "trendsT": "Emerging, mainstream and declining trends",
+    "trendsT": "Trend map, Christmas 2026",
     "status": {
       "up": "emerging",
       "peak": "mainstream",
@@ -947,7 +947,7 @@ export const HOME = {
       ]
     ],
     "insightsK": "Consumer insights",
-    "insightsT": "Six signals to remember",
+    "insightsT": "What drives purchasing in 2026",
     "insights": [
       [
         "A polarised market",
@@ -956,7 +956,7 @@ export const HOME = {
         "Cover both ends of the range: the statement piece and the well-made small price."
       ],
       [
-        "Fear of the wrong gift",
+        "The risk of the wrong gift",
         "+35%",
         "more items put up for resale on Ricardo right after Christmas 2025. Vouchers and money stay number 1.",
         "Lower purchase risk: easy exchange, gift cards, wish lists."
@@ -968,10 +968,10 @@ export const HOME = {
         "December's priority segment."
       ],
       [
-        "Second-hand: value, not virtue",
+        "Second-hand driven by price",
         "35%",
         "say sustainability doesn't matter, while second-hand booms.",
-        "Sell uniqueness and price, not a clear conscience."
+        "Lead with price and rarity rather than ecology."
       ],
       [
         "The store keeps the upper hand",
